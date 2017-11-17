@@ -1,13 +1,13 @@
 ﻿YGAME_SERVER_BEGIN
 
-class Log : public Singleton<Log>
+class Log
 {
 public:
     Log();
 	virtual ~Log();
 	void addLogWriter(LogWriter * logWriter);
 	void removeLogWriter(LogWriter * logWriter);
-	void writeLog(uint8 logLevel, const char * fileName, const int line, const char * msg, ...);
+	virtual void writeLog(uint8 logLevel, const char * fileName, const int line, const char * msg, ...);
 protected:
 	ThreadMutex m_threadMutex;
 	List<LogWriter*> m_writerList;
@@ -19,10 +19,14 @@ protected:
 #define LL_ERROR 3
 #define LL_FATAL 4
 
-#define LOG_ADD_WRITER(writer)  Log::getInstance()->addLogWriter(writer);
-#define LOG_REMOVE_WRITER(writer)  Log::getInstance()->removeLogWriter(writer);
+class GlobalLog : public Singleton<GlobalLog>, public Log
+{
+};
 
-#define LOG(level, ...) Log::getInstance()->writeLog(level, __FILE__, __LINE__, __VA_ARGS__ )
+#define LOG_ADD_WRITER(writer)  GlobalLog::getInstance()->addLogWriter(writer);
+#define LOG_REMOVE_WRITER(writer)  GlobalLog::getInstance()->removeLogWriter(writer);
+
+#define LOG(level, ...) GlobalLog::getInstance()->writeLog(level, __FILE__, __LINE__, __VA_ARGS__ )
 #define LOG_DEBUG(...) LOG(LL_DEBUG, __VA_ARGS__)
 #define LOG_INFO(...) LOG(LL_INFO, __VA_ARGS__)
 #define LOG_WARN(...) LOG(LL_WARN, __VA_ARGS__)
