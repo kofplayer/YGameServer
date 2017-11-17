@@ -144,7 +144,15 @@ public:
 int main(int argc, const char * argv[]) {
 
 	LOG_ADD_WRITER(new ScreenLogWriter());
-	LOG_ADD_WRITER(new FileLogWriter());
+
+	FileLogWriter * pLog = new FileLogWriter();
+	pLog->setLogLevel(LL_ERROR);
+	pLog->setFilePreName("error_");
+	LOG_ADD_WRITER(pLog);
+
+	pLog = new FileLogWriter();
+	pLog->setLogLevel(LL_DEBUG);
+	LOG_ADD_WRITER(pLog);
 
 	// 事件测试
 	LOG_DEBUG("start event test\n");

@@ -102,6 +102,9 @@
     <ClInclude Include="..\..\src\Common\Log\ScreenLogWriter.h">
       <Filter>Common\Log</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Common\Log\LogWriter.h">
+      <Filter>Common\Log</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Event\EventManager.cpp">
@@ -145,6 +148,9 @@
       <Filter>Common\Log</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Log\ScreenLogWriter.cpp">
+      <Filter>Common\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Log\LogWriter.cpp">
       <Filter>Common\Log</Filter>
     </ClCompile>
   </ItemGroup>

@@ -20,6 +20,7 @@
 #include "./CommonDefine/CommonDefine.h"
 #include "./Singleton/Singleton.hpp"
 #include "./Thread/ThreadMutex.h"
+#include "./Log/LogWriter.h"
 #include "./Log/Log.h"
 #include "./Log/FileLogWriter.h"
 #include "./Log/ScreenLogWriter.h"
