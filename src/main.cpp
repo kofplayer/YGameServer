@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "./Common/Common.h"
+#include <time.h>
 
 using namespace YGAME_SERVER_NAMESPACE;
 
@@ -114,6 +115,28 @@ private:
 	int aa;
 };
 
+
+class test_coroutine : public Coroutine
+{
+public:
+	virtual bool Run()
+	{
+		PT_BEGIN();
+		work = 0;
+		while (work < 10)
+		{
+			m_time = time(NULL);
+			printf("coroutine %d work %d\n", id, ++work);
+			PT_WAIT_UNTIL(time(NULL) > m_time + 1);
+		}
+		PT_END();
+	}
+
+	int id;
+	int work;
+	time_t m_time;
+};
+
 int main(int argc, const char * argv[]) {
 
 	// 事件测试
@@ -182,20 +205,20 @@ int main(int argc, const char * argv[]) {
 	// 网络测试
 	gMemory.New<listen_thread>()->start();
 
-// 	NetListener * listener = gMemory.New<NetListener>();
-// 	bool succ = listener->Create();
-// 	succ = listener->Bind(INADDR_ANY, 9999);
-// 	succ = listener->Listen();
-// 
-// 	NetPConnect * conn = listener->Accept();
-// 	if (conn)
-// 	{
-// 		std::cout << "Accept succ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
-// 	}
-    
-    // insert code here...
-    std::cout << "Hello, World!\n";
+	// 协程测试
+	CoroutineGroup cg;
+	for (int i=0; i<10; ++i)
+	{
+		test_coroutine * c = gMemory.New<test_coroutine>();
+		c->id = i + 1;
+		cg.Add(c);
+	}
+	while (cg.GetCoroutineCount() > 0)
+	{
+		cg.Update();
+	}
 
+	printf("input any key to end game");
 	getchar();
     return 0;
 }
