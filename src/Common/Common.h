@@ -13,6 +13,7 @@
 #include <map>
 #include <list>
 #include <string>
+#include <string.h>
 #include <set>
 #include <assert.h>
 #include <time.h>

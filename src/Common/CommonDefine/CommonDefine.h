@@ -60,6 +60,11 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <sys/stat.h> 
+#include <net/if.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h> 
+#include <netinet/ip.h>
+#include <stdarg.h> 
 #endif
 
 /*
@@ -140,6 +145,7 @@
 	#define THREAD_MUTEX_LOCK(x)								pthread_mutex_lock(&x)
 	#define THREAD_MUTEX_UNLOCK(x)								pthread_mutex_unlock(&x)	
 	typedef int													SOCKET_ID;
+	#define INVALID_SOCKET										-1
 #endif
 
 typedef char int8;
