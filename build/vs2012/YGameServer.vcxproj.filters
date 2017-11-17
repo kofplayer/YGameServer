@@ -28,6 +28,9 @@
     <Filter Include="Common\Coroutine">
       <UniqueIdentifier>{37f03490-ed8e-4e17-b2db-c5ceb251497e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Log">
+      <UniqueIdentifier>{313d6df1-9239-44a2-94ff-47b12064c314}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common\CommonDefine\CommonDefine.h">
@@ -90,6 +93,15 @@
     <ClInclude Include="..\..\src\Common\Coroutine\Protothread.h">
       <Filter>Common\Coroutine</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Common\Log\Log.h">
+      <Filter>Common\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Log\FileLogWriter.h">
+      <Filter>Common\Log</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Log\ScreenLogWriter.h">
+      <Filter>Common\Log</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Event\EventManager.cpp">
@@ -125,6 +137,15 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Coroutine\CoroutineGroup.cpp">
       <Filter>Common\Coroutine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Log\Log.cpp">
+      <Filter>Common\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Log\FileLogWriter.cpp">
+      <Filter>Common\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Log\ScreenLogWriter.cpp">
+      <Filter>Common\Log</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -151,6 +151,9 @@
     <ClInclude Include="..\..\src\Common\Event\EventHandler.h" />
     <ClInclude Include="..\..\src\Common\Event\EventManager.h" />
     <ClInclude Include="..\..\src\Common\Event\EventMonitorNode.hpp" />
+    <ClInclude Include="..\..\src\Common\Log\Log.h" />
+    <ClInclude Include="..\..\src\Common\Log\FileLogWriter.h" />
+    <ClInclude Include="..\..\src\Common\Log\ScreenLogWriter.h" />
     <ClInclude Include="..\..\src\Common\Memory\Memory.hpp" />
     <ClInclude Include="..\..\src\Common\Memory\ObjectPool.hpp" />
     <ClInclude Include="..\..\src\Common\Network\NetAConnect.h" />
@@ -167,6 +170,9 @@
     <ClCompile Include="..\..\src\Common\Coroutine\Coroutine.cpp" />
     <ClCompile Include="..\..\src\Common\Coroutine\CoroutineGroup.cpp" />
     <ClCompile Include="..\..\src\Common\Event\EventManager.cpp" />
+    <ClCompile Include="..\..\src\Common\Log\FileLogWriter.cpp" />
+    <ClCompile Include="..\..\src\Common\Log\Log.cpp" />
+    <ClCompile Include="..\..\src\Common\Log\ScreenLogWriter.cpp" />
     <ClCompile Include="..\..\src\Common\Network\NetAConnect.cpp" />
     <ClCompile Include="..\..\src\Common\Network\NetBase.cpp" />
     <ClCompile Include="..\..\src\Common\Network\NetConnect.cpp" />
