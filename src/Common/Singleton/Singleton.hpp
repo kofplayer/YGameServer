@@ -14,14 +14,14 @@ public:
 		}
 		return m_instatce;
 	}
-	static void releaseInstance()
-	{
-		if (m_instatce)
-		{
-			delete m_instatce;
-			m_instatce = NULL;
-		}
-	}
+// 	static void releaseInstance()
+// 	{
+// 		if (m_instatce)
+// 		{
+// 			delete m_instatce;
+// 			m_instatce = NULL;
+// 		}
+// 	}
 private:
 	static T * m_instatce;
 };

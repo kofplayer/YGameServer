@@ -51,11 +51,15 @@
 #include <mswsock.h>
 #include <windows.h>
 #include <process.h>
+#include <io.h>
+#include <direct.h>
 #else
 #include <unistd.h>
 #include <pthread.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/stat.h> 
 #endif
 
 /*
@@ -123,6 +127,7 @@
 	#define THREAD_MUTEX_LOCK(x)								EnterCriticalSection(&x)
 	#define THREAD_MUTEX_UNLOCK(x)								LeaveCriticalSection(&x)
 	typedef UINT_PTR											SOCKET_ID;
+	#define snprintf											_snprintf_s
 #else
 	#define THREAD_ID											pthread_t
 	#define THREAD_SINGNAL										pthread_cond_t
@@ -153,14 +158,12 @@ typedef uint16 NET_PORT;
 #define Map std::map
 #define List std::list
 #define Set std::set
+#define String std::string
 
 #if CURRENT_PLATFORM == PLATFORM_WIN32
 #else
 #define Sleep(x) sleep(x/1000)
 #endif
-
-#define LOG_DEBUG(...)
-#define LOG_ERROR(...)
 
 #define countof(array) (sizeof(array)/sizeof(array[0]))
 YGAME_SERVER_END

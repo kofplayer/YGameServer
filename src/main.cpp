@@ -8,13 +8,12 @@
 
 #include <iostream>
 #include "./Common/Common.h"
-#include <time.h>
 
 using namespace YGAME_SERVER_NAMESPACE;
 
 void onTaskCallEnd(bool isSucc, Task * pTask)
 {
-    std::cout << "onTaskCallEnd " << isSucc << "\n";
+	LOG_DEBUG("onTaskCallEnd %d\n", isSucc);
 }
 
 class testTask : public Task {
@@ -36,13 +35,13 @@ public:
 	}
 protected:
     virtual void onStart()
-    {
-        std::cout << "onStart " << m_index << "\n";
+	{
+		LOG_DEBUG("onStart %d\n", m_index);
         doEnd(m_isSucc);
     }
     virtual void onEnd(bool isSucc)
-    {
-        std::cout << "onEnd " << m_index << " " << isSucc << "\n";
+	{
+		LOG_DEBUG("onEnd %d, isSucc %d\n", m_index, isSucc);
     }
 private:
     int32 m_index;
@@ -61,8 +60,8 @@ public:
 		m_n = n;
 	}
     virtual void OnEvent(void * pParam, const EventFilter & filter)
-    {
-        std::cout << m_n << "\n";
+	{
+		LOG_DEBUG("OnEvent %d\n", m_n);
         if (pH) {
             gEvent->removeHandler(pH);
         }
@@ -89,7 +88,7 @@ protected:
 	{
 		for (int i = 0; i < 10; ++i)
 		{
-			std::cout << aa << "--" << i << " Hello, World!\n";
+			LOG_DEBUG("thread:%d run:%d\n", aa, i+1);
 			Sleep(1000);
 		}
 		is_end = true;
@@ -113,7 +112,7 @@ protected:
 		NetPConnect * conn = listener->Accept();
 		if (conn)
 		{
-			std::cout << "Accept succ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n";
+			LOG_DEBUG("Accept succ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
 		}
 	}
 private:
@@ -131,7 +130,7 @@ public:
 		while (work < 10)
 		{
 			m_time = time(NULL);
-			printf("coroutine %d work %d\n", id, ++work);
+			LOG_DEBUG("coroutine %d work %d\n", id, ++work);
 			PT_WAIT_UNTIL(time(NULL) > m_time + 1);
 		}
 		PT_END();
@@ -144,8 +143,11 @@ public:
 
 int main(int argc, const char * argv[]) {
 
+	LOG_ADD_WRITER(new ScreenLogWriter());
+	LOG_ADD_WRITER(new FileLogWriter());
+
 	// 事件测试
-	printf("start event test\n");
+	LOG_DEBUG("start event test\n");
     test_handler * pH1 = gMemory.New<test_handler>();
 	pH1->set_handler_info(1);
 	test_handler * pH2 = gMemory.New<test_handler>();
@@ -165,12 +167,12 @@ int main(int argc, const char * argv[]) {
 	gMemory.Delete(pH2);
 	gMemory.Delete(pH3);
 
-	printf("input and key to go next\n");
+	LOG_DEBUG("input any key to go next\n");
 	getchar();
 
 
 	// 事务测试
-	printf("start task test\n");
+	LOG_DEBUG("start task test\n");
 	gMemory.Init<testTask>(100, 10);
     
     testTask * task = gMemory.New<testTask>();
@@ -204,11 +206,11 @@ int main(int argc, const char * argv[]) {
 	gMemory.Delete(task3);
 	gMemory.Delete(task4);
 	gMemory.Delete(task5);
-	printf("input and key to go next\n");
+	LOG_DEBUG("input any key to go next\n");
 	getchar();
 
 	// 线程测试
-	printf("start thread test\n");
+	LOG_DEBUG("start thread test\n");
 	test_thread * tt[10];
 	for (int i=0; i<10; ++i)
 	{
@@ -239,11 +241,11 @@ int main(int argc, const char * argv[]) {
 			break;
 		}
 	}
-	printf("input and key to go next\n");
+	LOG_DEBUG("input any key to go next\n");
 	getchar();
 
 	// 协程测试
-	printf("start coroutine test\n");
+	LOG_DEBUG("start coroutine test\n");
 	CoroutineGroup cg;
 	for (int i=0; i<10; ++i)
 	{
@@ -256,14 +258,14 @@ int main(int argc, const char * argv[]) {
 		cg.Update();
 	}
 
-	printf("input and key to go next\n");
+	LOG_DEBUG("input any key to go next\n");
 	getchar();
 
 	// 网络测试
-	printf("net listen test\n");
+	LOG_DEBUG("net listen test\n");
 	gMemory.New<listen_thread>()->start();
 
-	printf("input any key to end game\n");
+	LOG_DEBUG("input any key to end game\n");
 	getchar();
     return 0;
 }

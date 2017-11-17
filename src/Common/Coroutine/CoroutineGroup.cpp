@@ -12,15 +12,7 @@ CoroutineGroup::~CoroutineGroup()
 
 void CoroutineGroup::Add(Coroutine * c)
 {
-	c->Run();
-	if (c->IsRunning())
-	{
-		m_items.push_back(c);
-	}
-	else
-	{
-		gMemory.Delete(c);
-	}
+	m_items.push_back(c);
 }
 
 bool CoroutineGroup::Remove(Coroutine * c)
@@ -55,7 +47,7 @@ void CoroutineGroup::Update()
 
 uint32 CoroutineGroup::GetCoroutineCount()
 {
-	return m_items.size();
+	return (uint32)m_items.size();
 }
 
 YGAME_SERVER_END
