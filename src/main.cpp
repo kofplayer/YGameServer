@@ -74,11 +74,16 @@ public:
 class test_thread : public Thread
 {
 public:
+	test_thread() : is_end(false)
+	{
+	}
 	void set_id(int id)
 	{
 		aa = id;
 	}
 	virtual ~test_thread() {};
+
+	bool is_end;
 protected:
 	virtual void run()
 	{
@@ -87,7 +92,7 @@ protected:
 			std::cout << aa << "--" << i << " Hello, World!\n";
 			Sleep(1000);
 		}
-		gMemory.Delete(this);
+		is_end = true;
 	}
 private:
 	int aa;
@@ -140,6 +145,7 @@ public:
 int main(int argc, const char * argv[]) {
 
 	// 事件测试
+	printf("start event test\n");
     test_handler * pH1 = gMemory.New<test_handler>();
 	pH1->set_handler_info(1);
 	test_handler * pH2 = gMemory.New<test_handler>();
@@ -159,7 +165,12 @@ int main(int argc, const char * argv[]) {
 	gMemory.Delete(pH2);
 	gMemory.Delete(pH3);
 
+	printf("input and key to go next\n");
+	getchar();
+
+
 	// 事务测试
+	printf("start task test\n");
 	gMemory.Init<testTask>(100, 10);
     
     testTask * task = gMemory.New<testTask>();
@@ -193,19 +204,46 @@ int main(int argc, const char * argv[]) {
 	gMemory.Delete(task3);
 	gMemory.Delete(task4);
 	gMemory.Delete(task5);
+	printf("input and key to go next\n");
+	getchar();
 
 	// 线程测试
+	printf("start thread test\n");
+	test_thread * tt[10];
 	for (int i=0; i<10; ++i)
 	{
-		test_thread * pThread = gMemory.New<test_thread>();
-		pThread->set_id(i);
-		pThread->start();
+		tt[i] = gMemory.New<test_thread>();
+		tt[i]->set_id(i);
+		tt[i]->start();
 	}
-
-	// 网络测试
-	gMemory.New<listen_thread>()->start();
+	while (true)
+	{
+		bool is_any_live = false;
+		for (int i=0; i<10; ++i)
+		{
+			if (tt[i])
+			{
+				if (tt[i]->is_end)
+				{
+					gMemory.Delete(tt[i]);
+					tt[i] = NULL;
+				}
+				else
+				{
+					is_any_live = true;
+				}
+			}
+		}
+		if (!is_any_live)
+		{
+			break;
+		}
+	}
+	printf("input and key to go next\n");
+	getchar();
 
 	// 协程测试
+	printf("start coroutine test\n");
 	CoroutineGroup cg;
 	for (int i=0; i<10; ++i)
 	{
@@ -218,7 +256,14 @@ int main(int argc, const char * argv[]) {
 		cg.Update();
 	}
 
-	printf("input any key to end game");
+	printf("input and key to go next\n");
+	getchar();
+
+	// 网络测试
+	printf("net listen test\n");
+	gMemory.New<listen_thread>()->start();
+
+	printf("input any key to end game\n");
 	getchar();
     return 0;
 }
