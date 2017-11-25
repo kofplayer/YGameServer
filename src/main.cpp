@@ -186,18 +186,9 @@ public:
 };
 
 int main(int argc, const char * argv[]) {
-
-	LOG_ADD_WRITER(new ScreenLogWriter());
-
-	FileLogWriter * pLog = new FileLogWriter();
-	pLog->setLogLevel(LL_ERROR);
-	pLog->setFilePreName("error_");
-	LOG_ADD_WRITER(pLog);
-
-	pLog = new FileLogWriter();
-	pLog->setLogLevel(LL_DEBUG);
-	LOG_ADD_WRITER(pLog);
-
+    SET_LOG_LEVEL(LL_DEBUG);
+    LOG_ADD_WRITER(new ScreenLogWriter());
+    LOG_ADD_WRITER(new FileLogWriter());
 	// 事件测试
 // 	LOG_DEBUG("start event test\n");
 //     test_handler * pH1 = gMemory.New<test_handler>();

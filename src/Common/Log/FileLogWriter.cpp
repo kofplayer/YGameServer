@@ -16,7 +16,7 @@ FileLogWriter::~FileLogWriter()
 	fclose(m_file);
 }
 
-void FileLogWriter::write(const char * msg)
+void FileLogWriter::write(uint8 logLevel, const char * msg)
 {
 	if ( access(m_path.c_str() , 0 ) == -1 )
 	{
@@ -25,8 +25,6 @@ void FileLogWriter::write(const char * msg)
 #else
 		mkdir(m_path.c_str(), S_IRWXU);
 #endif
-// 		snprintf( cmd, 100 ,"mkdir %s", m_path.c_str());
-// 		system( cmd );
 	}
 
 	time_t clock = time( NULL );

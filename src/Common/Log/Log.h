@@ -6,10 +6,13 @@ public:
     Log();
 	virtual ~Log();
 	void addLogWriter(LogWriter * logWriter);
-	void removeLogWriter(LogWriter * logWriter);
-	virtual void writeLog(uint8 logLevel, const char * fileName, const int line, const char * msg, ...);
+    void removeLogWriter(LogWriter * logWriter);
+    virtual void setLogLevel(uint8 logLevel);
+    virtual bool isLogEnable(uint8 logLevel);
+    virtual void writeLog(uint8 logLevel, const char * fileName, const int line, const char * msg, ...);
 protected:
-	ThreadMutex m_threadMutex;
+    int8 m_logLevel;
+    ThreadMutex m_threadMutex;
 	List<LogWriter*> m_writerList;
 };
 
@@ -26,7 +29,8 @@ class GlobalLog : public Singleton<GlobalLog>, public Log
 #define LOG_ADD_WRITER(writer)  GlobalLog::getInstance()->addLogWriter(writer);
 #define LOG_REMOVE_WRITER(writer)  GlobalLog::getInstance()->removeLogWriter(writer);
 
-#define LOG(level, ...) GlobalLog::getInstance()->writeLog(level, __FILE__, __LINE__, __VA_ARGS__ )
+#define SET_LOG_LEVEL(level) GlobalLog::getInstance()->setLogLevel(level)
+#define LOG(level, ...) if(GlobalLog::getInstance()->isLogEnable(level))GlobalLog::getInstance()->writeLog(level, __FILE__, __LINE__, __VA_ARGS__)
 #define LOG_DEBUG(...) LOG(LL_DEBUG, __VA_ARGS__)
 #define LOG_INFO(...) LOG(LL_INFO, __VA_ARGS__)
 #define LOG_WARN(...) LOG(LL_WARN, __VA_ARGS__)

@@ -28,16 +28,6 @@
 		67422F121FC940130044D2D3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EFA1FC940130044D2D3 /* main.cpp */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		67422F151FC940130044D2D3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 67422EFC1FC940130044D2D3 /* YGameServer.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 67422EFF1FC940130044D2D3;
-			remoteInfo = YGameServer;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		67422EB61FC93FF80044D2D3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -98,7 +88,6 @@
 		67422EF81FC940130044D2D3 /* ThreadMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadMutex.cpp; sourceTree = "<group>"; };
 		67422EF91FC940130044D2D3 /* ThreadMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadMutex.h; sourceTree = "<group>"; };
 		67422EFA1FC940130044D2D3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		67422EFC1FC940130044D2D3 /* YGameServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = YGameServer.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,7 +130,6 @@
 			children = (
 				67422EC31FC940130044D2D3 /* Common */,
 				67422EFA1FC940130044D2D3 /* main.cpp */,
-				67422EFC1FC940130044D2D3 /* YGameServer.xcodeproj */,
 			);
 			name = src;
 			path = ../../../../src;
@@ -271,14 +259,6 @@
 			path = Thread;
 			sourceTree = "<group>";
 		};
-		67422EFD1FC940130044D2D3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				67422F161FC940130044D2D3 /* YGameServer */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -325,28 +305,12 @@
 			mainGroup = 67422EAF1FC93FF80044D2D3;
 			productRefGroup = 67422EB91FC93FF80044D2D3 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 67422EFD1FC940130044D2D3 /* Products */;
-					ProjectRef = 67422EFC1FC940130044D2D3 /* YGameServer.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				67422EB71FC93FF80044D2D3 /* YGameServer */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		67422F161FC940130044D2D3 /* YGameServer */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = YGameServer;
-			remoteRef = 67422F151FC940130044D2D3 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		67422EB41FC93FF80044D2D3 /* Sources */ = {

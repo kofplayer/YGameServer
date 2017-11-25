@@ -2,7 +2,7 @@
 
 YGAME_SERVER_BEGIN
 
-void ScreenLogWriter::write(const char * msg)
+void ScreenLogWriter::write(uint8 logLevel, const char * msg)
 {
 	printf("%s", msg);
 }

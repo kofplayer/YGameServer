@@ -2,7 +2,7 @@
 
 YGAME_SERVER_BEGIN
 
-Log::Log()
+Log::Log() : m_logLevel(0)
 {
 }
 
@@ -30,10 +30,20 @@ void Log::removeLogWriter(LogWriter * logWriter)
 	}
 }
 
+void Log::setLogLevel(uint8 logLevel)
+{
+    m_logLevel = logLevel;
+}
+
+bool Log::isLogEnable(uint8 logLevel)
+{
+    return logLevel >= m_logLevel;
+}
+
 void Log::writeLog(uint8 logLevel, const char * fileName, const int line, const char * msg, ...)
 {
 	AutoThreadMutex autoMutex(&m_threadMutex);
-	if (logLevel == 255 || 0 == m_writerList.size())
+	if (logLevel < m_logLevel || 0 == m_writerList.size())
 	{
 		return;
 	}

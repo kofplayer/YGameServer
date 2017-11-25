@@ -5,7 +5,7 @@ class FileLogWriter : public LogWriter
 public:
 	FileLogWriter();
 	virtual ~FileLogWriter();
-	virtual void write(const char * msg);
+	virtual void write(uint8 logLevel, const char * msg);
 	void setFilePath(const char * path);
 	void setFilePreName(const char * preName);
 protected:
