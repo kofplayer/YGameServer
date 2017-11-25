@@ -1,0 +1,513 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		67422F001FC940130044D2D3 /* Coroutine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EC81FC940130044D2D3 /* Coroutine.cpp */; };
+		67422F011FC940130044D2D3 /* CoroutineGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422ECA1FC940130044D2D3 /* CoroutineGroup.cpp */; };
+		67422F021FC940130044D2D3 /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422ED01FC940130044D2D3 /* EventManager.cpp */; };
+		67422F031FC940130044D2D3 /* FileLogWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422ED41FC940130044D2D3 /* FileLogWriter.cpp */; };
+		67422F041FC940130044D2D3 /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422ED61FC940130044D2D3 /* Log.cpp */; };
+		67422F051FC940130044D2D3 /* LogWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422ED81FC940130044D2D3 /* LogWriter.cpp */; };
+		67422F061FC940130044D2D3 /* ScreenLogWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EDA1FC940130044D2D3 /* ScreenLogWriter.cpp */; };
+		67422F071FC940130044D2D3 /* NetAConnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EE01FC940130044D2D3 /* NetAConnect.cpp */; };
+		67422F081FC940130044D2D3 /* NetBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EE21FC940130044D2D3 /* NetBase.cpp */; };
+		67422F091FC940130044D2D3 /* NetConnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EE41FC940130044D2D3 /* NetConnect.cpp */; };
+		67422F0A1FC940130044D2D3 /* NetEpollPoller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EE61FC940130044D2D3 /* NetEpollPoller.cpp */; };
+		67422F0B1FC940130044D2D3 /* NetListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EE81FC940130044D2D3 /* NetListener.cpp */; };
+		67422F0C1FC940130044D2D3 /* NetPConnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EEA1FC940130044D2D3 /* NetPConnect.cpp */; };
+		67422F0D1FC940130044D2D3 /* NetPoller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EEC1FC940130044D2D3 /* NetPoller.cpp */; };
+		67422F0E1FC940130044D2D3 /* NetSelectPoller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EEE1FC940130044D2D3 /* NetSelectPoller.cpp */; };
+		67422F0F1FC940130044D2D3 /* Task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EF31FC940130044D2D3 /* Task.cpp */; };
+		67422F101FC940130044D2D3 /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EF61FC940130044D2D3 /* Thread.cpp */; };
+		67422F111FC940130044D2D3 /* ThreadMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EF81FC940130044D2D3 /* ThreadMutex.cpp */; };
+		67422F121FC940130044D2D3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EFA1FC940130044D2D3 /* main.cpp */; };
+		67422F131FC940130044D2D3 /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 67422EFB1FC940130044D2D3 /* makefile */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		67422F151FC940130044D2D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 67422EFC1FC940130044D2D3 /* YGameServer.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 67422EFF1FC940130044D2D3;
+			remoteInfo = YGameServer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		67422EB61FC93FF80044D2D3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		67422EB81FC93FF80044D2D3 /* YGameServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = YGameServer; sourceTree = BUILT_PRODUCTS_DIR; };
+		67422EC41FC940130044D2D3 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		67422EC61FC940130044D2D3 /* CommonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonDefine.h; sourceTree = "<group>"; };
+		67422EC81FC940130044D2D3 /* Coroutine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Coroutine.cpp; sourceTree = "<group>"; };
+		67422EC91FC940130044D2D3 /* Coroutine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coroutine.h; sourceTree = "<group>"; };
+		67422ECA1FC940130044D2D3 /* CoroutineGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoroutineGroup.cpp; sourceTree = "<group>"; };
+		67422ECB1FC940130044D2D3 /* CoroutineGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoroutineGroup.h; sourceTree = "<group>"; };
+		67422ECC1FC940130044D2D3 /* Protothread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protothread.h; sourceTree = "<group>"; };
+		67422ECE1FC940130044D2D3 /* EventFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EventFilter.hpp; sourceTree = "<group>"; };
+		67422ECF1FC940130044D2D3 /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
+		67422ED01FC940130044D2D3 /* EventManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventManager.cpp; sourceTree = "<group>"; };
+		67422ED11FC940130044D2D3 /* EventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventManager.h; sourceTree = "<group>"; };
+		67422ED21FC940130044D2D3 /* EventMonitorNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EventMonitorNode.hpp; sourceTree = "<group>"; };
+		67422ED41FC940130044D2D3 /* FileLogWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileLogWriter.cpp; sourceTree = "<group>"; };
+		67422ED51FC940130044D2D3 /* FileLogWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLogWriter.h; sourceTree = "<group>"; };
+		67422ED61FC940130044D2D3 /* Log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
+		67422ED71FC940130044D2D3 /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
+		67422ED81FC940130044D2D3 /* LogWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogWriter.cpp; sourceTree = "<group>"; };
+		67422ED91FC940130044D2D3 /* LogWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogWriter.h; sourceTree = "<group>"; };
+		67422EDA1FC940130044D2D3 /* ScreenLogWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenLogWriter.cpp; sourceTree = "<group>"; };
+		67422EDB1FC940130044D2D3 /* ScreenLogWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenLogWriter.h; sourceTree = "<group>"; };
+		67422EDD1FC940130044D2D3 /* Memory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
+		67422EDE1FC940130044D2D3 /* ObjectPool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectPool.hpp; sourceTree = "<group>"; };
+		67422EE01FC940130044D2D3 /* NetAConnect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetAConnect.cpp; sourceTree = "<group>"; };
+		67422EE11FC940130044D2D3 /* NetAConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetAConnect.h; sourceTree = "<group>"; };
+		67422EE21FC940130044D2D3 /* NetBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetBase.cpp; sourceTree = "<group>"; };
+		67422EE31FC940130044D2D3 /* NetBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetBase.h; sourceTree = "<group>"; };
+		67422EE41FC940130044D2D3 /* NetConnect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetConnect.cpp; sourceTree = "<group>"; };
+		67422EE51FC940130044D2D3 /* NetConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetConnect.h; sourceTree = "<group>"; };
+		67422EE61FC940130044D2D3 /* NetEpollPoller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetEpollPoller.cpp; sourceTree = "<group>"; };
+		67422EE71FC940130044D2D3 /* NetEpollPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetEpollPoller.h; sourceTree = "<group>"; };
+		67422EE81FC940130044D2D3 /* NetListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetListener.cpp; sourceTree = "<group>"; };
+		67422EE91FC940130044D2D3 /* NetListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetListener.h; sourceTree = "<group>"; };
+		67422EEA1FC940130044D2D3 /* NetPConnect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetPConnect.cpp; sourceTree = "<group>"; };
+		67422EEB1FC940130044D2D3 /* NetPConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetPConnect.h; sourceTree = "<group>"; };
+		67422EEC1FC940130044D2D3 /* NetPoller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetPoller.cpp; sourceTree = "<group>"; };
+		67422EED1FC940130044D2D3 /* NetPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetPoller.h; sourceTree = "<group>"; };
+		67422EEE1FC940130044D2D3 /* NetSelectPoller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetSelectPoller.cpp; sourceTree = "<group>"; };
+		67422EEF1FC940130044D2D3 /* NetSelectPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetSelectPoller.h; sourceTree = "<group>"; };
+		67422EF11FC940130044D2D3 /* Singleton.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Singleton.hpp; sourceTree = "<group>"; };
+		67422EF31FC940130044D2D3 /* Task.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Task.cpp; sourceTree = "<group>"; };
+		67422EF41FC940130044D2D3 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		67422EF61FC940130044D2D3 /* Thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Thread.cpp; sourceTree = "<group>"; };
+		67422EF71FC940130044D2D3 /* Thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thread.h; sourceTree = "<group>"; };
+		67422EF81FC940130044D2D3 /* ThreadMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadMutex.cpp; sourceTree = "<group>"; };
+		67422EF91FC940130044D2D3 /* ThreadMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadMutex.h; sourceTree = "<group>"; };
+		67422EFA1FC940130044D2D3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		67422EFB1FC940130044D2D3 /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
+		67422EFC1FC940130044D2D3 /* YGameServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = YGameServer.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		67422EB51FC93FF80044D2D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		67422EAF1FC93FF80044D2D3 = {
+			isa = PBXGroup;
+			children = (
+				67422EBA1FC93FF80044D2D3 /* YGameServer */,
+				67422EB91FC93FF80044D2D3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		67422EB91FC93FF80044D2D3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67422EB81FC93FF80044D2D3 /* YGameServer */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		67422EBA1FC93FF80044D2D3 /* YGameServer */ = {
+			isa = PBXGroup;
+			children = (
+				67422EC21FC940130044D2D3 /* src */,
+			);
+			path = YGameServer;
+			sourceTree = "<group>";
+		};
+		67422EC21FC940130044D2D3 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				67422EC31FC940130044D2D3 /* Common */,
+				67422EFA1FC940130044D2D3 /* main.cpp */,
+				67422EFB1FC940130044D2D3 /* makefile */,
+				67422EFC1FC940130044D2D3 /* YGameServer.xcodeproj */,
+			);
+			name = src;
+			path = ../../../../src;
+			sourceTree = "<group>";
+		};
+		67422EC31FC940130044D2D3 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				67422EC41FC940130044D2D3 /* Common.h */,
+				67422EC51FC940130044D2D3 /* CommonDefine */,
+				67422EC71FC940130044D2D3 /* Coroutine */,
+				67422ECD1FC940130044D2D3 /* Event */,
+				67422ED31FC940130044D2D3 /* Log */,
+				67422EDC1FC940130044D2D3 /* Memory */,
+				67422EDF1FC940130044D2D3 /* Network */,
+				67422EF01FC940130044D2D3 /* Singleton */,
+				67422EF21FC940130044D2D3 /* Task */,
+				67422EF51FC940130044D2D3 /* Thread */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		67422EC51FC940130044D2D3 /* CommonDefine */ = {
+			isa = PBXGroup;
+			children = (
+				67422EC61FC940130044D2D3 /* CommonDefine.h */,
+			);
+			path = CommonDefine;
+			sourceTree = "<group>";
+		};
+		67422EC71FC940130044D2D3 /* Coroutine */ = {
+			isa = PBXGroup;
+			children = (
+				67422EC81FC940130044D2D3 /* Coroutine.cpp */,
+				67422EC91FC940130044D2D3 /* Coroutine.h */,
+				67422ECA1FC940130044D2D3 /* CoroutineGroup.cpp */,
+				67422ECB1FC940130044D2D3 /* CoroutineGroup.h */,
+				67422ECC1FC940130044D2D3 /* Protothread.h */,
+			);
+			path = Coroutine;
+			sourceTree = "<group>";
+		};
+		67422ECD1FC940130044D2D3 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				67422ECE1FC940130044D2D3 /* EventFilter.hpp */,
+				67422ECF1FC940130044D2D3 /* EventHandler.h */,
+				67422ED01FC940130044D2D3 /* EventManager.cpp */,
+				67422ED11FC940130044D2D3 /* EventManager.h */,
+				67422ED21FC940130044D2D3 /* EventMonitorNode.hpp */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		67422ED31FC940130044D2D3 /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				67422ED41FC940130044D2D3 /* FileLogWriter.cpp */,
+				67422ED51FC940130044D2D3 /* FileLogWriter.h */,
+				67422ED61FC940130044D2D3 /* Log.cpp */,
+				67422ED71FC940130044D2D3 /* Log.h */,
+				67422ED81FC940130044D2D3 /* LogWriter.cpp */,
+				67422ED91FC940130044D2D3 /* LogWriter.h */,
+				67422EDA1FC940130044D2D3 /* ScreenLogWriter.cpp */,
+				67422EDB1FC940130044D2D3 /* ScreenLogWriter.h */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
+		67422EDC1FC940130044D2D3 /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				67422EDD1FC940130044D2D3 /* Memory.hpp */,
+				67422EDE1FC940130044D2D3 /* ObjectPool.hpp */,
+			);
+			path = Memory;
+			sourceTree = "<group>";
+		};
+		67422EDF1FC940130044D2D3 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				67422EE01FC940130044D2D3 /* NetAConnect.cpp */,
+				67422EE11FC940130044D2D3 /* NetAConnect.h */,
+				67422EE21FC940130044D2D3 /* NetBase.cpp */,
+				67422EE31FC940130044D2D3 /* NetBase.h */,
+				67422EE41FC940130044D2D3 /* NetConnect.cpp */,
+				67422EE51FC940130044D2D3 /* NetConnect.h */,
+				67422EE61FC940130044D2D3 /* NetEpollPoller.cpp */,
+				67422EE71FC940130044D2D3 /* NetEpollPoller.h */,
+				67422EE81FC940130044D2D3 /* NetListener.cpp */,
+				67422EE91FC940130044D2D3 /* NetListener.h */,
+				67422EEA1FC940130044D2D3 /* NetPConnect.cpp */,
+				67422EEB1FC940130044D2D3 /* NetPConnect.h */,
+				67422EEC1FC940130044D2D3 /* NetPoller.cpp */,
+				67422EED1FC940130044D2D3 /* NetPoller.h */,
+				67422EEE1FC940130044D2D3 /* NetSelectPoller.cpp */,
+				67422EEF1FC940130044D2D3 /* NetSelectPoller.h */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		67422EF01FC940130044D2D3 /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				67422EF11FC940130044D2D3 /* Singleton.hpp */,
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
+		67422EF21FC940130044D2D3 /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				67422EF31FC940130044D2D3 /* Task.cpp */,
+				67422EF41FC940130044D2D3 /* Task.h */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		67422EF51FC940130044D2D3 /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				67422EF61FC940130044D2D3 /* Thread.cpp */,
+				67422EF71FC940130044D2D3 /* Thread.h */,
+				67422EF81FC940130044D2D3 /* ThreadMutex.cpp */,
+				67422EF91FC940130044D2D3 /* ThreadMutex.h */,
+			);
+			path = Thread;
+			sourceTree = "<group>";
+		};
+		67422EFD1FC940130044D2D3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				67422F161FC940130044D2D3 /* YGameServer */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		67422EB71FC93FF80044D2D3 /* YGameServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67422EBF1FC93FF80044D2D3 /* Build configuration list for PBXNativeTarget "YGameServer" */;
+			buildPhases = (
+				67422EB41FC93FF80044D2D3 /* Sources */,
+				67422EB51FC93FF80044D2D3 /* Frameworks */,
+				67422EB61FC93FF80044D2D3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YGameServer;
+			productName = YGameServer;
+			productReference = 67422EB81FC93FF80044D2D3 /* YGameServer */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		67422EB01FC93FF80044D2D3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "张锦";
+				TargetAttributes = {
+					67422EB71FC93FF80044D2D3 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = TDSZ6SP7R7;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 67422EB31FC93FF80044D2D3 /* Build configuration list for PBXProject "YGameServer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 67422EAF1FC93FF80044D2D3;
+			productRefGroup = 67422EB91FC93FF80044D2D3 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 67422EFD1FC940130044D2D3 /* Products */;
+					ProjectRef = 67422EFC1FC940130044D2D3 /* YGameServer.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				67422EB71FC93FF80044D2D3 /* YGameServer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		67422F161FC940130044D2D3 /* YGameServer */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = YGameServer;
+			remoteRef = 67422F151FC940130044D2D3 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67422EB41FC93FF80044D2D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				67422F021FC940130044D2D3 /* EventManager.cpp in Sources */,
+				67422F041FC940130044D2D3 /* Log.cpp in Sources */,
+				67422F071FC940130044D2D3 /* NetAConnect.cpp in Sources */,
+				67422F081FC940130044D2D3 /* NetBase.cpp in Sources */,
+				67422F091FC940130044D2D3 /* NetConnect.cpp in Sources */,
+				67422F0B1FC940130044D2D3 /* NetListener.cpp in Sources */,
+				67422F0A1FC940130044D2D3 /* NetEpollPoller.cpp in Sources */,
+				67422F101FC940130044D2D3 /* Thread.cpp in Sources */,
+				67422F031FC940130044D2D3 /* FileLogWriter.cpp in Sources */,
+				67422F111FC940130044D2D3 /* ThreadMutex.cpp in Sources */,
+				67422F0C1FC940130044D2D3 /* NetPConnect.cpp in Sources */,
+				67422F0E1FC940130044D2D3 /* NetSelectPoller.cpp in Sources */,
+				67422F011FC940130044D2D3 /* CoroutineGroup.cpp in Sources */,
+				67422F121FC940130044D2D3 /* main.cpp in Sources */,
+				67422F131FC940130044D2D3 /* makefile in Sources */,
+				67422F061FC940130044D2D3 /* ScreenLogWriter.cpp in Sources */,
+				67422F0F1FC940130044D2D3 /* Task.cpp in Sources */,
+				67422F0D1FC940130044D2D3 /* NetPoller.cpp in Sources */,
+				67422F001FC940130044D2D3 /* Coroutine.cpp in Sources */,
+				67422F051FC940130044D2D3 /* LogWriter.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		67422EBD1FC93FF80044D2D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		67422EBE1FC93FF80044D2D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		67422EC01FC93FF80044D2D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = TDSZ6SP7R7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67422EC11FC93FF80044D2D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = TDSZ6SP7R7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		67422EB31FC93FF80044D2D3 /* Build configuration list for PBXProject "YGameServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67422EBD1FC93FF80044D2D3 /* Debug */,
+				67422EBE1FC93FF80044D2D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67422EBF1FC93FF80044D2D3 /* Build configuration list for PBXNativeTarget "YGameServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67422EC01FC93FF80044D2D3 /* Debug */,
+				67422EC11FC93FF80044D2D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 67422EB01FC93FF80044D2D3 /* Project object */;
+}
