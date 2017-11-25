@@ -9,12 +9,17 @@ NetBase::~NetBase()
 {
 }
 
-NET_ADDR NetBase::GetAddr()
+SOCKET_ID NetBase::getSocket()
+{
+	return m_socket;
+}
+
+NET_ADDR NetBase::getAddr()
 {
 	return m_addr;
 }
 
-NET_PORT NetBase::GetPort()
+NET_PORT NetBase::getPort()
 {
 	return m_port;
 }

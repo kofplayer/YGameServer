@@ -41,9 +41,8 @@
 #include "./Network/NetPConnect.h"
 #include "./Network/NetAConnect.h"
 #include "./Network/NetListener.h"
-
-
-
-
+#include "./Network/NetPoller.h"
+#include "./Network/NetSelectPoller.h"
+#include "./Network/NetEpollPoller.h"
 
 #endif

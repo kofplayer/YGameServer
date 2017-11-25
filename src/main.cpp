@@ -119,6 +119,50 @@ private:
 	int aa;
 };
 
+class listen_listener : public NetReadListener
+{
+public:
+	virtual bool onNetRead(SOCKET_ID s)
+	{
+
+		NetPConnect * conn = m_listener->Accept();
+		if (conn)
+		{
+			LOG_DEBUG("Accept succ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+		}
+		return true;
+	}
+
+public:
+	NetListener * m_listener;
+};
+
+class poller_thread : public Thread
+{
+public:
+	virtual ~poller_thread() {};
+protected:
+	virtual void run()
+	{
+		NetListener * listener = gMemory.New<NetListener>();
+		bool succ = listener->Create();
+		succ = listener->Bind(INADDR_ANY, 8888);
+		succ = listener->Listen();
+
+		NetSelectPoller * selectPolloer = gMemory.New<NetSelectPoller>();
+		listen_listener * listenListener = gMemory.New<listen_listener>();
+		listenListener->m_listener = listener;
+
+		selectPolloer->addRead(listener->getSocket(), listenListener);
+		while (true)
+		{
+			selectPolloer->waitEvent(1000);
+		}
+	}
+private:
+	int aa;
+};
+
 
 class test_coroutine : public Coroutine
 {
@@ -155,123 +199,124 @@ int main(int argc, const char * argv[]) {
 	LOG_ADD_WRITER(pLog);
 
 	// 事件测试
-	LOG_DEBUG("start event test\n");
-    test_handler * pH1 = gMemory.New<test_handler>();
-	pH1->set_handler_info(1);
-	test_handler * pH2 = gMemory.New<test_handler>();
-	pH2->set_handler_info(2);
-	test_handler * pH3 = gMemory.New<test_handler>();
-	pH3->set_handler_info(3);
-    
-    pH1->pH = pH2;
-    pH2->pH = pH3;
-    
-    gEvent->addHandler(pH1, EventFilter(1));
-    gEvent->addHandler(pH2, EventFilter(1,2,3));
-    gEvent->addHandler(pH3, EventFilter(1,2,3));
-    gEvent->fire(EventFilter(1,2,3), NULL);
-
-	gMemory.Delete(pH1);
-	gMemory.Delete(pH2);
-	gMemory.Delete(pH3);
-
-	LOG_DEBUG("input any key to go next\n");
-	getchar();
+// 	LOG_DEBUG("start event test\n");
+//     test_handler * pH1 = gMemory.New<test_handler>();
+// 	pH1->set_handler_info(1);
+// 	test_handler * pH2 = gMemory.New<test_handler>();
+// 	pH2->set_handler_info(2);
+// 	test_handler * pH3 = gMemory.New<test_handler>();
+// 	pH3->set_handler_info(3);
+//     
+//     pH1->pH = pH2;
+//     pH2->pH = pH3;
+//     
+//     gEvent->addHandler(pH1, EventFilter(1));
+//     gEvent->addHandler(pH2, EventFilter(1,2,3));
+//     gEvent->addHandler(pH3, EventFilter(1,2,3));
+//     gEvent->fire(EventFilter(1,2,3), NULL);
+// 
+// 	gMemory.Delete(pH1);
+// 	gMemory.Delete(pH2);
+// 	gMemory.Delete(pH3);
+// 
+// 	LOG_DEBUG("input any key to go next\n");
+// 	getchar();
 
 
 	// 事务测试
-	LOG_DEBUG("start task test\n");
-	gMemory.Init<testTask>(100, 10);
-    
-    testTask * task = gMemory.New<testTask>();
-    task->setCallBackFunc(onTaskCallEnd);
-    
-    testTask * task1 = gMemory.New<testTask>(); 
-	task1->set_task_info(1, true);
-    task->addTask(task1);
-    
-	testTask * task2 = gMemory.New<testTask>();
-	task2->set_task_info(2, true);
-    task1->addTask(task2);
-    
-	testTask * task3 = gMemory.New<testTask>();
-	task3->set_task_info(3, true);
-    task2->addTask(task3);
-    
-	testTask * task4 = gMemory.New<testTask>();
-	task4->set_task_info(4, true);
-    task1->addTask(task4);
-    
-	testTask * task5 = gMemory.New<testTask>();
-	task5->set_task_info(5, true);
-    task3->addTask(task5);
-    
-    task->start();
-    
-	gMemory.Delete(task);
-	gMemory.Delete(task1);
-	gMemory.Delete(task2);
-	gMemory.Delete(task3);
-	gMemory.Delete(task4);
-	gMemory.Delete(task5);
-	LOG_DEBUG("input any key to go next\n");
-	getchar();
+// 	LOG_DEBUG("start task test\n");
+// 	gMemory.Init<testTask>(100, 10);
+//     
+//     testTask * task = gMemory.New<testTask>();
+//     task->setCallBackFunc(onTaskCallEnd);
+//     
+//     testTask * task1 = gMemory.New<testTask>(); 
+// 	task1->set_task_info(1, true);
+//     task->addTask(task1);
+//     
+// 	testTask * task2 = gMemory.New<testTask>();
+// 	task2->set_task_info(2, true);
+//     task1->addTask(task2);
+//     
+// 	testTask * task3 = gMemory.New<testTask>();
+// 	task3->set_task_info(3, true);
+//     task2->addTask(task3);
+//     
+// 	testTask * task4 = gMemory.New<testTask>();
+// 	task4->set_task_info(4, true);
+//     task1->addTask(task4);
+//     
+// 	testTask * task5 = gMemory.New<testTask>();
+// 	task5->set_task_info(5, true);
+//     task3->addTask(task5);
+//     
+//     task->start();
+//     
+// 	gMemory.Delete(task);
+// 	gMemory.Delete(task1);
+// 	gMemory.Delete(task2);
+// 	gMemory.Delete(task3);
+// 	gMemory.Delete(task4);
+// 	gMemory.Delete(task5);
+// 	LOG_DEBUG("input any key to go next\n");
+// 	getchar();
 
 	// 线程测试
-	LOG_DEBUG("start thread test\n");
-	test_thread * tt[10];
-	for (int i=0; i<10; ++i)
-	{
-		tt[i] = gMemory.New<test_thread>();
-		tt[i]->set_id(i);
-		tt[i]->start();
-	}
-	while (true)
-	{
-		bool is_any_live = false;
-		for (int i=0; i<10; ++i)
-		{
-			if (tt[i])
-			{
-				if (tt[i]->is_end)
-				{
-					gMemory.Delete(tt[i]);
-					tt[i] = NULL;
-				}
-				else
-				{
-					is_any_live = true;
-				}
-			}
-		}
-		if (!is_any_live)
-		{
-			break;
-		}
-	}
-	LOG_DEBUG("input any key to go next\n");
-	getchar();
+// 	LOG_DEBUG("start thread test\n");
+// 	test_thread * tt[10];
+// 	for (int i=0; i<10; ++i)
+// 	{
+// 		tt[i] = gMemory.New<test_thread>();
+// 		tt[i]->set_id(i);
+// 		tt[i]->start();
+// 	}
+// 	while (true)
+// 	{
+// 		bool is_any_live = false;
+// 		for (int i=0; i<10; ++i)
+// 		{
+// 			if (tt[i])
+// 			{
+// 				if (tt[i]->is_end)
+// 				{
+// 					gMemory.Delete(tt[i]);
+// 					tt[i] = NULL;
+// 				}
+// 				else
+// 				{
+// 					is_any_live = true;
+// 				}
+// 			}
+// 		}
+// 		if (!is_any_live)
+// 		{
+// 			break;
+// 		}
+// 	}
+// 	LOG_DEBUG("input any key to go next\n");
+// 	getchar();
 
 	// 协程测试
-	LOG_DEBUG("start coroutine test\n");
-	CoroutineGroup cg;
-	for (int i=0; i<10; ++i)
-	{
-		test_coroutine * c = gMemory.New<test_coroutine>();
-		c->id = i + 1;
-		cg.Add(c);
-	}
-	while (cg.GetCoroutineCount() > 0)
-	{
-		cg.Update();
-	}
-
-	LOG_DEBUG("input any key to go next\n");
-	getchar();
+// 	LOG_DEBUG("start coroutine test\n");
+// 	CoroutineGroup cg;
+// 	for (int i=0; i<10; ++i)
+// 	{
+// 		test_coroutine * c = gMemory.New<test_coroutine>();
+// 		c->id = i + 1;
+// 		cg.Add(c);
+// 	}
+// 	while (cg.GetCoroutineCount() > 0)
+// 	{
+// 		cg.Update();
+// 	}
+// 
+// 	LOG_DEBUG("input any key to go next\n");
+// 	getchar();
 
 	// 网络测试
 	LOG_DEBUG("net listen test\n");
-	gMemory.New<listen_thread>()->start();
+	//gMemory.New<listen_thread>()->start();
+	gMemory.New<poller_thread>()->start();
 
 	LOG_DEBUG("input any key to end game\n");
 	getchar();

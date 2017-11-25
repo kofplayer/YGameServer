@@ -131,7 +131,7 @@
 	#define THREAD_MUTEX_DELETE(x)								DeleteCriticalSection(&x)
 	#define THREAD_MUTEX_LOCK(x)								EnterCriticalSection(&x)
 	#define THREAD_MUTEX_UNLOCK(x)								LeaveCriticalSection(&x)
-	typedef UINT_PTR											SOCKET_ID;
+	typedef int													SOCKET_ID;
 	#define snprintf											_snprintf_s
 #else
 	#define THREAD_ID											pthread_t
@@ -172,4 +172,31 @@ typedef uint16 NET_PORT;
 #endif
 
 #define countof(array) (sizeof(array)/sizeof(array[0]))
+
+// 获得系统产生的最后一次错误描述
+inline char* getStrError(int32 ierrorno = 0)
+{
+#if CURRENT_PLATFORM == PLATFORM_WIN32
+	if (ierrorno == 0)
+		ierrorno = GetLastError();
+
+	static char lpMsgBuf[256] = { 0 };
+	snprintf(lpMsgBuf, 256, "errorno=%d", ierrorno);
+	return lpMsgBuf;
+#else
+	if (ierrorno != 0)
+		return strerror(ierrorno);
+	return strerror(errno);
+#endif
+}
+
+inline int getLastError()
+{
+#if CURRENT_PLATFORM == PLATFORM_WIN32
+	return GetLastError();
+#else
+	return errno;
+#endif
+}
+
 YGAME_SERVER_END

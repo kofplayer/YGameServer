@@ -22,14 +22,14 @@
     <Filter Include="Common\Thread">
       <UniqueIdentifier>{0193c67a-a970-4947-868c-9083f3f6017c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\NetWork">
-      <UniqueIdentifier>{539480ba-59c9-43b9-8d88-d959e3d69cac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Common\Coroutine">
       <UniqueIdentifier>{37f03490-ed8e-4e17-b2db-c5ceb251497e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Common\Log">
       <UniqueIdentifier>{313d6df1-9239-44a2-94ff-47b12064c314}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Network">
+      <UniqueIdentifier>{539480ba-59c9-43b9-8d88-d959e3d69cac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,13 +64,13 @@
       <Filter>Common\Thread</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Common\Network\NetBase.h">
-      <Filter>Common\NetWork</Filter>
+      <Filter>Common\Network</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Common\Network\NetConnect.h">
-      <Filter>Common\NetWork</Filter>
+      <Filter>Common\Network</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Common\Network\NetListener.h">
-      <Filter>Common\NetWork</Filter>
+      <Filter>Common\Network</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Common\Memory\ObjectPool.hpp">
       <Filter>Common\Memory</Filter>
@@ -79,10 +79,10 @@
       <Filter>Common\Thread</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Common\Network\NetPConnect.h">
-      <Filter>Common\NetWork</Filter>
+      <Filter>Common\Network</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Common\Network\NetAConnect.h">
-      <Filter>Common\NetWork</Filter>
+      <Filter>Common\Network</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\Common\Coroutine\Coroutine.h">
       <Filter>Common\Coroutine</Filter>
@@ -105,6 +105,15 @@
     <ClInclude Include="..\..\src\Common\Log\LogWriter.h">
       <Filter>Common\Log</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Common\Network\NetPoller.h">
+      <Filter>Common\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Network\NetEpollPoller.h">
+      <Filter>Common\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Network\NetSelectPoller.h">
+      <Filter>Common\Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Event\EventManager.cpp">
@@ -118,22 +127,22 @@
       <Filter>Common\Thread</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Network\NetBase.cpp">
-      <Filter>Common\NetWork</Filter>
+      <Filter>Common\Network</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Network\NetConnect.cpp">
-      <Filter>Common\NetWork</Filter>
+      <Filter>Common\Network</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Network\NetListener.cpp">
-      <Filter>Common\NetWork</Filter>
+      <Filter>Common\Network</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Thread\ThreadMutex.cpp">
       <Filter>Common\Thread</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Network\NetAConnect.cpp">
-      <Filter>Common\NetWork</Filter>
+      <Filter>Common\Network</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Network\NetPConnect.cpp">
-      <Filter>Common\NetWork</Filter>
+      <Filter>Common\Network</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Coroutine\Coroutine.cpp">
       <Filter>Common\Coroutine</Filter>
@@ -152,6 +161,15 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Log\LogWriter.cpp">
       <Filter>Common\Log</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Network\NetPoller.cpp">
+      <Filter>Common\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Network\NetEpollPoller.cpp">
+      <Filter>Common\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Network\NetSelectPoller.cpp">
+      <Filter>Common\Network</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

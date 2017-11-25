@@ -5,8 +5,9 @@ class NetBase
 public:
 	NetBase();
 	virtual ~NetBase();
-	virtual NET_ADDR GetAddr();
-	virtual NET_PORT GetPort();
+	virtual SOCKET_ID getSocket();
+	virtual NET_ADDR getAddr();
+	virtual NET_PORT getPort();
 protected:
 	virtual bool _create(int type);
 	SOCKET_ID m_socket;
