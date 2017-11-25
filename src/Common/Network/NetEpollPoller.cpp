@@ -88,7 +88,7 @@ bool NetEpollPoller::doAdd(SOCKET_ID s, bool isRead, bool isAdd)
         ev.events = isRead ? EPOLLIN : EPOLLOUT;
         op = isAdd ? EPOLL_CTL_ADD : EPOLL_CTL_DEL;
     }
-    if (epoll_ctl(epfd_, op, fd, &ev) < 0)
+    if (epoll_ctl(m_epfd, op, s, &ev) < 0)
     {
         LOG_WARN("Failed to %s %s file socket %d, %s\n",
                  (isAdd ? "add" : "remove"),
