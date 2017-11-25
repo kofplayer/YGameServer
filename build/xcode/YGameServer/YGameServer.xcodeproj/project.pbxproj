@@ -26,7 +26,6 @@
 		67422F101FC940130044D2D3 /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EF61FC940130044D2D3 /* Thread.cpp */; };
 		67422F111FC940130044D2D3 /* ThreadMutex.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EF81FC940130044D2D3 /* ThreadMutex.cpp */; };
 		67422F121FC940130044D2D3 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 67422EFA1FC940130044D2D3 /* main.cpp */; };
-		67422F131FC940130044D2D3 /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 67422EFB1FC940130044D2D3 /* makefile */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,7 +98,6 @@
 		67422EF81FC940130044D2D3 /* ThreadMutex.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadMutex.cpp; sourceTree = "<group>"; };
 		67422EF91FC940130044D2D3 /* ThreadMutex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadMutex.h; sourceTree = "<group>"; };
 		67422EFA1FC940130044D2D3 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		67422EFB1FC940130044D2D3 /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
 		67422EFC1FC940130044D2D3 /* YGameServer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = YGameServer.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,7 +141,6 @@
 			children = (
 				67422EC31FC940130044D2D3 /* Common */,
 				67422EFA1FC940130044D2D3 /* main.cpp */,
-				67422EFB1FC940130044D2D3 /* makefile */,
 				67422EFC1FC940130044D2D3 /* YGameServer.xcodeproj */,
 			);
 			name = src;
@@ -370,7 +367,6 @@
 				67422F0E1FC940130044D2D3 /* NetSelectPoller.cpp in Sources */,
 				67422F011FC940130044D2D3 /* CoroutineGroup.cpp in Sources */,
 				67422F121FC940130044D2D3 /* main.cpp in Sources */,
-				67422F131FC940130044D2D3 /* makefile in Sources */,
 				67422F061FC940130044D2D3 /* ScreenLogWriter.cpp in Sources */,
 				67422F0F1FC940130044D2D3 /* Task.cpp in Sources */,
 				67422F0D1FC940130044D2D3 /* NetPoller.cpp in Sources */,

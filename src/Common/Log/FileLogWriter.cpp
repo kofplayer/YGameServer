@@ -20,7 +20,6 @@ void FileLogWriter::write(const char * msg)
 {
 	if ( access(m_path.c_str() , 0 ) == -1 )
 	{
-		char cmd [ 100 ] = { 0 };
 #if CURRENT_PLATFORM == PLATFORM_WIN32
 		mkdir(m_path.c_str());
 #else

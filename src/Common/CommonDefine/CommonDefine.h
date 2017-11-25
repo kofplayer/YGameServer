@@ -59,7 +59,7 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <sys/types.h>
-#include <sys/stat.h> 
+#include <sys/stat.h>
 #include <net/if.h>
 #include <netinet/in.h>
 #include <netinet/tcp.h> 
@@ -174,7 +174,7 @@ typedef uint16 NET_PORT;
 #define countof(array) (sizeof(array)/sizeof(array[0]))
 
 // 获得系统产生的最后一次错误描述
-inline char* getStrError(int32 ierrorno = 0)
+inline const char* getStrError(int32 ierrorno = 0)
 {
 #if CURRENT_PLATFORM == PLATFORM_WIN32
 	if (ierrorno == 0)
@@ -183,6 +183,9 @@ inline char* getStrError(int32 ierrorno = 0)
 	static char lpMsgBuf[256] = { 0 };
 	snprintf(lpMsgBuf, 256, "errorno=%d", ierrorno);
 	return lpMsgBuf;
+#elif CURRENT_PLATFORM == PLATFORM_APPLE
+    static const char * sError = "error";
+    return sError;
 #else
 	if (ierrorno != 0)
 		return strerror(ierrorno);
@@ -193,7 +196,9 @@ inline char* getStrError(int32 ierrorno = 0)
 inline int getLastError()
 {
 #if CURRENT_PLATFORM == PLATFORM_WIN32
-	return GetLastError();
+    return GetLastError();
+#elif CURRENT_PLATFORM == PLATFORM_APPLE
+    return 1;
 #else
 	return errno;
 #endif
