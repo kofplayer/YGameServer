@@ -11,6 +11,12 @@
 
 using namespace YGAME_SERVER_NAMESPACE;
 
+#ifdef HAS_EPOLL
+typedef NetEpollPoller RealNetPoller;
+#else
+typedef NetSelectPoller RealNetPoller;
+#endif
+
 void onTaskCallEnd(bool isSucc, Task * pTask)
 {
 	LOG_DEBUG("onTaskCallEnd %d\n", isSucc);
@@ -149,14 +155,14 @@ protected:
 		succ = listener->Bind(INADDR_ANY, 8888);
 		succ = listener->Listen();
 
-		NetSelectPoller * selectPolloer = gMemory.New<NetSelectPoller>();
+		NetPoller * poller = gMemory.New<RealNetPoller>();
 		listen_listener * listenListener = gMemory.New<listen_listener>();
 		listenListener->m_listener = listener;
 
-		selectPolloer->addRead(listener->getSocket(), listenListener);
+		poller->addRead(listener->getSocket(), listenListener);
 		while (true)
 		{
-			selectPolloer->waitEvent(1000);
+			poller->waitEvent(1000);
 		}
 	}
 private:

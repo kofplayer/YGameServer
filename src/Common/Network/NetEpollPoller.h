@@ -1,5 +1,6 @@
 ﻿YGAME_SERVER_BEGIN
 
+#ifdef HAS_EPOLL
 class NetEpollPoller : public NetPoller
 {
 public:
@@ -11,6 +12,10 @@ protected:
 	virtual bool doAddWrite(SOCKET_ID s);
 	virtual bool doRemoveRead(SOCKET_ID s);
 	virtual bool doRemoveWrite(SOCKET_ID s);
+    bool doAdd(SOCKET_ID s, bool isRead, bool isAdd);
+private:
+    int m_epfd;
 };
+#endif
 
 YGAME_SERVER_END

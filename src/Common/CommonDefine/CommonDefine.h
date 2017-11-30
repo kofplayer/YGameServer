@@ -64,7 +64,15 @@
 #include <netinet/in.h>
 #include <netinet/tcp.h> 
 #include <netinet/ip.h>
-#include <stdarg.h> 
+#include <stdarg.h>
+#endif
+
+#if CURRENT_PLATFORM == PLATFORM_UNIX
+#define HAS_EPOLL
+#endif
+
+#ifdef HAS_EPOLL
+#include <sys/epoll.h>
 #endif
 
 /*

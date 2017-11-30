@@ -44,11 +44,13 @@ protected:
 
 	bool onRead(SOCKET_ID s);
 	bool onWrite(SOCKET_ID s);
-
+    bool onError(SOCKET_ID s);
+    bool isAdded(SOCKET_ID s, bool isRead);
 	int32 maxFD() const;
 private:
 	Map<SOCKET_ID, NetReadListener*> m_readListeners;
 	Map<SOCKET_ID, NetWriteListener*> m_writeListeners;
 };
+
 
 YGAME_SERVER_END

@@ -70,6 +70,20 @@ bool NetPoller::onWrite(SOCKET_ID s)
 	return itor->second->onNetWrite(s);
 }
 
+bool NetPoller::onError(SOCKET_ID s)
+{
+    if (!onRead(s))
+    {
+        return onWrite(s);
+    }
+    return true;
+}
+
+bool NetPoller::isAdded(SOCKET_ID s, bool isRead)
+{
+    return isRead ? m_readListeners.find(s) != m_readListeners.end() : m_writeListeners.find(s) != m_writeListeners.end();;
+}
+
 int32 NetPoller::maxFD() const
 {
 	int32 max = -1;
