@@ -5,7 +5,7 @@ class DataBase
 public:
     DataBase();
     virtual ~DataBase();
-    virtual bool setInfo(const char * address, uint16 port, const char * account, const char * password, const char * datebase) = 0;
+    virtual void setInfo(const char * host, uint16 port, const char * userName, const char * password, const char * dataBase) = 0;
     virtual bool query(const char * cmd, DBResult * result) = 0;
 };
 

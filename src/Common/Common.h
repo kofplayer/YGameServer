@@ -17,10 +17,11 @@
 #include <set>
 #include <assert.h>
 #include <time.h>
+#include "mysql/mysql.h"
 
 #include "./CommonDefine/CommonDefine.h"
 #include "./Singleton/Singleton.hpp"
-#include "./Thread/ThreadMutex.h"
+#include "./Thread/ThreadLock.h"
 #include "./Log/LogWriter.h"
 #include "./Log/Log.h"
 #include "./Log/FileLogWriter.h"
@@ -44,5 +45,9 @@
 #include "./Network/NetPoller.h"
 #include "./Network/NetSelectPoller.h"
 #include "./Network/NetEpollPoller.h"
+#include "./DataBase/DBResult.h"
+#include "./DataBase/DataBase.h"
+#include "./DataBase/DBResultMySql.h"
+#include "./DataBase/DataBaseMySql.h"
 
 #endif

@@ -5,12 +5,20 @@ class DataBaseMySql
 public:
     DataBaseMySql();
     virtual ~DataBaseMySql();
-    virtual bool setInfo(const char * address, uint16 port, const char * account, const char * password, const char * datebase);
+    virtual void setInfo(const char * host, uint16 port, const char * userName, const char * password, const char * dataBase);
     virtual bool query(const char * cmd, DBResult * result);
 protected:
     bool connect();
     void disconnect();
     bool isConnect();
+    
+    String m_host;
+    uint16 m_port;
+    String m_userName;
+    String m_password;
+    String m_dataBase;
+    
+    MYSQL * m_dbHandle;
 };
 
 YGAME_SERVER_END

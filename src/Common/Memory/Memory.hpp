@@ -5,14 +5,14 @@ public:
 	template<typename T>
 	void Init(uint32 init_count, uint32 inc_count)
 	{
-		AutoThreadMutex autoMutex(&m_threadMutex);
+		AutoThreadLock autoLock(&m_threadLock);
 		ObjectPool<T>::getInstance()->Init(init_count, inc_count);
 	}
 
     template<typename T>
     T * New()
 	{
-		AutoThreadMutex autoMutex(&m_threadMutex);
+		AutoThreadLock autoLock(&m_threadLock);
 		ObjectPool<T> * pool = ObjectPool<T>::getInstance();
 		ObjectDeleter * objectDeleter = pool;
 		if (m_deleters.find(objectDeleter) == m_deleters.end())
@@ -25,7 +25,7 @@ public:
     
     void Delete(void * p)
 	{
-		AutoThreadMutex autoMutex(&m_threadMutex);
+		AutoThreadLock autoLock(&m_threadLock);
 		void * data = (((char*)p) - sizeof(ObjectDeleter*));
 		ObjectDeleter * objectDeleter = *(ObjectDeleter**)data;
 		if (m_deleters.find(objectDeleter) == m_deleters.end())
@@ -38,7 +38,7 @@ public:
 
 private:
 	Set<ObjectDeleter *> m_deleters;
-	ThreadMutex m_threadMutex;
+	SpinLock m_threadLock;
 };
 
 

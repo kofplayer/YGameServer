@@ -13,13 +13,13 @@ Log::~Log()
 
 void Log::addLogWriter(LogWriter * logWriter)
 {
-	AutoThreadMutex autoMutex(&m_threadMutex);
+	AutoThreadLock autoLock(&m_threadLock);
 	m_writerList.push_back(logWriter);
 }
 
 void Log::removeLogWriter(LogWriter * logWriter)
 {
-	AutoThreadMutex autoMutex(&m_threadMutex);
+	AutoThreadLock autoLock(&m_threadLock);
 	for (auto itor = m_writerList.begin(); itor != m_writerList.end(); ++itor)
 	{
 		if (*itor == logWriter)
@@ -42,7 +42,7 @@ bool Log::isLogEnable(uint8 logLevel)
 
 void Log::writeLog(uint8 logLevel, const char * fileName, const int line, const char * msg, ...)
 {
-	AutoThreadMutex autoMutex(&m_threadMutex);
+	AutoThreadLock autoLock(&m_threadLock);
 	if (logLevel < m_logLevel || 0 == m_writerList.size())
 	{
 		return;

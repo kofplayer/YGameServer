@@ -12,7 +12,7 @@ public:
     virtual void writeLog(uint8 logLevel, const char * fileName, const int line, const char * msg, ...);
 protected:
     int8 m_logLevel;
-    ThreadMutex m_threadMutex;
+    MutexLock m_threadLock;
 	List<LogWriter*> m_writerList;
 };
 

@@ -94,7 +94,8 @@ bool NetEpollPoller::doAdd(SOCKET_ID s, bool isRead, bool isAdd)
                  (isAdd ? "add" : "remove"),
                  (isRead ? "read" : "write"),
                  s,
-                 getStrError());        return false;
+                 getStrError());
+        return false;
     }
     return true;
 }
