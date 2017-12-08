@@ -13,6 +13,6 @@ public:
 protected:
     virtual void run();
 private:
-	THREAD_ID tidp_;				// 本线程的ID
+	THREAD_ID m_threadID;				// 本线程的ID
 };
 YGAME_SERVER_END

@@ -4,11 +4,8 @@ YGAME_SERVER_BEGIN
 
 #define  MAX_FILE_NAME_LEN	255
 
-FileLogWriter::FileLogWriter() : m_file(NULL)
+FileLogWriter::FileLogWriter() : m_path("log"), m_file(NULL), m_day(0), m_hour(0)
 {
-	m_path = "log";
-	m_day = 0;
-	m_hour = 0;
 }
 
 FileLogWriter::~FileLogWriter()

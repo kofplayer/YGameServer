@@ -39,7 +39,7 @@ bool DataBaseMySql::query(const char * cmd, DBResult * result)
             {
                 return false;
             }
-            if (mysql_real_query(m_dbHandle, cmd, strlen(cmd)) != 0)ß
+            if (mysql_real_query(m_dbHandle, cmd, strlen(cmd)) != 0)
             {
                 return false;
             }

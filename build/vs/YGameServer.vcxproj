@@ -147,6 +147,10 @@
     <ClInclude Include="..\..\src\Common\Coroutine\Coroutine.h" />
     <ClInclude Include="..\..\src\Common\Coroutine\CoroutineGroup.h" />
     <ClInclude Include="..\..\src\Common\Coroutine\Protothread.h" />
+    <ClInclude Include="..\..\src\Common\DataBase\DataBase.h" />
+    <ClInclude Include="..\..\src\Common\DataBase\DataBaseMySql.h" />
+    <ClInclude Include="..\..\src\Common\DataBase\DBResult.h" />
+    <ClInclude Include="..\..\src\Common\DataBase\DBResultMySql.h" />
     <ClInclude Include="..\..\src\Common\Event\EventFilter.hpp" />
     <ClInclude Include="..\..\src\Common\Event\EventHandler.h" />
     <ClInclude Include="..\..\src\Common\Event\EventManager.h" />
@@ -173,6 +177,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Coroutine\Coroutine.cpp" />
     <ClCompile Include="..\..\src\Common\Coroutine\CoroutineGroup.cpp" />
+    <ClCompile Include="..\..\src\Common\DataBase\DataBaseMySql.cpp" />
+    <ClCompile Include="..\..\src\Common\DataBase\DBResultMySql.cpp" />
     <ClCompile Include="..\..\src\Common\Event\EventManager.cpp" />
     <ClCompile Include="..\..\src\Common\Log\FileLogWriter.cpp" />
     <ClCompile Include="..\..\src\Common\Log\Log.cpp" />

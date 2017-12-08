@@ -42,7 +42,7 @@ void EventManager::removeHandlerFromFireList(const EventHandler * pEventHandler,
     }
 }
 
-void EventManager::fire(const EventFilter eventFilter, void * pParam)
+void EventManager::fire(const EventFilter & eventFilter, void * pParam)
 {
     EventMonitorNode::HandlerList handlerList;
     m_monitor.gatherHandler(0, eventFilter, handlerList);

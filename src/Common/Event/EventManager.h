@@ -7,7 +7,7 @@ public:
     void addHandler(EventHandler * pEventHandler, const EventFilter & eventFilter);
     void removeHandler(EventHandler * pEventHandler, const EventFilter & eventFilter);
     void removeHandler(EventHandler * pEventHandler);
-    void fire(const EventFilter eventFilter, void * pParam);
+    void fire(const EventFilter & eventFilter, void * pParam);
 private:
     class FireInfo
     {

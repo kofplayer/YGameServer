@@ -1,7 +1,7 @@
 ﻿#include "../Common.h"
 
 YGAME_SERVER_BEGIN
-Thread::Thread()
+Thread::Thread() : m_threadID(-1)
 {
 }
 
@@ -16,9 +16,9 @@ void Thread::run()
 void Thread::start()
 {
 #if CURRENT_PLATFORM == PLATFORM_WIN32
-	tidp_ = _beginthreadex(NULL, 0, &Thread::threadFunc, (void*)this, 0, NULL);
+	m_threadID = _beginthreadex(NULL, 0, &Thread::threadFunc, (void*)this, 0, NULL);
 #else	
-	pthread_create(&tidp_, NULL, Thread::threadFunc, (void*)this);
+	pthread_create(&m_threadID, NULL, Thread::threadFunc, (void*)this);
 #endif
 }
 
