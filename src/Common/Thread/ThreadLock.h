@@ -55,6 +55,7 @@ class SpinLock : public MutexLock {};
 
 #endif
 
+#if CURRENT_PLATFORM != PLATFORM_WIN32
 class RWLock : public ThreadRWLock
 {
 public:
@@ -66,6 +67,7 @@ public:
 private:
     pthread_rwlock_t		m_rwlock;
 };
+#endif
 
 class AutoThreadLock
 {

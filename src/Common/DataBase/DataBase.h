@@ -3,8 +3,8 @@
 class DataBase
 {
 public:
-    DataBase();
-    virtual ~DataBase();
+	DataBase() {}
+	virtual ~DataBase() {}
     virtual void setInfo(const char * host, uint16 port, const char * userName, const char * password, const char * dataBase) = 0;
     virtual bool query(const char * cmd, DBResult * result) = 0;
 };

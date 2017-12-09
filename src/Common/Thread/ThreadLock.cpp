@@ -42,6 +42,7 @@ void SpinLock::unlock()
 
 #endif
 
+#if CURRENT_PLATFORM != PLATFORM_WIN32
 RWLock::RWLock()
 {
     pthread_rwlock_init( &m_rwlock,  NULL );
@@ -62,6 +63,7 @@ void RWLock::unlock()
 {
     pthread_rwlock_unlock( &m_rwlock );
 }
+#endif
 
 
 AutoThreadLock::AutoThreadLock(ThreadLock * threadLock) : m_threadLock(threadLock)

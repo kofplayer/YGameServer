@@ -1,6 +1,6 @@
 ﻿YGAME_SERVER_BEGIN
 
-class DataBaseMySql
+class DataBaseMySql : public DataBase
 {
 public:
     DataBaseMySql();

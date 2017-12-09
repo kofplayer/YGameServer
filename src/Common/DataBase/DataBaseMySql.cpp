@@ -50,7 +50,7 @@ bool DataBaseMySql::query(const char * cmd, DBResult * result)
         }
     }
     
-    MYSQL_RES * result = NULL;
+    MYSQL_RES * res = NULL;
     do
     {
         MYSQL_RES *  temp = mysql_store_result(m_dbHandle) ;
@@ -58,10 +58,10 @@ bool DataBaseMySql::query(const char * cmd, DBResult * result)
         {
             break;
         }
-        result = temp;
+		res = temp;
     } while (!mysql_next_result(m_dbHandle));
-    
-    return  result;
+	dynamic_cast<DBResultMySql*>(result)->setDataSet(res);
+    return true;
 }
 
 bool DataBaseMySql::connect()
@@ -78,14 +78,13 @@ bool DataBaseMySql::connect()
     mysql_options( m_dbHandle ,MYSQL_OPT_CONNECT_TIMEOUT , (const void *)&timeout );
     mysql_options( m_dbHandle ,MYSQL_OPT_READ_TIMEOUT , (const void *)&timeout );
     mysql_options( m_dbHandle ,MYSQL_OPT_WRITE_TIMEOUT , (const void *)&timeout );
-    if ( mysql_real_connect( m_dbHandle, m_host.c_str(), m_username.c_str(), m_password.c_str(), m_database.c_str(), m_port, NULL, CLIENT_BASIC_FLAGS & ~CLIENT_NO_SCHEMA & ~CLIENT_IGNORE_SIGPIPE/*clientOpt | CLIENT_INTERACTIVE*/ ) == NULL )
+    if ( mysql_real_connect( m_dbHandle, m_host.c_str(), m_userName.c_str(), m_password.c_str(), m_dataBase.c_str(), m_port, NULL, CLIENT_BASIC_FLAGS & ~CLIENT_NO_SCHEMA & ~CLIENT_IGNORE_SIGPIPE/*clientOpt | CLIENT_INTERACTIVE*/ ) == NULL )
     {
         LOG_ERROR("mysql_real_connect errno = %d err = %s\n", mysql_errno(m_dbHandle), mysql_error(m_dbHandle));
         disconnect();
         return false ;
     }
     mysql_set_character_set(m_dbHandle, "utf8");
-    m_mutilStatements = clientOpt & CLIENT_MULTI_STATEMENTS ;
     
     return true ;
 }

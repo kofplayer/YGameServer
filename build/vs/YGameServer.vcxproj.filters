@@ -31,6 +31,9 @@
     <Filter Include="Common\Network">
       <UniqueIdentifier>{539480ba-59c9-43b9-8d88-d959e3d69cac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\DataBase">
+      <UniqueIdentifier>{a5c05d73-e2d0-49d0-93fb-306e7af93d6c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common\CommonDefine\CommonDefine.h">
@@ -75,9 +78,6 @@
     <ClInclude Include="..\..\src\Common\Memory\ObjectPool.hpp">
       <Filter>Common\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Common\Thread\ThreadMutex.h">
-      <Filter>Common\Thread</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Common\Network\NetPConnect.h">
       <Filter>Common\Network</Filter>
     </ClInclude>
@@ -114,6 +114,21 @@
     <ClInclude Include="..\..\src\Common\Network\NetSelectPoller.h">
       <Filter>Common\Network</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Common\Thread\ThreadLock.h">
+      <Filter>Common\Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\DataBase\DataBase.h">
+      <Filter>Common\DataBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\DataBase\DataBaseMySql.h">
+      <Filter>Common\DataBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\DataBase\DBResult.h">
+      <Filter>Common\DataBase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\DataBase\DBResultMySql.h">
+      <Filter>Common\DataBase</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Event\EventManager.cpp">
@@ -134,9 +149,6 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Network\NetListener.cpp">
       <Filter>Common\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Common\Thread\ThreadMutex.cpp">
-      <Filter>Common\Thread</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Network\NetAConnect.cpp">
       <Filter>Common\Network</Filter>
@@ -170,6 +182,18 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Common\Network\NetSelectPoller.cpp">
       <Filter>Common\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Thread\ThreadLock.cpp">
+      <Filter>Common\Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\DataBase\DataBaseMySql.cpp">
+      <Filter>Common\DataBase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\DataBase\DBResultMySql.cpp">
+      <Filter>Common\DataBase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\DataBase\DBResult.cpp">
+      <Filter>Common\DataBase</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

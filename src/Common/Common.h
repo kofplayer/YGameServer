@@ -17,7 +17,6 @@
 #include <set>
 #include <assert.h>
 #include <time.h>
-#include "mysql/mysql.h"
 
 #include "./CommonDefine/CommonDefine.h"
 #include "./Singleton/Singleton.hpp"

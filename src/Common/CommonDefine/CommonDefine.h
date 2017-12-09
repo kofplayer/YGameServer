@@ -47,6 +47,8 @@
 
 #if CURRENT_PLATFORM == PLATFORM_WIN32
 #include <winsock2.h>		// 必须在windows.h之前包含， 否则网络模块编译会出错
+#include "../../../build/vs/depend/mysql/include/mysql.h"
+#pragma comment(lib, "D:/work/YGameServer/build/vs/depend/mysql/lib/libmysql.lib")
 #include <WS2tcpip.h>
 #include <mswsock.h>
 #include <windows.h>

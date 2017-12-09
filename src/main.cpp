@@ -315,6 +315,20 @@ int main(int argc, const char * argv[]) {
 	//gMemory.New<listen_thread>()->start();
 	gMemory.New<poller_thread>()->start();
 
+	//db测试
+	DataBase * db = gMemory.New<DataBaseMySql>();
+	db->setInfo("116.62.50.103", 3306, "root", "4391007", "king_flower");
+	DBResult * dbResult = gMemory.New<DBResultMySql>();
+	db->query("select * from user_info where user_type=0", dbResult);
+	uint32 f = dbResult->getFieldCount();
+	uint32 r = dbResult->getRowCount();
+	while (!dbResult->isEnd())
+	{
+		std::string nick_name = dbResult->getFieldValue("nick_name");
+		std::string head_url = dbResult->getFieldValue("head_url");
+		dbResult->next();
+	}
+
 	LOG_DEBUG("input any key to end game\n");
 	getchar();
     return 0;
