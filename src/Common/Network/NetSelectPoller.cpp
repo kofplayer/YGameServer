@@ -170,14 +170,14 @@ void NetSelectPoller::handleEvent(int32 &countReady, fd_set &readFDs, fd_set &wr
 #if CURRENT_PLATFORM == PLATFORM_WIN32
 		for (unsigned i = 0; i < readFDs.fd_count; ++i)
 		{
-			int fd = readFDs.fd_array[i];
+			int fd = (int)readFDs.fd_array[i];
 			--countReady;
 			onRead(fd);
 		}
 
 		for (unsigned i = 0; i < writeFDs.fd_count; ++i)
 		{
-			int fd = writeFDs.fd_array[i];
+			int fd = (int)writeFDs.fd_array[i];
 			--countReady;
 			onWrite(fd);
 		}

@@ -2,14 +2,13 @@
 
 YGAME_SERVER_BEGIN
 
-DataBaseMySql::DataBaseMySql()
+DataBaseMySql::DataBaseMySql() : m_port(0), m_dbHandle(NULL)
 {
-    m_dbHandle = NULL;
 }
 
 DataBaseMySql::~DataBaseMySql()
 {
-    
+	disconnect();
 }
 
 void DataBaseMySql::setInfo(const char * host, uint16 port, const char * userName, const char * password, const char * dataBase)
