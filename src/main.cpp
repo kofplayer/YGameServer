@@ -326,6 +326,7 @@ int main(int argc, const char * argv[]) {
 	{
 		std::string nick_name = dbResult->getFieldValue("nick_name");
 		std::string head_url = dbResult->getFieldValue("head_url");
+		LOG_DEBUG("head_url %s\n", head_url.c_str());
 		dbResult->next();
 	}
 

@@ -92,7 +92,7 @@ int32 DBResultMySql::getFieldIndex(const char * fieldName)
 	for (int i = 0; i < m_fieldCount; i++)
 	{
 		// printf("Field %u is %s\n", i, m_fieldInfo [ i ].name);
-		if (stricmp(fieldName, m_fieldInfo[i].name) == 0)
+		if (strcmp(fieldName, m_fieldInfo[i].name) == 0)
 		{
 			return i;
 		}
