@@ -41,7 +41,7 @@
 
 #if CURRENT_PLATFORM == PLATFORM_WIN32
 #include <winsock2.h>		// 必须在windows.h之前包含， 否则网络模块编译会出错
-#include "../../dependencies/mysql/include/mysql.h"
+#include "../../dependencies/mysql/include/windows/mysql.h"
 #pragma comment(lib, "../../dependencies/mysql/lib/windows/libmysql.lib")
 #include <WS2tcpip.h>
 #include <mswsock.h>
@@ -51,6 +51,7 @@
 #include <direct.h>
 #else
 #include <unistd.h>
+#include "mysql/include/linux/mysql.h"
 #include <pthread.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
