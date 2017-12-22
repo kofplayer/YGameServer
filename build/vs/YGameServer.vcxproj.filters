@@ -34,6 +34,12 @@
     <Filter Include="Common\DataBase">
       <UniqueIdentifier>{a5c05d73-e2d0-49d0-93fb-306e7af93d6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Test">
+      <UniqueIdentifier>{a272447d-bc1c-4ead-b8c0-9e072b35b3f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Test\protobuf">
+      <UniqueIdentifier>{10468fc6-3d03-451a-bbae-64f5276fa700}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common\CommonDefine\CommonDefine.h">
@@ -129,6 +135,9 @@
     <ClInclude Include="..\..\src\Common\DataBase\DBResultMySql.h">
       <Filter>Common\DataBase</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Test\protobuf\userinfo.pb.h">
+      <Filter>Test\protobuf</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Event\EventManager.cpp">
@@ -194,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Common\DataBase\DBResult.cpp">
       <Filter>Common\DataBase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Test\protobuf\userinfo.pb.cpp">
+      <Filter>Test\protobuf</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

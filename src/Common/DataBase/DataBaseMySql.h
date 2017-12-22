@@ -12,11 +12,11 @@ protected:
     void disconnect();
     bool isConnect();
     
-    String m_host;
+    YString m_host;
     uint16 m_port;
-    String m_userName;
-    String m_password;
-    String m_dataBase;
+    YString m_userName;
+    YString m_password;
+    YString m_dataBase;
     
     MYSQL * m_dbHandle;
 };

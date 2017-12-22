@@ -72,8 +72,8 @@ private:
 			m_free_objects.push_back(&p[i]);
 		}
 	}
-	Set<ObjectData*> m_used_objects;
-	List<ObjectData*> m_free_objects;
+	YSet<ObjectData*> m_used_objects;
+	YList<ObjectData*> m_free_objects;
 	uint32 m_inc_count;
 };
 

@@ -81,6 +81,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\..\dependencies\protobuf\include\windows;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -102,6 +103,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\dependencies\protobuf\include\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,6 +141,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -173,6 +176,7 @@
     <ClInclude Include="..\..\src\Common\Task\Task.h" />
     <ClInclude Include="..\..\src\Common\Thread\Thread.h" />
     <ClInclude Include="..\..\src\Common\Thread\ThreadLock.h" />
+    <ClInclude Include="..\..\src\Test\protobuf\userinfo.pb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Coroutine\Coroutine.cpp" />
@@ -197,6 +201,7 @@
     <ClCompile Include="..\..\src\Common\Thread\Thread.cpp" />
     <ClCompile Include="..\..\src\Common\Thread\ThreadLock.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\Test\protobuf\userinfo.pb.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

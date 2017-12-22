@@ -43,11 +43,11 @@ typedef unsigned long long uint64;
 typedef uint32 NET_ADDR;
 typedef uint16 NET_PORT;
 
-#define Vector std::vector
-#define Map std::map
-#define List std::list
-#define Set std::set
-#define String std::string
+#define YVector std::vector
+#define YMap std::map
+#define YList std::list
+#define YSet std::set
+#define YString std::string
 
 #if CURRENT_PLATFORM == PLATFORM_WIN32
 #else

@@ -43,6 +43,14 @@
 #include <winsock2.h>		// 必须在windows.h之前包含， 否则网络模块编译会出错
 #include "../../dependencies/mysql/include/windows/mysql.h"
 #pragma comment(lib, "../../dependencies/mysql/lib/windows/libmysql.lib")
+#if _DEBUG
+//#pragma comment(lib, "../../dependencies/protobuf/lib/windows/libprotocd.lib")
+#pragma comment(lib, "../../dependencies/protobuf/lib/windows/libprotobufd.lib")
+#else
+//#pragma comment(lib, "../../dependencies/protobuf/lib/windows/libprotoc.lib")
+#pragma comment(lib, "../../dependencies/protobuf/lib/windows/libprotobuf.lib")
+#endif
+
 #include <WS2tcpip.h>
 #include <mswsock.h>
 #include <windows.h>

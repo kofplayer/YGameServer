@@ -48,8 +48,8 @@ protected:
     bool isAdded(SOCKET_ID s, bool isRead);
 	int32 maxFD() const;
 private:
-	Map<SOCKET_ID, NetReadListener*> m_readListeners;
-	Map<SOCKET_ID, NetWriteListener*> m_writeListeners;
+	YMap<SOCKET_ID, NetReadListener*> m_readListeners;
+	YMap<SOCKET_ID, NetWriteListener*> m_writeListeners;
 };
 
 

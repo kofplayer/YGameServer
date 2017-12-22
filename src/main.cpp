@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "./Common/Common.h"
+#include "Test/protobuf/userinfo.pb.h"
 
 using namespace YGAME_SERVER_NAMESPACE;
 
@@ -329,6 +330,20 @@ int main(int argc, const char * argv[]) {
 		LOG_DEBUG("head_url %s\n", head_url.c_str());
 		dbResult->next();
 	}
+
+	// protobuf测试
+	BaseInfo base_info;
+	base_info.set_userid(850001);
+	base_info.set_gameid(27);
+	base_info.set_nickname("kofplayer");
+	base_info.set_test_fff(0.01);
+	int length = base_info.ByteSize();
+	char* buf = new char[length];
+	base_info.SerializeToArray(buf,length);
+
+	BaseInfo base_info2;
+	base_info2.ParseFromArray(buf,length);
+	LOG_DEBUG("protobuf userid:%d gameid:%d nickname:%s test_fff:%f\n", base_info2.userid(), base_info2.gameid(), base_info2.nickname().c_str(), base_info2.test_fff());
 
 	LOG_DEBUG("input any key to end game\n");
 	getchar();

@@ -37,7 +37,7 @@ public:
     }
 
 private:
-	Set<ObjectDeleter *> m_deleters;
+	YSet<ObjectDeleter *> m_deleters;
 	SpinLock m_threadLock;
 };
 

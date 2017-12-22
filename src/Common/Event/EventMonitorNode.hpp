@@ -3,8 +3,8 @@ template<typename T>
 class EventMonitorNodeBase
 {
 public:
-    typedef Vector<EventHandler*> HandlerList;
-    typedef Map<T, EventMonitorNodeBase<T>/**/> NodeMap;
+    typedef YVector<EventHandler*> HandlerList;
+    typedef YMap<T, EventMonitorNodeBase<T>/**/> NodeMap;
     EventMonitorNodeBase() {};
     virtual ~EventMonitorNodeBase() {};
     void gatherHandler(uint32 deep, const EventFilterBase<T> & filter, HandlerList & rHandlerList)

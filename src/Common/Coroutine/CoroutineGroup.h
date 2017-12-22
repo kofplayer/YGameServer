@@ -10,7 +10,7 @@ public:
 	virtual void Update();
 	virtual uint32 GetCoroutineCount();
 protected:
-	Vector<Coroutine*> m_items;
+	YVector<Coroutine*> m_items;
 };
 
 YGAME_SERVER_END

@@ -13,7 +13,7 @@ public:
 protected:
     int8 m_logLevel;
     MutexLock m_threadLock;
-	List<LogWriter*> m_writerList;
+	YList<LogWriter*> m_writerList;
 };
 
 #define LL_DEBUG 0

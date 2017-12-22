@@ -12,8 +12,8 @@ protected:
 	bool needChangeFile(struct tm & t);
 	void makeFileName(struct tm & t);
 private:
-	String m_path;
-	String m_preName;
+	YString m_path;
+	YString m_preName;
 	FILE * m_file;
 	int m_day;
 	int m_hour;

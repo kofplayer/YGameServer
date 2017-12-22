@@ -21,7 +21,7 @@ private:
     void nextTask();
     Task * getCurTask();
     void startNextTask();
-    Vector<Task*> m_childs;
+    YVector<Task*> m_childs;
     Task * m_pParent;
     TaskCallBackFunc m_pCallBackFunc;
     int32 m_curTaskIndex;

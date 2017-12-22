@@ -28,7 +28,7 @@ private:
     void removeHandlerFromFireList(const EventHandler * pEventHandler, const EventFilter * pEventFilter);
     void pushFire(FireInfo * pFireInfo);
     void popFire();
-    typedef Vector<FireInfo*> FireList;
+    typedef YVector<FireInfo*> FireList;
     FireList m_fireList;
     EventMonitorNode m_monitor;
 };

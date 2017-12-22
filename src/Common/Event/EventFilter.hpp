@@ -50,7 +50,7 @@ public:
         return v.m_filterList == m_filterList;
     }
 private:
-    Vector<T> m_filterList;
+    YVector<T> m_filterList;
 };
 
 typedef EventFilterBase<uint32> EventFilter;
