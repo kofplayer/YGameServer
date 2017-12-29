@@ -21,7 +21,14 @@ bool NetListener::Bind(NET_ADDR addr, NET_PORT port)
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(port);
 	sin.sin_addr.s_addr = htonl(addr);
-	return bind(m_socket, (struct sockaddr*)&sin, sizeof(sin)) == 0;
+
+	bool succ = (bind(m_socket, (struct sockaddr*)&sin, sizeof(sin)) == 0);
+	if (succ)
+	{
+		m_addr = addr;
+		m_port = port;
+	}
+	return succ;
 }
 
 bool NetListener::Listen(int backlog)

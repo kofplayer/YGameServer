@@ -104,6 +104,37 @@ private:
 	int aa;
 };
 
+class poller_thread : public Thread, public Singleton<poller_thread>
+{
+public:
+	poller_thread() 
+	{
+		m_net_poller = gMemory.New<RealNetPoller>();
+	}
+	virtual ~poller_thread() 
+	{
+		gMemory.Delete(m_net_poller);
+	}
+	void addRead(SOCKET_ID s, NetReadHandler * handler)
+	{
+		m_net_poller->addRead(s, handler);
+	}
+	void addWrite(SOCKET_ID s, NetWriteHandler * handler)
+	{
+		m_net_poller->addWrite(s, handler);
+	}
+protected:
+	virtual void run()
+	{
+		while (true)
+		{
+			m_net_poller->waitEvent(1000);
+		}
+	}
+private:
+	NetPoller * m_net_poller;
+};
+
 class listen_thread : public Thread
 {
 public:
@@ -126,7 +157,26 @@ private:
 	int aa;
 };
 
-class listen_listener : public NetReadListener
+class net_rw_handler : public NetReadHandler, public NetWriteHandler
+{
+public:
+	virtual bool onNetRead(SOCKET_ID s)
+	{
+		int64 len = m_connect->Recv(m_buffer, sizeof(m_buffer));
+		m_buffer[len-1] = 0;
+		LOG_DEBUG("socket %d recv %s", m_connect->getSocket(), m_buffer);
+		return true;
+	}
+	virtual bool onNetWrite(SOCKET_ID s)
+	{
+		return true;
+	}
+	NetConnect * m_connect;
+private:
+	char m_buffer[512];
+};
+
+class listen_handler : public NetReadHandler
 {
 public:
 	virtual bool onNetRead(SOCKET_ID s)
@@ -135,39 +185,17 @@ public:
 		NetPConnect * conn = m_listener->Accept();
 		if (conn)
 		{
-			LOG_DEBUG("Accept succ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+			LOG_DEBUG("Accept prot %u succ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", m_listener->getPort());
+			net_rw_handler * handler = gMemory.New<net_rw_handler>();
+			handler->m_connect = conn;
+			poller_thread::getInstance()->addRead(conn->getSocket(), handler);
+			poller_thread::getInstance()->addWrite(conn->getSocket(), handler);
 		}
 		return true;
 	}
 
 public:
 	NetListener * m_listener;
-};
-
-class poller_thread : public Thread
-{
-public:
-	virtual ~poller_thread() {};
-protected:
-	virtual void run()
-	{
-		NetListener * listener = gMemory.New<NetListener>();
-		bool succ = listener->Create();
-		succ = listener->Bind(INADDR_ANY, 8888);
-		succ = listener->Listen();
-
-		NetPoller * poller = gMemory.New<RealNetPoller>();
-		listen_listener * listenListener = gMemory.New<listen_listener>();
-		listenListener->m_listener = listener;
-
-		poller->addRead(listener->getSocket(), listenListener);
-		while (true)
-		{
-			poller->waitEvent(1000);
-		}
-	}
-private:
-	int aa;
 };
 
 
@@ -314,7 +342,26 @@ int main(int argc, const char * argv[]) {
 	// 网络测试
 	LOG_DEBUG("net listen test\n");
 	//gMemory.New<listen_thread>()->start();
-	gMemory.New<poller_thread>()->start();
+
+	poller_thread::getInstance()->start();
+
+
+	NetListener * listener = gMemory.New<NetListener>();
+	bool succ = listener->Create();
+	succ = listener->Bind(INADDR_ANY, 8888);
+	succ = listener->Listen();
+	listen_handler * listenHandler = gMemory.New<listen_handler>();
+	listenHandler->m_listener = listener;
+	poller_thread::getInstance()->addRead(listener->getSocket(), listenHandler);
+
+	listener = gMemory.New<NetListener>();
+	succ = listener->Create();
+	succ = listener->Bind(INADDR_ANY, 7777);
+	succ = listener->Listen();
+	listenHandler = gMemory.New<listen_handler>();
+	listenHandler->m_listener = listener;
+	poller_thread::getInstance()->addRead(listener->getSocket(), listenHandler);
+
 
 	//db测试
 	DataBase * db = gMemory.New<DataBaseMySql>();

@@ -1,26 +1,26 @@
 ﻿YGAME_SERVER_BEGIN
 
-class NetReadListener
+class NetReadHandler
 {
 public:
-	NetReadListener() {}
-	virtual ~NetReadListener() {}
+	NetReadHandler() {}
+	virtual ~NetReadHandler() {}
 	virtual bool onNetRead(SOCKET_ID s) = 0;
 };
 
-class NetWriteListener
+class NetWriteHandler
 {
 public:
-	NetWriteListener() {}
-	virtual ~NetWriteListener() {}
+	NetWriteHandler() {}
+	virtual ~NetWriteHandler() {}
 	virtual bool onNetWrite(SOCKET_ID s) = 0;
 };
 
-class NetErrorListener
+class NetErrorHandler
 {
 public:
-	NetErrorListener() {}
-	virtual ~NetErrorListener() {}
+	NetErrorHandler() {}
+	virtual ~NetErrorHandler() {}
 	virtual bool onNetError(SOCKET_ID s) = 0;
 };
 
@@ -30,8 +30,8 @@ public:
 	NetPoller();
 	virtual ~NetPoller();
 
-	bool addRead(SOCKET_ID s, NetReadListener * listener);
-	bool addWrite(SOCKET_ID s, NetWriteListener * listener);
+	bool addRead(SOCKET_ID s, NetReadHandler * handler);
+	bool addWrite(SOCKET_ID s, NetWriteHandler * handler);
 	bool removeRead(SOCKET_ID s);
 	bool removeWrite(SOCKET_ID s);
 
@@ -48,8 +48,9 @@ protected:
     bool isAdded(SOCKET_ID s, bool isRead);
 	int32 maxFD() const;
 private:
-	YMap<SOCKET_ID, NetReadListener*> m_readListeners;
-	YMap<SOCKET_ID, NetWriteListener*> m_writeListeners;
+	YMap<SOCKET_ID, NetReadHandler*> m_readHandlers;
+	YMap<SOCKET_ID, NetWriteHandler*> m_writeHandlers;
+	SpinLock m_lock;
 };
 
 

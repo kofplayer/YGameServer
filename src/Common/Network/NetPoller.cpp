@@ -10,50 +10,55 @@ NetPoller::~NetPoller()
 {
 }
 
-bool NetPoller::addRead(SOCKET_ID s, NetReadListener * listener)
+bool NetPoller::addRead(SOCKET_ID s, NetReadHandler * handler)
 {
+	AutoThreadLock autoLock(&m_lock);
 	if (!doAddRead(s))
 	{
 		return false;
 	}
-	m_readListeners[s] = listener;
+	m_readHandlers[s] = handler;
 	return true;
 }
 
-bool NetPoller::addWrite(SOCKET_ID s, NetWriteListener * listener)
+bool NetPoller::addWrite(SOCKET_ID s, NetWriteHandler * handler)
 {
+	AutoThreadLock autoLock(&m_lock);
 	if (!doAddWrite(s))
 	{
 		return false;
 	}
-	m_writeListeners[s] = listener;
+	m_writeHandlers[s] = handler;
 	return false;
 }
 
 bool NetPoller::removeRead(SOCKET_ID s)
 {
+	AutoThreadLock autoLock(&m_lock);
 	if (!doRemoveRead(s))
 	{
 		return false;
 	}
-	m_readListeners.erase(s);
+	m_readHandlers.erase(s);
 	return true;
 }
 
 bool NetPoller::removeWrite(SOCKET_ID s)
 {
+	AutoThreadLock autoLock(&m_lock);
 	if (!doRemoveWrite(s))
 	{
 		return false;
 	}
-	m_writeListeners.erase(s);
+	m_writeHandlers.erase(s);
 	return true;
 }
 
 bool NetPoller::onRead(SOCKET_ID s)
 {
-	auto itor = m_readListeners.find(s);
-	if (itor == m_readListeners.end())
+	AutoThreadLock autoLock(&m_lock);
+	auto itor = m_readHandlers.find(s);
+	if (itor == m_readHandlers.end())
 	{
 		return false;
 	}
@@ -62,8 +67,9 @@ bool NetPoller::onRead(SOCKET_ID s)
 
 bool NetPoller::onWrite(SOCKET_ID s)
 {
-	auto itor = m_writeListeners.find(s);
-	if (itor == m_writeListeners.end())
+	AutoThreadLock autoLock(&m_lock);
+	auto itor = m_writeHandlers.find(s);
+	if (itor == m_writeHandlers.end())
 	{
 		return false;
 	}
@@ -81,14 +87,14 @@ bool NetPoller::onError(SOCKET_ID s)
 
 bool NetPoller::isAdded(SOCKET_ID s, bool isRead)
 {
-    return isRead ? m_readListeners.find(s) != m_readListeners.end() : m_writeListeners.find(s) != m_writeListeners.end();;
+    return isRead ? m_readHandlers.find(s) != m_readHandlers.end() : m_writeHandlers.find(s) != m_writeHandlers.end();;
 }
 
 int32 NetPoller::maxFD() const
 {
 	int32 max = -1;
 
-	for (auto itor = m_readListeners.begin();  itor != m_readListeners.end(); ++itor)
+	for (auto itor = m_readHandlers.begin();  itor != m_readHandlers.end(); ++itor)
 	{
 		if (itor->first > max)
 		{
@@ -96,7 +102,7 @@ int32 NetPoller::maxFD() const
 		}
 	}
 
-	for (auto itor = m_writeListeners.begin(); itor != m_writeListeners.end(); ++itor)
+	for (auto itor = m_writeHandlers.begin(); itor != m_writeHandlers.end(); ++itor)
 	{
 		if (itor->first > max)
 		{
