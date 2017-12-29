@@ -123,6 +123,14 @@ public:
 	{
 		m_net_poller->addWrite(s, handler);
 	}
+	void removeRead(SOCKET_ID s)
+	{
+		m_net_poller->removeRead(s);
+	}
+	void removeWrite(SOCKET_ID s)
+	{
+		m_net_poller->removeWrite(s);
+	}
 protected:
 	virtual void run()
 	{
@@ -163,8 +171,16 @@ public:
 	virtual bool onNetRead(SOCKET_ID s)
 	{
 		int64 len = m_connect->Recv(m_buffer, sizeof(m_buffer));
-		m_buffer[len-1] = 0;
-		LOG_DEBUG("socket %d recv %s", m_connect->GetSocket(), m_buffer);
+		if (len > 0)
+		{
+			m_buffer[len-1] = 0;
+			LOG_DEBUG("socket %d recv %s\n", m_connect->GetSocket(), m_buffer);
+		}
+		else if (len == 0)
+		{
+			poller_thread::getInstance()->removeRead(m_connect->GetSocket());
+			m_connect->Close();
+		}
 		return true;
 	}
 	virtual bool onNetWrite(SOCKET_ID s)
