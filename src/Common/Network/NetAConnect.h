@@ -7,11 +7,8 @@ public:
 	NetAConnect();
 	virtual ~NetAConnect();
 
-	virtual bool Create(int type = SOCK_STREAM);
-
-protected:
-	NET_ADDR m_addr;
-	NET_PORT m_port;
+	virtual bool Connect(bool isBlock);
+	virtual bool ConnectUrl(const char * url);
 };
 
 YGAME_SERVER_END

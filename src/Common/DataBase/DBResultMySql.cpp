@@ -12,10 +12,10 @@ m_fieldInfo(NULL)
 
 DBResultMySql::~DBResultMySql()
 {
-	clear();
+	Clear();
 }
 
-void DBResultMySql::moveToFirst()
+void DBResultMySql::MoveToFirst()
 {
 	if (m_dataSet != NULL)
 	{
@@ -23,7 +23,7 @@ void DBResultMySql::moveToFirst()
 	}
 };
 
-void DBResultMySql::moveToLast()
+void DBResultMySql::MoveToLast()
 {
 	if (m_dataSet != NULL)
 	{
@@ -31,17 +31,17 @@ void DBResultMySql::moveToLast()
 	}
 }
 
-uint32 DBResultMySql::getRowCount()
+uint32 DBResultMySql::GetRowCount()
 {
 	return m_rowCount;
 }
 
-uint32 DBResultMySql::getFieldCount()
+uint32 DBResultMySql::GetFieldCount()
 {
 	return m_fieldCount;
 }
 
-void DBResultMySql::next()
+void DBResultMySql::Next()
 {
 	if (NULL == m_dataSet)
 	{
@@ -50,12 +50,12 @@ void DBResultMySql::next()
 	m_row = mysql_fetch_row(m_dataSet);
 }
 
-bool DBResultMySql::isEnd()
+bool DBResultMySql::IsEnd()
 {
 	return m_row == NULL;
 }
 
-void DBResultMySql::clear()
+void DBResultMySql::Clear()
 {
 	if (m_dataSet != NULL)
 	{
@@ -68,11 +68,11 @@ void DBResultMySql::clear()
 	m_rowCount = 0;
 }
 
-const char * DBResultMySql::getFieldValue(const char * fieldName)
+const char * DBResultMySql::GetFieldValue(const char * fieldName)
 {
 	if (NULL == m_dataSet || fieldName == NULL || m_fieldInfo == NULL)
 		return NULL;
-	int fieldIndex = getFieldIndex(fieldName);
+	int fieldIndex = GetFieldIndex(fieldName);
 	if (fieldIndex >= 0 && fieldIndex < m_fieldCount)
 	{
 		if (m_row[fieldIndex] == NULL)
@@ -84,7 +84,7 @@ const char * DBResultMySql::getFieldValue(const char * fieldName)
 	return NULL;
 }
 
-int32 DBResultMySql::getFieldIndex(const char * fieldName)
+int32 DBResultMySql::GetFieldIndex(const char * fieldName)
 {
 	if (NULL == m_dataSet || fieldName == NULL || m_fieldInfo == NULL)
 		return -1;
@@ -104,17 +104,17 @@ int32 DBResultMySql::getFieldIndex(const char * fieldName)
 	return -1;
 }
 
-void DBResultMySql::setDataSet(MYSQL_RES * query)
+void DBResultMySql::SetDataSet(MYSQL_RES * query)
 {
 	m_fieldCount = 0;
 	m_fieldInfo = NULL;
 	m_row = NULL;
 	m_rowCount = 0;
 	this->m_dataSet = query;
-	getDataSetInfo();
+	GetDataSetInfo();
 }
 
-void DBResultMySql::getDataSetInfo()
+void DBResultMySql::GetDataSetInfo()
 {
 	if (m_dataSet != NULL)
 	{

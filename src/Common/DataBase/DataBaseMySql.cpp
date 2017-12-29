@@ -8,10 +8,10 @@ DataBaseMySql::DataBaseMySql() : m_port(0), m_dbHandle(NULL)
 
 DataBaseMySql::~DataBaseMySql()
 {
-	disconnect();
+	Disconnect();
 }
 
-void DataBaseMySql::setInfo(const char * host, uint16 port, const char * userName, const char * password, const char * dataBase)
+void DataBaseMySql::SetInfo(const char * host, uint16 port, const char * userName, const char * password, const char * dataBase)
 {
     m_host = host;
     m_port = port;
@@ -20,12 +20,12 @@ void DataBaseMySql::setInfo(const char * host, uint16 port, const char * userNam
     m_dataBase = dataBase;
 }
 
-bool DataBaseMySql::query(const char * cmd, DBResult * result)
+bool DataBaseMySql::Query(const char * cmd, DBResult * result)
 {
-    if (!isConnect()) {
-        connect();
+    if (!IsConnect()) {
+        Connect();
     }
-    if (!isConnect()) {
+    if (!IsConnect()) {
         return false;
     }
     
@@ -34,7 +34,7 @@ bool DataBaseMySql::query(const char * cmd, DBResult * result)
         LOG_ERROR("errno=%d err=%s sql=%s\n", mysql_errno(m_dbHandle), mysql_error(m_dbHandle), cmd);
         if (mysql_errno(m_dbHandle) == 2006 || mysql_errno(m_dbHandle) == 2013)
         {
-            if (!connect())
+            if (!Connect())
             {
                 return false;
             }
@@ -59,13 +59,13 @@ bool DataBaseMySql::query(const char * cmd, DBResult * result)
         }
 		res = temp;
     } while (!mysql_next_result(m_dbHandle));
-	dynamic_cast<DBResultMySql*>(result)->setDataSet(res);
+	dynamic_cast<DBResultMySql*>(result)->SetDataSet(res);
     return true;
 }
 
-bool DataBaseMySql::connect()
+bool DataBaseMySql::Connect()
 {
-    disconnect();
+    Disconnect();
     mysql_library_init(0,NULL,NULL);
     m_dbHandle = mysql_init((MYSQL*)NULL);
     if (m_dbHandle == NULL)
@@ -80,7 +80,7 @@ bool DataBaseMySql::connect()
     if ( mysql_real_connect( m_dbHandle, m_host.c_str(), m_userName.c_str(), m_password.c_str(), m_dataBase.c_str(), m_port, NULL, CLIENT_BASIC_FLAGS & ~CLIENT_NO_SCHEMA & ~CLIENT_IGNORE_SIGPIPE/*clientOpt | CLIENT_INTERACTIVE*/ ) == NULL )
     {
         LOG_ERROR("mysql_real_connect errno = %d err = %s\n", mysql_errno(m_dbHandle), mysql_error(m_dbHandle));
-        disconnect();
+        Disconnect();
         return false ;
     }
     mysql_set_character_set(m_dbHandle, "utf8");
@@ -88,7 +88,7 @@ bool DataBaseMySql::connect()
     return true ;
 }
 
-void DataBaseMySql::disconnect()
+void DataBaseMySql::Disconnect()
 {
     if ( m_dbHandle != NULL )
     {
@@ -98,7 +98,7 @@ void DataBaseMySql::disconnect()
     }
 }
 
-bool DataBaseMySql::isConnect()
+bool DataBaseMySql::IsConnect()
 {
     return m_dbHandle != NULL;
 }

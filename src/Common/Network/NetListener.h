@@ -7,10 +7,10 @@ public:
 	NetListener();
 	virtual ~NetListener();
 
-	virtual bool Create(int type = SOCK_STREAM);
-	virtual bool Bind(NET_ADDR addr, NET_PORT port);
 	virtual bool Listen(int backlog = 5);
 	virtual NetPConnect * Accept();
+protected:
+	virtual bool Bind();
 };
 
 YGAME_SERVER_END

@@ -70,6 +70,7 @@
 #include <netinet/tcp.h> 
 #include <netinet/ip.h>
 #include <stdarg.h>
+#include <fcntl.h> 
 #endif
 
 #if CURRENT_PLATFORM == PLATFORM_UNIX

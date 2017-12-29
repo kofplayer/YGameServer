@@ -9,22 +9,45 @@ NetBase::~NetBase()
 {
 }
 
-SOCKET_ID NetBase::getSocket()
+SOCKET_ID NetBase::GetSocket()
 {
 	return m_socket;
 }
 
-NET_ADDR NetBase::getAddr()
+NET_ADDR NetBase::GetAddr()
 {
 	return m_addr;
 }
 
-NET_PORT NetBase::getPort()
+NET_PORT NetBase::GetPort()
 {
 	return m_port;
 }
 
-bool NetBase::_create(int type)
+void NetBase::SetAddr(const NET_ADDR addr)
+{
+	m_addr = addr;
+}
+
+void NetBase::SetPort(const NET_PORT port)
+{
+	m_port = port;
+}
+
+void NetBase::Close()
+{
+	if (m_socket != INVALID_SOCKET)
+	{
+#if CURRENT_PLATFORM == PLATFORM_WIN32
+		closesocket(m_socket);
+#else
+		::close(m_socket);
+#endif
+		m_socket = INVALID_SOCKET;
+	}
+}
+
+bool NetBase::Create(int type, bool isBlock)
 {
 	m_socket = (SOCKET_ID)socket(AF_INET, type, 0);
 #if CURRENT_PLATFORM == PLATFORM_WIN32
@@ -35,7 +58,28 @@ bool NetBase::_create(int type)
 		m_socket = (SOCKET_ID)socket(AF_INET, type, 0);
 	}
 #endif
-	return (m_socket != INVALID_SOCKET);
+	bool succ = (m_socket != INVALID_SOCKET);
+	if (succ && !isBlock)
+	{
+#if CURRENT_PLATFORM == PLATFORM_WIN32
+		u_long nonblocking = 1;
+		if (ioctlsocket(m_socket, FIONBIO, &nonblocking) == SOCKET_ERROR) 
+		{
+			assert(false);
+		}
+#else
+		int flags = 0;
+		if ((flags = fcntl(fd, F_GETFL, NULL)) < 0) 
+		{
+			assert(false);
+		}
+		else if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) == -1) 
+		{
+			assert(false);
+		}
+#endif
+	}
+	return succ;
 }
 
 YGAME_SERVER_END

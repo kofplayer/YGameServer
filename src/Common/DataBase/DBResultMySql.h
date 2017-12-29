@@ -6,19 +6,19 @@ class DBResultMySql : public DBResult
 public:
 	DBResultMySql();
 	virtual ~DBResultMySql();
-	virtual void moveToFirst();
-	virtual void moveToLast();
-	virtual uint32 getRowCount();
-	virtual uint32 getFieldCount();
-	virtual void next();
-	virtual bool isEnd();
-	virtual void clear();
-	virtual const char * getFieldValue(const char * fieldName);
+	virtual void MoveToFirst();
+	virtual void MoveToLast();
+	virtual uint32 GetRowCount();
+	virtual uint32 GetFieldCount();
+	virtual void Next();
+	virtual bool IsEnd();
+	virtual void Clear();
+	virtual const char * GetFieldValue(const char * fieldName);
 protected:
-	void setDataSet(MYSQL_RES * query);
+	void SetDataSet(MYSQL_RES * query);
 private:
-	int32 getFieldIndex(const char * fieldName);
-	void getDataSetInfo();
+	int32 GetFieldIndex(const char * fieldName);
+	void GetDataSetInfo();
     MYSQL_RES *		m_dataSet;
     MYSQL_FIELD *   m_fieldInfo;
     MYSQL_ROW       m_row;

@@ -143,9 +143,9 @@ protected:
 	virtual void run()
 	{
 		NetListener * listener = gMemory.New<NetListener>();
-		bool succ = listener->Create();
-		succ = listener->Bind(INADDR_ANY, 9999);
-		succ = listener->Listen();
+		listener->SetAddr(INADDR_ANY);
+		listener->SetPort(9999);
+		bool succ = listener->Listen();
 
 		NetPConnect * conn = listener->Accept();
 		if (conn)
@@ -164,7 +164,7 @@ public:
 	{
 		int64 len = m_connect->Recv(m_buffer, sizeof(m_buffer));
 		m_buffer[len-1] = 0;
-		LOG_DEBUG("socket %d recv %s", m_connect->getSocket(), m_buffer);
+		LOG_DEBUG("socket %d recv %s", m_connect->GetSocket(), m_buffer);
 		return true;
 	}
 	virtual bool onNetWrite(SOCKET_ID s)
@@ -185,11 +185,11 @@ public:
 		NetPConnect * conn = m_listener->Accept();
 		if (conn)
 		{
-			LOG_DEBUG("Accept prot %u succ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", m_listener->getPort());
+			LOG_DEBUG("Accept prot %u succ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", m_listener->GetPort());
 			net_rw_handler * handler = gMemory.New<net_rw_handler>();
 			handler->m_connect = conn;
-			poller_thread::getInstance()->addRead(conn->getSocket(), handler);
-			poller_thread::getInstance()->addWrite(conn->getSocket(), handler);
+			poller_thread::getInstance()->addRead(conn->GetSocket(), handler);
+			poller_thread::getInstance()->addWrite(conn->GetSocket(), handler);
 		}
 		return true;
 	}
@@ -347,35 +347,35 @@ int main(int argc, const char * argv[]) {
 
 
 	NetListener * listener = gMemory.New<NetListener>();
-	bool succ = listener->Create();
-	succ = listener->Bind(INADDR_ANY, 8888);
-	succ = listener->Listen();
+	listener->SetAddr(INADDR_ANY);
+	listener->SetPort(8888);
+	bool succ = listener->Listen();
 	listen_handler * listenHandler = gMemory.New<listen_handler>();
 	listenHandler->m_listener = listener;
-	poller_thread::getInstance()->addRead(listener->getSocket(), listenHandler);
+	poller_thread::getInstance()->addRead(listener->GetSocket(), listenHandler);
 
 	listener = gMemory.New<NetListener>();
-	succ = listener->Create();
-	succ = listener->Bind(INADDR_ANY, 7777);
+	listener->SetAddr(INADDR_ANY);
+	listener->SetPort(9999);
 	succ = listener->Listen();
 	listenHandler = gMemory.New<listen_handler>();
 	listenHandler->m_listener = listener;
-	poller_thread::getInstance()->addRead(listener->getSocket(), listenHandler);
+	poller_thread::getInstance()->addRead(listener->GetSocket(), listenHandler);
 
 
 	//db测试
 	DataBase * db = gMemory.New<DataBaseMySql>();
-	db->setInfo("116.62.50.103", 3306, "root", "4391007", "king_flower");
+	db->SetInfo("116.62.50.103", 3306, "root", "4391007", "king_flower");
 	DBResult * dbResult = gMemory.New<DBResultMySql>();
-	db->query("select * from user_info where user_type=0", dbResult);
-	uint32 f = dbResult->getFieldCount();
-	uint32 r = dbResult->getRowCount();
-	while (!dbResult->isEnd())
+	db->Query("select * from user_info where user_type=0", dbResult);
+	uint32 f = dbResult->GetFieldCount();
+	uint32 r = dbResult->GetRowCount();
+	while (!dbResult->IsEnd())
 	{
-		std::string nick_name = dbResult->getFieldValue("nick_name");
-		std::string head_url = dbResult->getFieldValue("head_url");
+		std::string nick_name = dbResult->GetFieldValue("nick_name");
+		std::string head_url = dbResult->GetFieldValue("head_url");
 		LOG_DEBUG("head_url %s\n", head_url.c_str());
-		dbResult->next();
+		dbResult->Next();
 	}
 
 	// protobuf测试

@@ -2,16 +2,16 @@
 
 YGAME_SERVER_BEGIN
 
-int64 DBResult::getFieldInt(const char * fieldName)
+int64 DBResult::GetFieldInt(const char * fieldName)
 {
-	const char * value = getFieldValue(fieldName);
+	const char * value = GetFieldValue(fieldName);
 	if (value == NULL) return 0;
 	return atol(value);
 }
 
-float DBResult::getFieldFloat(const char * fieldName)
+float DBResult::GetFieldFloat(const char * fieldName)
 {
-	const char * value = getFieldValue(fieldName);
+	const char * value = GetFieldValue(fieldName);
 	if (value == NULL) return 0;
 	return (float)atof(value);
 }

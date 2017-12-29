@@ -5,12 +5,12 @@ class DataBaseMySql : public DataBase
 public:
     DataBaseMySql();
     virtual ~DataBaseMySql();
-    virtual void setInfo(const char * host, uint16 port, const char * userName, const char * password, const char * dataBase);
-    virtual bool query(const char * cmd, DBResult * result);
+    virtual void SetInfo(const char * host, uint16 port, const char * userName, const char * password, const char * dataBase);
+    virtual bool Query(const char * cmd, DBResult * result);
 protected:
-    bool connect();
-    void disconnect();
-    bool isConnect();
+    bool Connect();
+    void Disconnect();
+    bool IsConnect();
     
     YString m_host;
     uint16 m_port;

@@ -9,30 +9,27 @@ NetListener::~NetListener()
 {
 }
 
-bool NetListener::Create(int type)
-{
-	return _create(type);
-}
-
-bool NetListener::Bind(NET_ADDR addr, NET_PORT port)
+bool NetListener::Bind()
 {
 	sockaddr_in	sin;
 	memset(&sin, 0, sizeof(sockaddr_in));
 	sin.sin_family = AF_INET;
-	sin.sin_port = htons(port);
-	sin.sin_addr.s_addr = htonl(addr);
-
-	bool succ = (bind(m_socket, (struct sockaddr*)&sin, sizeof(sin)) == 0);
-	if (succ)
-	{
-		m_addr = addr;
-		m_port = port;
-	}
-	return succ;
+	sin.sin_port = htons(m_port);
+	sin.sin_addr.s_addr = htonl(m_addr);
+	return (bind(m_socket, (struct sockaddr*)&sin, sizeof(sin)) == 0);
 }
 
 bool NetListener::Listen(int backlog)
 {
+	Close();
+	if (!Create(SOCK_STREAM, true))
+	{
+		return false;
+	}
+	if (!Bind())
+	{
+		return false;
+	}
 	return listen(m_socket, backlog) == 0;
 }
 
