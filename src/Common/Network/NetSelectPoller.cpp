@@ -14,7 +14,7 @@ NetSelectPoller::~NetSelectPoller()
 {
 }
 
-int32 NetSelectPoller::waitEvent(int32 waitUS)
+int32 NetSelectPoller::WaitEvent(int32 waitUS)
 {
 	fd_set readFDs;
 	fd_set writeFDs;
@@ -47,7 +47,7 @@ int32 NetSelectPoller::waitEvent(int32 waitUS)
 
 	if (countReady > 0)
 	{
-		this->handleEvent(countReady, readFDs, writeFDs);
+		this->HandleEvent(countReady, readFDs, writeFDs);
 	}
 	else if (countReady == -1)
 	{
@@ -57,7 +57,7 @@ int32 NetSelectPoller::waitEvent(int32 waitUS)
 	return countReady;
 }
 
-bool NetSelectPoller::doAddRead(SOCKET_ID fd)
+bool NetSelectPoller::DoAddRead(SOCKET_ID fd)
 {
 #if CURRENT_PLATFORM != PLATFORM_WIN32
 	if ((fd < 0) || (FD_SETSIZE <= fd))
@@ -88,7 +88,7 @@ bool NetSelectPoller::doAddRead(SOCKET_ID fd)
 	return true;
 }
 
-bool NetSelectPoller::doAddWrite(SOCKET_ID fd)
+bool NetSelectPoller::DoAddWrite(SOCKET_ID fd)
 {
 #if CURRENT_PLATFORM != PLATFORM_WIN32
 	if ((fd < 0) || (FD_SETSIZE <= fd))
@@ -119,7 +119,7 @@ bool NetSelectPoller::doAddWrite(SOCKET_ID fd)
 	return true;
 }
 
-bool NetSelectPoller::doRemoveRead(SOCKET_ID fd)
+bool NetSelectPoller::DoRemoveRead(SOCKET_ID fd)
 {
 #if CURRENT_PLATFORM != PLATFORM_WIN32
 	if ((fd < 0) || (FD_SETSIZE <= fd))
@@ -136,13 +136,13 @@ bool NetSelectPoller::doRemoveRead(SOCKET_ID fd)
 
 	if (fd == m_fdLargest)
 	{
-		m_fdLargest = maxFD();
+		m_fdLargest = MaxFD();
 	}
 
 	return true;
 }
 
-bool NetSelectPoller::doRemoveWrite(SOCKET_ID fd)
+bool NetSelectPoller::DoRemoveWrite(SOCKET_ID fd)
 {
 #if CURRENT_PLATFORM != PLATFORM_WIN32
 	if ((fd < 0) || (FD_SETSIZE <= fd))
@@ -159,27 +159,27 @@ bool NetSelectPoller::doRemoveWrite(SOCKET_ID fd)
 
 	if (fd == m_fdLargest)
 	{
-		m_fdLargest = maxFD();
+		m_fdLargest = MaxFD();
 	}
 	--m_fdWriteCount;
 	return true;
 }
 
-void NetSelectPoller::handleEvent(int32 &countReady, fd_set &readFDs, fd_set &writeFDs)
+void NetSelectPoller::HandleEvent(int32 &countReady, fd_set &readFDs, fd_set &writeFDs)
 {
 #if CURRENT_PLATFORM == PLATFORM_WIN32
 		for (unsigned i = 0; i < readFDs.fd_count; ++i)
 		{
 			int fd = (int)readFDs.fd_array[i];
 			--countReady;
-			onRead(fd);
+			OnRead(fd);
 		}
 
 		for (unsigned i = 0; i < writeFDs.fd_count; ++i)
 		{
 			int fd = (int)writeFDs.fd_array[i];
 			--countReady;
-			onWrite(fd);
+			OnWrite(fd);
 		}
 
 #else
@@ -188,13 +188,13 @@ void NetSelectPoller::handleEvent(int32 &countReady, fd_set &readFDs, fd_set &wr
 			if (FD_ISSET(fd, &readFDs))
 			{
 				--countReady;
-				onRead(fd);
+				OnRead(fd);
 			}
 
 			if (FD_ISSET(fd, &writeFDs))
 			{
 				--countReady;
-				onWrite(fd);
+				OnWrite(fd);
 			}
 		}
 #endif

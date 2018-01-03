@@ -10,10 +10,10 @@ NetPoller::~NetPoller()
 {
 }
 
-bool NetPoller::addRead(SOCKET_ID s, NetReadHandler * handler)
+bool NetPoller::AddRead(SOCKET_ID s, NetReadHandler * handler)
 {
 	AutoThreadLock autoLock(&m_lock);
-	if (!doAddRead(s))
+	if (!DoAddRead(s))
 	{
 		return false;
 	}
@@ -21,10 +21,10 @@ bool NetPoller::addRead(SOCKET_ID s, NetReadHandler * handler)
 	return true;
 }
 
-bool NetPoller::addWrite(SOCKET_ID s, NetWriteHandler * handler)
+bool NetPoller::AddWrite(SOCKET_ID s, NetWriteHandler * handler)
 {
 	AutoThreadLock autoLock(&m_lock);
-	if (!doAddWrite(s))
+	if (!DoAddWrite(s))
 	{
 		return false;
 	}
@@ -32,29 +32,29 @@ bool NetPoller::addWrite(SOCKET_ID s, NetWriteHandler * handler)
 	return false;
 }
 
-bool NetPoller::removeRead(SOCKET_ID s)
+bool NetPoller::RemoveRead(SOCKET_ID s)
 {
 	AutoThreadLock autoLock(&m_lock);
-	if (!doRemoveRead(s))
-	{
-		return false;
-	}
 	m_readHandlers.erase(s);
-	return true;
-}
-
-bool NetPoller::removeWrite(SOCKET_ID s)
-{
-	AutoThreadLock autoLock(&m_lock);
-	if (!doRemoveWrite(s))
+	if (!DoRemoveRead(s))
 	{
 		return false;
 	}
-	m_writeHandlers.erase(s);
 	return true;
 }
 
-bool NetPoller::onRead(SOCKET_ID s)
+bool NetPoller::RemoveWrite(SOCKET_ID s)
+{
+	AutoThreadLock autoLock(&m_lock);
+	m_writeHandlers.erase(s);
+	if (!DoRemoveWrite(s))
+	{
+		return false;
+	}
+	return true;
+}
+
+bool NetPoller::OnRead(SOCKET_ID s)
 {
 	AutoThreadLock autoLock(&m_lock);
 	auto itor = m_readHandlers.find(s);
@@ -62,10 +62,10 @@ bool NetPoller::onRead(SOCKET_ID s)
 	{
 		return false;
 	}
-	return itor->second->onNetRead(s);
+	return itor->second->OnNetRead(s);
 }
 
-bool NetPoller::onWrite(SOCKET_ID s)
+bool NetPoller::OnWrite(SOCKET_ID s)
 {
 	AutoThreadLock autoLock(&m_lock);
 	auto itor = m_writeHandlers.find(s);
@@ -73,24 +73,24 @@ bool NetPoller::onWrite(SOCKET_ID s)
 	{
 		return false;
 	}
-	return itor->second->onNetWrite(s);
+	return itor->second->OnNetWrite(s);
 }
 
-bool NetPoller::onError(SOCKET_ID s)
+bool NetPoller::OnError(SOCKET_ID s)
 {
-    if (!onRead(s))
+    if (!OnRead(s))
     {
-        return onWrite(s);
+        return OnWrite(s);
     }
     return true;
 }
 
-bool NetPoller::isAdded(SOCKET_ID s, bool isRead)
+bool NetPoller::IsAdded(SOCKET_ID s, bool isRead)
 {
     return isRead ? m_readHandlers.find(s) != m_readHandlers.end() : m_writeHandlers.find(s) != m_writeHandlers.end();;
 }
 
-int32 NetPoller::maxFD() const
+int32 NetPoller::MaxFD() const
 {
 	int32 max = -1;
 

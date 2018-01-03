@@ -5,8 +5,8 @@ class ThreadLock
 public:
 	ThreadLock() {}
 	virtual ~ThreadLock() {}
-	virtual void lock() = 0;
-	virtual void unlock() = 0;
+	virtual void Lock() = 0;
+	virtual void Unlock() = 0;
 };
 
 class ThreadRWLock
@@ -14,16 +14,16 @@ class ThreadRWLock
 public:
     ThreadRWLock() {}
     virtual ~ThreadRWLock() {}
-    virtual void lock() = 0;
-    virtual void rlock() = 0;
-    virtual void unlock() = 0;
+    virtual void Lock() = 0;
+    virtual void RLock() = 0;
+    virtual void Unlock() = 0;
 };
 
 class ThreadNoneLock: public ThreadLock
 {
 public:
-    virtual void lock() {}
-    virtual void unlock() {}
+    virtual void Lock() {}
+    virtual void Unlock() {}
 };
 
 class MutexLock : public ThreadLock
@@ -31,8 +31,8 @@ class MutexLock : public ThreadLock
 public:
 	MutexLock();
 	virtual ~MutexLock();
-	virtual void lock();
-	virtual void unlock();
+	virtual void Lock();
+	virtual void Unlock();
 protected:
 	THREAD_MUTEX m_mutex;
 };
@@ -44,10 +44,10 @@ class SpinLock : public ThreadLock
 public:
     SpinLock();
     virtual ~SpinLock();
-    virtual void lock();
-    virtual void unlock();
+    virtual void Lock();
+    virtual void Unlock();
 private:
-    pthread_spinlock_t		m_spinlock;
+    pthread_spinlock_t		m_spinLock;
 };
 
 #else
@@ -55,24 +55,26 @@ class SpinLock : public MutexLock {};
 
 #endif
 
-#if CURRENT_PLATFORM != PLATFORM_WIN32
 class RWLock : public ThreadRWLock
 {
 public:
     RWLock();
     virtual ~RWLock();
-    virtual void lock();
-    virtual void rlock();
-    virtual void unlock();
+    virtual void Lock();
+    virtual void RLock();
+    virtual void Unlock();
 private:
-    pthread_rwlock_t		m_rwlock;
-};
+#if CURRENT_PLATFORM != PLATFORM_WIN32
+	pthread_rwlock_t		m_rwLock;
+#else
+	THREAD_MUTEX			m_mutex;
 #endif
+};
 
 class AutoThreadLock
 {
 public:
-	AutoThreadLock(ThreadLock * lock);
+	AutoThreadLock(ThreadLock * threadLock);
 	virtual ~AutoThreadLock();
 protected:
 	ThreadLock * m_threadLock;
@@ -84,7 +86,7 @@ public:
     AutoThreadRWLock(ThreadRWLock * rwlock);
     virtual ~AutoThreadRWLock();
 private:
-    ThreadRWLock * m_rwlock;
+    ThreadRWLock * m_rwLock;
 };
 
 class AutoThreadRLock
@@ -93,7 +95,7 @@ public:
     AutoThreadRLock(ThreadRWLock * rwlock);
     virtual ~AutoThreadRLock();
 private:
-    ThreadRWLock * m_rwlock;
+    ThreadRWLock * m_rwLock;
 };
 
 YGAME_SERVER_END

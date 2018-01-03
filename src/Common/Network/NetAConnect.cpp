@@ -25,7 +25,7 @@ bool NetAConnect::Connect(bool isBlock)
 		if (!isBlock)
 		{
 			int error = getLastError();
-			if (EINPROGRESS == error || EWOULDBLOCK ==  error)
+			if (EINPROGRESS == error || EWOULDBLOCK ==  error || WSAEWOULDBLOCK ==  error)
 			{
 				return true;
 			}

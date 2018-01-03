@@ -107,6 +107,8 @@
 #include "./Network/NetPoller.h"
 #include "./Network/NetSelectPoller.h"
 #include "./Network/NetEpollPoller.h"
+#include "./Network/Packet/NetPacket.h"
+#include "./Network/Packet/NetPacketWarp.h"
 #include "./DataBase/DBResult.h"
 #include "./DataBase/DataBase.h"
 #include "./DataBase/DBResultMySql.h"

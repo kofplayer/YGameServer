@@ -40,6 +40,9 @@
     <Filter Include="Test\protobuf">
       <UniqueIdentifier>{10468fc6-3d03-451a-bbae-64f5276fa700}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Network\Packet">
+      <UniqueIdentifier>{a1a641ce-0559-41f8-ad74-ac8b72fb2490}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common\CommonDefine\CommonDefine.h">
@@ -138,6 +141,12 @@
     <ClInclude Include="..\..\src\Test\protobuf\userinfo.pb.h">
       <Filter>Test\protobuf</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Common\Network\Packet\NetPacket.h">
+      <Filter>Common\Network\Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Network\Packet\NetPacketWarp.h">
+      <Filter>Common\Network\Packet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Event\EventManager.cpp">
@@ -206,6 +215,12 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Test\protobuf\userinfo.pb.cpp">
       <Filter>Test\protobuf</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Network\Packet\NetPacket.cpp">
+      <Filter>Common\Network\Packet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Network\Packet\NetPacketWarp.cpp">
+      <Filter>Common\Network\Packet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

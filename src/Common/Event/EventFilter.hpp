@@ -9,35 +9,35 @@ public:
     }
     EventFilterBase(T filter1)
     {
-        addFilter(filter1);
+        AddFilter(filter1);
     }
     EventFilterBase(T filter1, T filter2)
     {
-        addFilter(filter1);
-        addFilter(filter2);
+        AddFilter(filter1);
+        AddFilter(filter2);
     }
     EventFilterBase(T filter1, T filter2, T filter3)
     {
-        addFilter(filter1);
-        addFilter(filter2);
-        addFilter(filter3);
+        AddFilter(filter1);
+        AddFilter(filter2);
+        AddFilter(filter3);
     }
     EventFilterBase(T filter1, T filter2, T filter3, T filter4)
     {
-        addFilter(filter1);
-        addFilter(filter2);
-        addFilter(filter3);
-        addFilter(filter4);
+        AddFilter(filter1);
+        AddFilter(filter2);
+        AddFilter(filter3);
+        AddFilter(filter4);
     }
-    void addFilter(T filter)
+    void AddFilter(T filter)
     {
         m_filterList.push_back(filter);
     }
-    uint32 getFilterCount() const
+    uint32 GetFilterCount() const
     {
         return (uint32)m_filterList.size();
     }
-    const T  getFilter(uint8 index) const
+    const T  GetFilter(uint8 index) const
     {
         if (index >= m_filterList.size())
         {

@@ -172,6 +172,8 @@
     <ClInclude Include="..\..\src\Common\Network\NetPConnect.h" />
     <ClInclude Include="..\..\src\Common\Network\NetPoller.h" />
     <ClInclude Include="..\..\src\Common\Network\NetSelectPoller.h" />
+    <ClInclude Include="..\..\src\Common\Network\Packet\NetPacket.h" />
+    <ClInclude Include="..\..\src\Common\Network\Packet\NetPacketWarp.h" />
     <ClInclude Include="..\..\src\Common\Singleton\Singleton.hpp" />
     <ClInclude Include="..\..\src\Common\Task\Task.h" />
     <ClInclude Include="..\..\src\Common\Thread\Thread.h" />
@@ -197,6 +199,8 @@
     <ClCompile Include="..\..\src\Common\Network\NetPConnect.cpp" />
     <ClCompile Include="..\..\src\Common\Network\NetPoller.cpp" />
     <ClCompile Include="..\..\src\Common\Network\NetSelectPoller.cpp" />
+    <ClCompile Include="..\..\src\Common\Network\Packet\NetPacket.cpp" />
+    <ClCompile Include="..\..\src\Common\Network\Packet\NetPacketWarp.cpp" />
     <ClCompile Include="..\..\src\Common\Task\Task.cpp" />
     <ClCompile Include="..\..\src\Common\Thread\Thread.cpp" />
     <ClCompile Include="..\..\src\Common\Thread\ThreadLock.cpp" />

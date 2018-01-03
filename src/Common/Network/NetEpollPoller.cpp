@@ -21,7 +21,7 @@ NetEpollPoller::~NetEpollPoller()
     }
 }
 
-int32 NetEpollPoller::waitEvent(int32 waitUS)
+int32 NetEpollPoller::WaitEvent(int32 waitUS)
 {
     const int MAX_EVENTS = 10;
     struct epoll_event events[ MAX_EVENTS ];
@@ -31,44 +31,44 @@ int32 NetEpollPoller::waitEvent(int32 waitUS)
     {
         if (events[i].events & (EPOLLERR|EPOLLHUP))
         {
-            onError(events[i].data.fd);
+            OnError(events[i].data.fd);
         }
         else
         {
             if (events[i].events & EPOLLIN)
             {
-                onRead(events[i].data.fd);
+                OnRead(events[i].data.fd);
             }
             if (events[i].events & EPOLLOUT)
             {
-                onWrite(events[i].data.fd);
+                OnWrite(events[i].data.fd);
             }
         }
     }
     return nfds;
 }
 
-bool NetEpollPoller::doAddRead(SOCKET_ID s)
+bool NetEpollPoller::DoAddRead(SOCKET_ID s)
 {
-	return doAdd(s, true, true);
+	return DoAdd(s, true, true);
 }
 
-bool NetEpollPoller::doAddWrite(SOCKET_ID s)
+bool NetEpollPoller::DoAddWrite(SOCKET_ID s)
 {
-	return doAdd(s, false, true);
+	return DoAdd(s, false, true);
 }
 
-bool NetEpollPoller::doRemoveRead(SOCKET_ID s)
+bool NetEpollPoller::DoRemoveRead(SOCKET_ID s)
 {
-	return doAdd(s, true, false);
+	return DoAdd(s, true, false);
 }
 
-bool NetEpollPoller::doRemoveWrite(SOCKET_ID s)
+bool NetEpollPoller::DoRemoveWrite(SOCKET_ID s)
 {
-	return doAdd(s, false, false);
+	return DoAdd(s, false, false);
 }
 
-bool NetEpollPoller::doAdd(SOCKET_ID s, bool isRead, bool isAdd)
+bool NetEpollPoller::DoAdd(SOCKET_ID s, bool isRead, bool isAdd)
 {
     struct epoll_event ev;
     memset(&ev, 0, sizeof(ev)); // stop valgrind warning
@@ -76,7 +76,7 @@ bool NetEpollPoller::doAdd(SOCKET_ID s, bool isRead, bool isAdd)
     ev.data.fd = s;
     // Handle the case where the file is already registered for the opposite
     // action.
-    if (this->isAdded(s, !isRead))
+    if (this->IsAdded(s, !isRead))
     {
         op = EPOLL_CTL_MOD;
         ev.events = isAdd ? EPOLLIN|EPOLLOUT :

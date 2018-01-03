@@ -6,13 +6,13 @@ class NetEpollPoller : public NetPoller
 public:
 	NetEpollPoller();
 	virtual ~NetEpollPoller();
-	virtual int32 waitEvent(int32 waitUS);
+	virtual int32 WaitEvent(int32 waitUS);
 protected:
-	virtual bool doAddRead(SOCKET_ID s);
-	virtual bool doAddWrite(SOCKET_ID s);
-	virtual bool doRemoveRead(SOCKET_ID s);
-	virtual bool doRemoveWrite(SOCKET_ID s);
-    bool doAdd(SOCKET_ID s, bool isRead, bool isAdd);
+	virtual bool DoAddRead(SOCKET_ID s);
+	virtual bool DoAddWrite(SOCKET_ID s);
+	virtual bool DoRemoveRead(SOCKET_ID s);
+	virtual bool DoRemoveWrite(SOCKET_ID s);
+    bool DoAdd(SOCKET_ID s, bool isRead, bool isAdd);
 private:
     int m_epfd;
 };

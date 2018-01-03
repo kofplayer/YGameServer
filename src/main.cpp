@@ -70,7 +70,7 @@ public:
 	{
 		LOG_DEBUG("OnEvent %d\n", m_n);
         if (pH) {
-            gEvent->removeHandler(pH);
+            gEvent->RemoveHandler(pH);
         }
     }
     test_handler * pH;
@@ -115,28 +115,28 @@ public:
 	{
 		gMemory.Delete(m_net_poller);
 	}
-	void addRead(SOCKET_ID s, NetReadHandler * handler)
+	void AddRead(SOCKET_ID s, NetReadHandler * handler)
 	{
-		m_net_poller->addRead(s, handler);
+		m_net_poller->AddRead(s, handler);
 	}
-	void addWrite(SOCKET_ID s, NetWriteHandler * handler)
+	void AddWrite(SOCKET_ID s, NetWriteHandler * handler)
 	{
-		m_net_poller->addWrite(s, handler);
+		m_net_poller->AddWrite(s, handler);
 	}
-	void removeRead(SOCKET_ID s)
+	void RemoveRead(SOCKET_ID s)
 	{
-		m_net_poller->removeRead(s);
+		m_net_poller->RemoveRead(s);
 	}
-	void removeWrite(SOCKET_ID s)
+	void RemoveWrite(SOCKET_ID s)
 	{
-		m_net_poller->removeWrite(s);
+		m_net_poller->RemoveWrite(s);
 	}
 protected:
 	virtual void run()
 	{
 		while (true)
 		{
-			m_net_poller->waitEvent(1000);
+			m_net_poller->WaitEvent(1000);
 		}
 	}
 private:
@@ -168,7 +168,7 @@ private:
 class net_rw_handler : public NetReadHandler, public NetWriteHandler
 {
 public:
-	virtual bool onNetRead(SOCKET_ID s)
+	virtual bool OnNetRead(SOCKET_ID s)
 	{
 		int64 len = m_connect->Recv(m_buffer, sizeof(m_buffer));
 		if (len > 0)
@@ -178,12 +178,12 @@ public:
 		}
 		else if (len == 0)
 		{
-			poller_thread::getInstance()->removeRead(m_connect->GetSocket());
+			poller_thread::getInstance()->RemoveRead(m_connect->GetSocket());
 			m_connect->Close();
 		}
 		return true;
 	}
-	virtual bool onNetWrite(SOCKET_ID s)
+	virtual bool OnNetWrite(SOCKET_ID s)
 	{
 		return true;
 	}
@@ -195,7 +195,7 @@ private:
 class listen_handler : public NetReadHandler
 {
 public:
-	virtual bool onNetRead(SOCKET_ID s)
+	virtual bool OnNetRead(SOCKET_ID s)
 	{
 
 		NetPConnect * conn = m_listener->Accept();
@@ -204,8 +204,8 @@ public:
 			LOG_DEBUG("Accept prot %u succ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", m_listener->GetPort());
 			net_rw_handler * handler = gMemory.New<net_rw_handler>();
 			handler->m_connect = conn;
-			poller_thread::getInstance()->addRead(conn->GetSocket(), handler);
-			poller_thread::getInstance()->addWrite(conn->GetSocket(), handler);
+			poller_thread::getInstance()->AddRead(conn->GetSocket(), handler);
+			poller_thread::getInstance()->AddWrite(conn->GetSocket(), handler);
 		}
 		return true;
 	}
@@ -236,6 +236,66 @@ public:
 	time_t m_time;
 };
 
+class Player : public NetPacketHandler
+{
+public:
+	Player() : m_id(0), m_sender(NULL) {}
+	virtual ~Player(){}
+	virtual void OnNetPacket(SOCKET_ID s, NetPacket * packet)
+	{
+		LOG_DEBUG("receive player:%u packet len %u\n", m_id, packet->GetPacketLen());
+		BaseInfo baseInfo;
+		char * p = packet->GetPacket();
+		if (baseInfo.ParseFromArray(packet->GetData(), packet->GetDataLen()))
+		{
+			LOG_DEBUG("data gameid:%u, userid:%u, nickname:%s, test_fff:%f", baseInfo.gameid(), baseInfo.userid(), baseInfo.nickname().c_str(), baseInfo.test_fff());
+		}
+	}
+	virtual void SetNetInfo(SOCKET_ID s, NetPacketSender * sender)
+	{
+		m_sender = sender;
+	}
+	uint32 m_id;
+private:
+	NetPacketSender * m_sender;
+};
+
+class PlayerMgr : public NetStatusHandler
+{
+public:
+	PlayerMgr() : m_basePlayerID(0) {}
+	virtual ~PlayerMgr(){}
+	virtual NetPacketHandler * OnNetOpen(SOCKET_ID s, NetPacketSender * sender)
+	{
+		Player * player = gMemory.New<Player>();
+		player->m_id = ++m_basePlayerID;
+		player->SetNetInfo(s, sender);
+		m_players[s] = player;
+		LOG_DEBUG("player %u connect\n", player->m_id);
+		return player;
+	}
+	virtual void OnNetClose(SOCKET_ID s)
+	{
+		LOG_DEBUG("player %u disconnect\n", m_players[s]->m_id);
+		gMemory.Delete(m_players[s]);
+		m_players.erase(s);
+	}
+	YMap<SOCKET_ID, Player*> m_players;
+	uint32 m_basePlayerID;
+};
+
+class RobotMgr : public PlayerMgr
+{
+public:
+	virtual NetPacketHandler * OnNetOpen(SOCKET_ID s, NetPacketSender * sender)
+	{
+		LOG_DEBUG("robot connect\n");
+		return PlayerMgr::OnNetOpen(s, sender);
+	}
+private:
+
+};
+
 int main(int argc, const char * argv[]) {
     SET_LOG_LEVEL(LL_DEBUG);
     LOG_ADD_WRITER(new ScreenLogWriter());
@@ -252,10 +312,10 @@ int main(int argc, const char * argv[]) {
 //     pH1->pH = pH2;
 //     pH2->pH = pH3;
 //     
-//     gEvent->addHandler(pH1, EventFilter(1));
-//     gEvent->addHandler(pH2, EventFilter(1,2,3));
-//     gEvent->addHandler(pH3, EventFilter(1,2,3));
-//     gEvent->fire(EventFilter(1,2,3), NULL);
+//     gEvent->AddHandler(pH1, EventFilter(1));
+//     gEvent->AddHandler(pH2, EventFilter(1,2,3));
+//     gEvent->AddHandler(pH3, EventFilter(1,2,3));
+//     gEvent->Fire(EventFilter(1,2,3), NULL);
 // 
 // 	gMemory.Delete(pH1);
 // 	gMemory.Delete(pH2);
@@ -359,8 +419,16 @@ int main(int argc, const char * argv[]) {
 	LOG_DEBUG("net listen test\n");
 	//gMemory.New<listen_thread>()->start();
 
-	poller_thread::getInstance()->start();
+	PlayerMgr playerMgr;
+	RobotMgr robotMgr;
+	NetPacketWarp playerNet;
+	playerNet.Listen(INADDR_ANY, 8888, &playerMgr);
+	playerNet.Listen(INADDR_ANY, 7777, &robotMgr);
 
+
+	//playerNet.Connect(127<<24 | 1, 7777)
+	/*
+	poller_thread::getInstance()->start();
 
 	NetListener * listener = gMemory.New<NetListener>();
 	listener->SetAddr(INADDR_ANY);
@@ -368,7 +436,7 @@ int main(int argc, const char * argv[]) {
 	bool succ = listener->Listen();
 	listen_handler * listenHandler = gMemory.New<listen_handler>();
 	listenHandler->m_listener = listener;
-	poller_thread::getInstance()->addRead(listener->GetSocket(), listenHandler);
+	poller_thread::getInstance()->AddRead(listener->GetSocket(), listenHandler);
 
 	listener = gMemory.New<NetListener>();
 	listener->SetAddr(INADDR_ANY);
@@ -376,8 +444,8 @@ int main(int argc, const char * argv[]) {
 	succ = listener->Listen();
 	listenHandler = gMemory.New<listen_handler>();
 	listenHandler->m_listener = listener;
-	poller_thread::getInstance()->addRead(listener->GetSocket(), listenHandler);
-
+	poller_thread::getInstance()->AddRead(listener->GetSocket(), listenHandler);
+	*/
 
 	//db测试
 	DataBase * db = gMemory.New<DataBaseMySql>();
@@ -408,7 +476,12 @@ int main(int argc, const char * argv[]) {
 	base_info2.ParseFromArray(buf,length);
 	LOG_DEBUG("protobuf userid:%d gameid:%d nickname:%s test_fff:%f\n", base_info2.userid(), base_info2.gameid(), base_info2.nickname().c_str(), base_info2.test_fff());
 
-	LOG_DEBUG("input any key to end game\n");
-	getchar();
+	LOG_DEBUG("game start ok!!!\n");
+
+	while (true)
+	{
+		playerNet.WaitEvent(100000);
+	}
+
     return 0;
 }

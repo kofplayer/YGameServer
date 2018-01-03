@@ -27,6 +27,7 @@ protected:
 	}
 	void Init(uint32 init_count, uint32 inc_count)
 	{
+		AutoThreadLock autoLock(&m_threadLock);
 		if (inc_count != 0)
 		{
 			m_inc_count = inc_count;
@@ -39,28 +40,42 @@ protected:
 
 	ObjectData * New()
     {
+		m_threadLock.Lock();
 		if (m_free_objects.size()==0)
 		{
 			assignObjs(m_inc_count);
 		}
 		ObjectData* data = (*m_free_objects.begin());
 		m_free_objects.pop_front();
-		m_used_objects.insert(data);
+		m_threadLock.Unlock();
+
 		new(data->object) T();
+
+		m_threadLock.Lock();
+		m_used_objects.insert(data);
+		m_threadLock.Unlock();
 		return data;
     }
     
 	virtual void Delete(void * data)
-    {
-		auto itor = m_used_objects.find((ObjectData*)data);
+	{
+		ObjectData * objectData = (ObjectData*)data;
+
+		m_threadLock.Lock();
+		auto itor = m_used_objects.find(objectData);
 		if (itor == m_used_objects.end())
 		{
 			assert(false);
 			return;
 		}
-		((T*)((*itor)->object))->~T();
-		m_free_objects.push_back(*itor);
 		m_used_objects.erase(itor);
+		m_threadLock.Unlock();
+
+		((T*)objectData->object)->~T();
+
+		m_threadLock.Lock();
+		m_free_objects.push_back(objectData);
+		m_threadLock.Unlock();
 	}
 private:
 	void assignObjs(uint32 count)
@@ -75,6 +90,7 @@ private:
 	YSet<ObjectData*> m_used_objects;
 	YList<ObjectData*> m_free_objects;
 	uint32 m_inc_count;
+	SpinLock m_threadLock;
 };
 
 YGAME_SERVER_END

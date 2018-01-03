@@ -7,7 +7,7 @@ public:
     typedef YMap<T, EventMonitorNodeBase<T>/**/> NodeMap;
     EventMonitorNodeBase() {};
     virtual ~EventMonitorNodeBase() {};
-    void gatherHandler(uint32 deep, const EventFilterBase<T> & filter, HandlerList & rHandlerList)
+    void GatherHandler(uint32 deep, const EventFilterBase<T> & filter, HandlerList & rHandlerList)
     {
         for (uint32 i=0; i<m_handlerList.size(); ++i)
         {
@@ -23,39 +23,39 @@ public:
                 rHandlerList.push_back(m_handlerList[i]);
             }
         }
-        if (deep >= filter.getFilterCount())
+        if (deep >= filter.GetFilterCount())
         {
             return;
         }
-		auto itor = m_nodeMap.find(filter.getFilter(deep));
+		auto itor = m_nodeMap.find(filter.GetFilter(deep));
         if (itor != m_nodeMap.end())
         {
-            itor->second.gatherHandler(deep+1, filter, rHandlerList);
+            itor->second.GatherHandler(deep+1, filter, rHandlerList);
         }
     }
-    void addHandler(uint32 deep, EventHandler * pHandler, const EventFilterBase<T> & filter)
+    void AddHandler(uint32 deep, EventHandler * pHandler, const EventFilterBase<T> & filter)
     {
         if (NULL == pHandler)
         {
             return;
         }
-        if (deep >= filter.getFilterCount())
+        if (deep >= filter.GetFilterCount())
         {
-            if (!isHandlerExist(pHandler))
+            if (!IsHandlerExist(pHandler))
             {
                 m_handlerList.push_back(pHandler);
             }
             return;
         }
-        m_nodeMap[filter.getFilter(deep)].addHandler(deep+1, pHandler, filter);
+        m_nodeMap[filter.GetFilter(deep)].AddHandler(deep+1, pHandler, filter);
     }
-    void removeHandler(uint32 deep, EventHandler * pHandler, const EventFilterBase<T> & filter)
+    void RemoveHandler(uint32 deep, EventHandler * pHandler, const EventFilterBase<T> & filter)
     {
         if (NULL == pHandler)
         {
             return;
         }
-        if (deep >= filter.getFilterCount())
+        if (deep >= filter.GetFilterCount())
         {
             for (uint32 i=0; i<m_handlerList.size(); ++i)
             {
@@ -66,9 +66,9 @@ public:
                 }
             }
         }
-        m_nodeMap[filter.getFilter(deep)].removeHandler(deep+1, pHandler, filter);
+        m_nodeMap[filter.GetFilter(deep)].RemoveHandler(deep+1, pHandler, filter);
     }
-    void removeHandler(EventHandler * pHandler)
+    void RemoveHandler(EventHandler * pHandler)
     {
         for (uint32 i=0; i<m_handlerList.size(); ++i)
         {
@@ -80,10 +80,10 @@ public:
         }
         for (auto itor = m_nodeMap.begin(); itor != m_nodeMap.end(); ++itor)
         {
-            itor->second.removeHandler(pHandler);
+            itor->second.RemoveHandler(pHandler);
         }
     }
-    bool isHandlerExist(EventHandler * pHandler)
+    bool IsHandlerExist(EventHandler * pHandler)
     {
         for (uint32 i=0; i<m_handlerList.size(); ++i)
         {

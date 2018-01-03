@@ -4,10 +4,10 @@ class EventManager : public Singleton<EventManager>
 public:
 	EventManager();
 	virtual ~EventManager();
-    void addHandler(EventHandler * pEventHandler, const EventFilter & eventFilter);
-    void removeHandler(EventHandler * pEventHandler, const EventFilter & eventFilter);
-    void removeHandler(EventHandler * pEventHandler);
-    void fire(const EventFilter & eventFilter, void * pParam);
+    void AddHandler(EventHandler * pEventHandler, const EventFilter & eventFilter);
+    void RemoveHandler(EventHandler * pEventHandler, const EventFilter & eventFilter);
+    void RemoveHandler(EventHandler * pEventHandler);
+    void Fire(const EventFilter & eventFilter, void * pParam);
 private:
     class FireInfo
     {
@@ -16,18 +16,18 @@ private:
         const EventFilter * pEventFilter;
         FireInfo(EventMonitorNode::HandlerList * pHandleList, const EventFilter * pEventFilter)
         {
-            EventManager::getInstance()->pushFire(this);
+            EventManager::getInstance()->PushFire(this);
             this->pHandleList = pHandleList;
             this->pEventFilter = pEventFilter;
         }
         ~FireInfo()
         {
-            EventManager::getInstance()->popFire();
+            EventManager::getInstance()->PopFire();
         }
     };
-    void removeHandlerFromFireList(const EventHandler * pEventHandler, const EventFilter * pEventFilter);
-    void pushFire(FireInfo * pFireInfo);
-    void popFire();
+    void RemoveHandlerFromFireList(const EventHandler * pEventHandler, const EventFilter * pEventFilter);
+    void PushFire(FireInfo * pFireInfo);
+    void PopFire();
     typedef YVector<FireInfo*> FireList;
     FireList m_fireList;
     EventMonitorNode m_monitor;
