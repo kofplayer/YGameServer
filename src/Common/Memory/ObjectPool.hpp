@@ -5,7 +5,14 @@ class ObjectDeleter
 public:
 	ObjectDeleter() {}
 	virtual ~ObjectDeleter() {}
-	virtual void Delete(void * data) = 0;
+	virtual bool IncRefCount(void * data, uint32 count) = 0;
+	virtual bool DecRefCount(void * data, uint32 count) = 0;
+};
+
+struct ObjectDataHead
+{
+	uint32 refCount;
+	ObjectDeleter * objectDeleter;
 };
 
 template<typename T>
@@ -17,7 +24,7 @@ protected:
 #pragma pack(1)
 	struct ObjectData
 	{
-		ObjectDeleter * objectDeleter;
+		ObjectDataHead head;
 		char object[sizeof(T)];
 	};
 #pragma pack()
@@ -50,25 +57,48 @@ protected:
 		m_threadLock.Unlock();
 
 		new(data->object) T();
-
+		data->head.refCount = 1;
 		m_threadLock.Lock();
 		m_used_objects.insert(data);
 		m_threadLock.Unlock();
 		return data;
     }
-    
-	virtual void Delete(void * data)
+
+	virtual bool IncRefCount(void * data, uint32 count)
 	{
 		ObjectData * objectData = (ObjectData*)data;
-
 		m_threadLock.Lock();
 		auto itor = m_used_objects.find(objectData);
 		if (itor == m_used_objects.end())
 		{
+			m_threadLock.Unlock();
 			assert(false);
-			return;
+			return false;
+		}
+		objectData->head.refCount += count;
+		m_threadLock.Unlock();
+		return true;
+	}
+
+	virtual bool DecRefCount(void * data, uint32 count)
+	{
+		ObjectData * objectData = (ObjectData*)data;
+		m_threadLock.Lock();
+		auto itor = m_used_objects.find(objectData);
+		if (itor == m_used_objects.end())
+		{
+			m_threadLock.Unlock();
+			assert(false);
+			return false;
+		}
+		if (objectData->head.refCount > count)
+		{
+			objectData->head.refCount -= count;
+			m_threadLock.Unlock();
+			return true;
 		}
 		m_used_objects.erase(itor);
+		objectData->head.refCount = 0;
 		m_threadLock.Unlock();
 
 		((T*)objectData->object)->~T();
@@ -76,6 +106,7 @@ protected:
 		m_threadLock.Lock();
 		m_free_objects.push_back(objectData);
 		m_threadLock.Unlock();
+		return true;
 	}
 private:
 	void assignObjs(uint32 count)
@@ -83,7 +114,8 @@ private:
 		ObjectData * p = (ObjectData*)malloc(sizeof(ObjectData)*count);
 		for (unsigned int i = 0; i < count; ++i)
 		{
-			p[i].objectDeleter = this;
+			p[i].head.refCount = 0;
+			p[i].head.objectDeleter = this;
 			m_free_objects.push_back(&p[i]);
 		}
 	}

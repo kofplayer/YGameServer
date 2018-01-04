@@ -25,21 +25,44 @@ public:
 		auto * data = pool->New();
 		return (T*)data->object;
     }
-    
-    void Delete(void * p)
+
+	bool IncRefCount(void * p, uint32 count)
 	{
-		void * data = (((char*)p) - sizeof(ObjectDeleter*));
-		ObjectDeleter * objectDeleter = *(ObjectDeleter**)data;
+		void * data = (((char*)p) - sizeof(ObjectDataHead));
+		ObjectDataHead * head = (ObjectDataHead*)data;
+		ObjectDeleter * objectDeleter = head->objectDeleter;
 
 		m_rwLock.RLock();
 		if (m_deleters.find(objectDeleter) == m_deleters.end())
 		{
 			m_rwLock.Unlock();
 			assert(false);
-			return;
+			return false;
 		}
 		m_rwLock.Unlock();
-		objectDeleter->Delete(data);
+		return objectDeleter->IncRefCount(data, count);
+	}
+
+	bool DecRefCount(void * p, uint32 count)
+	{
+		void * data = (((char*)p) - sizeof(ObjectDataHead));
+		ObjectDataHead * head = (ObjectDataHead*)data;
+		ObjectDeleter * objectDeleter = head->objectDeleter;
+
+		m_rwLock.RLock();
+		if (m_deleters.find(objectDeleter) == m_deleters.end())
+		{
+			m_rwLock.Unlock();
+			assert(false);
+			return false;
+		}
+		m_rwLock.Unlock();
+		return objectDeleter->DecRefCount(data, count);
+	}
+    
+    void Delete(void * p)
+	{
+		DecRefCount(p, 1);
     }
 
 	void * Malloc(uint32 size)

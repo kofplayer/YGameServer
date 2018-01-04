@@ -169,16 +169,18 @@
     <ClInclude Include="..\..\src\Common\Network\NetConnect.h" />
     <ClInclude Include="..\..\src\Common\Network\NetEpollPoller.h" />
     <ClInclude Include="..\..\src\Common\Network\NetListener.h" />
+    <ClInclude Include="..\..\src\Common\Network\NetPacket.h" />
+    <ClInclude Include="..\..\src\Common\Network\NetPacketer.hpp" />
+    <ClInclude Include="..\..\src\Common\Network\NetPacketWarp.h" />
     <ClInclude Include="..\..\src\Common\Network\NetPConnect.h" />
     <ClInclude Include="..\..\src\Common\Network\NetPoller.h" />
     <ClInclude Include="..\..\src\Common\Network\NetSelectPoller.h" />
-    <ClInclude Include="..\..\src\Common\Network\Packet\NetPacket.h" />
-    <ClInclude Include="..\..\src\Common\Network\Packet\NetPacketWarp.h" />
     <ClInclude Include="..\..\src\Common\Singleton\Singleton.hpp" />
     <ClInclude Include="..\..\src\Common\Task\Task.h" />
     <ClInclude Include="..\..\src\Common\Thread\Thread.h" />
     <ClInclude Include="..\..\src\Common\Thread\ThreadLock.h" />
-    <ClInclude Include="..\..\src\Test\protobuf\userinfo.pb.h" />
+    <ClInclude Include="..\..\src\Test\protobuf\cs.pb.h" />
+    <ClInclude Include="..\..\src\Test\protobuf\cs_msg.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Coroutine\Coroutine.cpp" />
@@ -196,16 +198,16 @@
     <ClCompile Include="..\..\src\Common\Network\NetConnect.cpp" />
     <ClCompile Include="..\..\src\Common\Network\NetEpollPoller.cpp" />
     <ClCompile Include="..\..\src\Common\Network\NetListener.cpp" />
+    <ClCompile Include="..\..\src\Common\Network\NetPacket.cpp" />
+    <ClCompile Include="..\..\src\Common\Network\NetPacketWarp.cpp" />
     <ClCompile Include="..\..\src\Common\Network\NetPConnect.cpp" />
     <ClCompile Include="..\..\src\Common\Network\NetPoller.cpp" />
     <ClCompile Include="..\..\src\Common\Network\NetSelectPoller.cpp" />
-    <ClCompile Include="..\..\src\Common\Network\Packet\NetPacket.cpp" />
-    <ClCompile Include="..\..\src\Common\Network\Packet\NetPacketWarp.cpp" />
     <ClCompile Include="..\..\src\Common\Task\Task.cpp" />
     <ClCompile Include="..\..\src\Common\Thread\Thread.cpp" />
     <ClCompile Include="..\..\src\Common\Thread\ThreadLock.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
-    <ClCompile Include="..\..\src\Test\protobuf\userinfo.pb.cpp" />
+    <ClCompile Include="..\..\src\Test\protobuf\cs.pb.cc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

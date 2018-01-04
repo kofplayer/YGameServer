@@ -40,9 +40,6 @@
     <Filter Include="Test\protobuf">
       <UniqueIdentifier>{10468fc6-3d03-451a-bbae-64f5276fa700}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common\Network\Packet">
-      <UniqueIdentifier>{a1a641ce-0559-41f8-ad74-ac8b72fb2490}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common\CommonDefine\CommonDefine.h">
@@ -138,14 +135,20 @@
     <ClInclude Include="..\..\src\Common\DataBase\DBResultMySql.h">
       <Filter>Common\DataBase</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Test\protobuf\userinfo.pb.h">
+    <ClInclude Include="..\..\src\Common\Network\NetPacket.h">
+      <Filter>Common\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Network\NetPacketWarp.h">
+      <Filter>Common\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Network\NetPacketer.hpp">
+      <Filter>Common\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Test\protobuf\cs.pb.h">
       <Filter>Test\protobuf</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Common\Network\Packet\NetPacket.h">
-      <Filter>Common\Network\Packet</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Common\Network\Packet\NetPacketWarp.h">
-      <Filter>Common\Network\Packet</Filter>
+    <ClInclude Include="..\..\src\Test\protobuf\cs_msg.h">
+      <Filter>Test\protobuf</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -213,14 +216,14 @@
     <ClCompile Include="..\..\src\Common\DataBase\DBResult.cpp">
       <Filter>Common\DataBase</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Test\protobuf\userinfo.pb.cpp">
+    <ClCompile Include="..\..\src\Common\Network\NetPacket.cpp">
+      <Filter>Common\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Network\NetPacketWarp.cpp">
+      <Filter>Common\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Test\protobuf\cs.pb.cc">
       <Filter>Test\protobuf</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Common\Network\Packet\NetPacket.cpp">
-      <Filter>Common\Network\Packet</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Common\Network\Packet\NetPacketWarp.cpp">
-      <Filter>Common\Network\Packet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

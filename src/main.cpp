@@ -8,7 +8,8 @@
 
 #include <iostream>
 #include "./Common/Common.h"
-#include "Test/protobuf/userinfo.pb.h"
+#include "Test/protobuf/cs_msg.h"
+#include "Test/protobuf/cs.pb.h"
 
 using namespace YGAME_SERVER_NAMESPACE;
 
@@ -236,41 +237,139 @@ public:
 	time_t m_time;
 };
 
-class Player : public NetPacketHandler
+struct GamePacketHead
+{
+	uint32 len;
+	uint32 cmd;
+	uint32 GetDataLen()
+	{
+		return len;
+	}
+};
+
+class GamePacket : public NetPacket
 {
 public:
-	Player() : m_id(0), m_sender(NULL) {}
-	virtual ~Player(){}
+	GamePacketHead * GetHead()
+	{
+		return ((GamePacketHead*)GetPacket());
+	}
+	uint32 GetDataLen()
+	{
+		return GetHead()->len;
+	}
+	char * GetData()
+	{
+		return GetPacket() + sizeof(GamePacketHead);
+	}
+};
+
+GamePacket * PacketGameMsg(uint32 cmd, ::google::protobuf::Message * msg)
+{
+	uint32 size = msg->ByteSizeLong();
+	GamePacket * packet = gMemory.New<GamePacket>();
+	packet->Init(size+sizeof(GamePacketHead));
+	GamePacketHead * head = packet->GetHead();
+	head->len = size;
+	head->cmd = cmd;
+	if (msg->SerializeToArray(packet->GetData(), packet->GetDataLen()))
+	{
+		return packet;
+	}
+	else
+	{
+		gMemory.Delete(packet);
+		return NULL;
+	}
+}
+
+class ServerPlayerMgr;
+
+class ServerPlayer : public NetPacketHandler
+{
+public:
+	ServerPlayer() : m_id(0), m_connect(NULL), m_playerMgr(NULL) {}
+	virtual ~ServerPlayer(){}
 	virtual void OnNetPacket(SOCKET_ID s, NetPacket * packet)
 	{
 		LOG_DEBUG("receive player:%u packet len %u\n", m_id, packet->GetPacketLen());
-		BaseInfo baseInfo;
-		char * p = packet->GetPacket();
-		if (baseInfo.ParseFromArray(packet->GetData(), packet->GetDataLen()))
+		GamePacket * gamePacket = dynamic_cast<GamePacket*>(packet);
+		GamePacketHead * head = gamePacket->GetHead();
+		switch (head->cmd)
 		{
-			LOG_DEBUG("data gameid:%u, userid:%u, nickname:%s, test_fff:%f", baseInfo.gameid(), baseInfo.userid(), baseInfo.nickname().c_str(), baseInfo.test_fff());
+		case CS_MSG_LOGIN_REQ:
+			{
+				LoginReq * req = gMemory.New<LoginReq>();
+				if (req->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
+				{
+					LOG_DEBUG("player login account:%s password:%s\n", req->account().c_str(), req->password().c_str());
+					LoginRsp * rsp = gMemory.New<LoginRsp>();
+					rsp->set_result(0);
+					rsp->set_userid(m_id);
+					rsp->set_nickname(req->account().c_str());
+					SendMsg(CS_MSG_LOGIN_RSP, rsp);
+					gMemory.Delete(rsp);
+				}
+				gMemory.Delete(req);
+			}
+			break;
+		case CS_MSG_CHAT_REQ:
+			{
+				ChatReq * req = gMemory.New<ChatReq>();
+				if (req->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
+				{
+					LOG_DEBUG("player chat:%s\n", req->msg().c_str());
+					ChatRsp * rsp = gMemory.New<ChatRsp>();
+					rsp->set_result(0);
+					SendMsg(CS_MSG_CHAT_RSP, rsp);
+					gMemory.Delete(rsp);
+
+					ChatNtf * ntf = gMemory.New<ChatNtf>();
+					ntf->set_msg(req->msg().c_str());
+					SendMsgToAll(CS_MSG_CHAT_NTF, ntf);
+					gMemory.Delete(ntf);
+				}
+				gMemory.Delete(req);
+			}
+			break;
+		default:
+			break;
+		}
+		
+	}
+	virtual bool SendMsg(uint32 cmd, ::google::protobuf::Message * msg)
+	{
+		GamePacket * packet = PacketGameMsg(cmd, msg);
+		if (msg->SerializeToArray(packet->GetData(), packet->GetDataLen()))
+		{
+			m_connect->SendPacket(packet);
+			return true;
+		}
+		else
+		{
+			gMemory.Delete(packet);
+			return false;
 		}
 	}
-	virtual void SetNetInfo(SOCKET_ID s, NetPacketSender * sender)
-	{
-		m_sender = sender;
-	}
+	virtual bool SendMsgToAll(uint32 cmd, ::google::protobuf::Message * msg);
 	uint32 m_id;
-private:
-	NetPacketSender * m_sender;
+	NetConnect * m_connect;
+	ServerPlayerMgr * m_playerMgr;
 };
 
-class PlayerMgr : public NetStatusHandler
+class ServerPlayerMgr : public NetStatusHandler
 {
 public:
-	PlayerMgr() : m_basePlayerID(0) {}
-	virtual ~PlayerMgr(){}
-	virtual NetPacketHandler * OnNetOpen(SOCKET_ID s, NetPacketSender * sender)
+	ServerPlayerMgr() : m_basePlayerID(0) {}
+	virtual ~ServerPlayerMgr(){}
+	virtual NetPacketHandler * OnNetOpen(NetConnect * connect)
 	{
-		Player * player = gMemory.New<Player>();
+		ServerPlayer * player = gMemory.New<ServerPlayer>();
 		player->m_id = ++m_basePlayerID;
-		player->SetNetInfo(s, sender);
-		m_players[s] = player;
+		player->m_connect = connect;
+		player->m_playerMgr = this;
+		connect->SetNetPacketer<HeadNetPacketer<GamePacket, GamePacketHead>/**/>();
+		m_players[connect->GetSocket()] = player;
 		LOG_DEBUG("player %u connect\n", player->m_id);
 		return player;
 	}
@@ -280,20 +379,119 @@ public:
 		gMemory.Delete(m_players[s]);
 		m_players.erase(s);
 	}
-	YMap<SOCKET_ID, Player*> m_players;
+	virtual bool SendMsgToAll(uint32 cmd, ::google::protobuf::Message * msg)
+	{
+		GamePacket * packet = PacketGameMsg(cmd, msg);
+		if (msg->SerializeToArray(packet->GetData(), packet->GetDataLen()))
+		{
+			for (auto itor=m_players.begin(); itor!=m_players.end(); ++itor)
+			{
+				gMemory.IncRefCount(packet, 1);
+				itor->second->m_connect->SendPacket(packet);
+			}
+			gMemory.Delete(packet);
+			return true;
+		}
+		else
+		{
+			gMemory.Delete(packet);
+			return false;
+		}
+	}
+	YMap<SOCKET_ID, ServerPlayer*> m_players;
 	uint32 m_basePlayerID;
 };
 
-class RobotMgr : public PlayerMgr
+bool ServerPlayer::SendMsgToAll(uint32 cmd, ::google::protobuf::Message * msg)
+{
+	return m_playerMgr->SendMsgToAll(cmd, msg);
+}
+
+class ClientPlayer : public NetPacketHandler, public NetStatusHandler
 {
 public:
-	virtual NetPacketHandler * OnNetOpen(SOCKET_ID s, NetPacketSender * sender)
+	ClientPlayer() : m_id(0), m_connect(NULL){}
+	virtual ~ClientPlayer(){}
+	virtual NetPacketHandler * OnNetOpen(NetConnect * connect)
 	{
-		LOG_DEBUG("robot connect\n");
-		return PlayerMgr::OnNetOpen(s, sender);
+		m_connect = connect;
+		connect->SetNetPacketer<HeadNetPacketer<GamePacket, GamePacketHead>/**/>();
+		LOG_DEBUG("client connect\n");
+		LoginReq * req = gMemory.New<LoginReq>();
+		req->set_account("acount11111");
+		req->set_password("pwd11111");
+		SendMsg(CS_MSG_LOGIN_REQ, req);
+		gMemory.Delete(req);
+		return this;
 	}
-private:
+	virtual void OnNetClose(SOCKET_ID s)
+	{
+		LOG_DEBUG("client %u disconnect\n");
+		m_connect = NULL;
+	}
+	virtual void OnNetPacket(SOCKET_ID s, NetPacket * packet)
+	{
+		LOG_DEBUG("receive player:%u packet len %u\n", m_id, packet->GetPacketLen());
+		GamePacket * gamePacket = dynamic_cast<GamePacket*>(packet);
+		GamePacketHead * head = gamePacket->GetHead();
+		switch (head->cmd)
+		{
+		case CS_MSG_LOGIN_RSP:
+			{
+				LoginRsp * rsp = gMemory.New<LoginRsp>();
+				if (rsp->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
+				{
+					LOG_DEBUG("player login result:%d userid:%u nickname:%s\n", rsp->result(), rsp->userid(), rsp->nickname().c_str());
 
+					ChatReq * req = gMemory.New<ChatReq>();
+					req->set_msg("hello every one!!!\n");
+					SendMsg(CS_MSG_CHAT_REQ, req);
+					gMemory.Delete(req);
+				}
+				gMemory.Delete(rsp);
+			}
+			break;
+		case CS_MSG_CHAT_RSP:
+			{
+				ChatRsp * rsp = gMemory.New<ChatRsp>();
+				if (rsp->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
+				{
+					LOG_DEBUG("player chat result:%d\n", rsp->result());
+				}
+				gMemory.Delete(rsp);
+			}
+			break;
+		case CS_MSG_CHAT_NTF:
+			{
+				ChatNtf * ntf = gMemory.New<ChatNtf>();
+				if (ntf->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
+				{
+					LOG_DEBUG("someone chat:%s\n", ntf->msg().c_str());
+				}
+				gMemory.Delete(ntf);
+			}
+			break;
+		default:
+			break;
+		}
+
+	}
+	virtual bool SendMsg(uint32 cmd, ::google::protobuf::Message * msg)
+	{
+		GamePacket * packet = PacketGameMsg(cmd, msg);
+		if (msg->SerializeToArray(packet->GetData(), packet->GetDataLen()))
+		{
+			m_connect->SendPacket(packet);
+			return true;
+		}
+		else
+		{
+			gMemory.Delete(packet);
+			return false;
+		}
+	}
+	uint32 m_id;
+	NetConnect * m_connect;
 };
 
 int main(int argc, const char * argv[]) {
@@ -419,14 +617,16 @@ int main(int argc, const char * argv[]) {
 	LOG_DEBUG("net listen test\n");
 	//gMemory.New<listen_thread>()->start();
 
-	PlayerMgr playerMgr;
-	RobotMgr robotMgr;
+	ServerPlayerMgr playerMgr;
 	NetPacketWarp playerNet;
 	playerNet.Listen(INADDR_ANY, 8888, &playerMgr);
-	playerNet.Listen(INADDR_ANY, 7777, &robotMgr);
 
-
-	//playerNet.Connect(127<<24 | 1, 7777)
+	ClientPlayer player1;
+	ClientPlayer player2;
+	ClientPlayer player3;
+	playerNet.Connect(127<<24 | 1, 8888, &player1);
+	playerNet.Connect(127<<24 | 1, 8888, &player2);
+	playerNet.Connect(127<<24 | 1, 8888, &player3);
 	/*
 	poller_thread::getInstance()->start();
 
@@ -448,34 +648,19 @@ int main(int argc, const char * argv[]) {
 	*/
 
 	//db测试
-	DataBase * db = gMemory.New<DataBaseMySql>();
-	db->SetInfo("116.62.50.103", 3306, "root", "4391007", "king_flower");
-	DBResult * dbResult = gMemory.New<DBResultMySql>();
-	db->Query("select * from user_info where user_type=0", dbResult);
-	uint32 f = dbResult->GetFieldCount();
-	uint32 r = dbResult->GetRowCount();
-	while (!dbResult->IsEnd())
-	{
-		std::string nick_name = dbResult->GetFieldValue("nick_name");
-		std::string head_url = dbResult->GetFieldValue("head_url");
-		LOG_DEBUG("head_url %s\n", head_url.c_str());
-		dbResult->Next();
-	}
-
-	// protobuf测试
-	BaseInfo base_info;
-	base_info.set_userid(850001);
-	base_info.set_gameid(27);
-	base_info.set_nickname("kofplayer");
-	base_info.set_test_fff(0.01);
-	int length = base_info.ByteSize();
-	char* buf = new char[length];
-	base_info.SerializeToArray(buf,length);
-
-	BaseInfo base_info2;
-	base_info2.ParseFromArray(buf,length);
-	LOG_DEBUG("protobuf userid:%d gameid:%d nickname:%s test_fff:%f\n", base_info2.userid(), base_info2.gameid(), base_info2.nickname().c_str(), base_info2.test_fff());
-
+// 	DataBase * db = gMemory.New<DataBaseMySql>();
+// 	db->SetInfo("116.62.50.103", 3306, "root", "4391007", "king_flower");
+// 	DBResult * dbResult = gMemory.New<DBResultMySql>();
+// 	db->Query("select * from user_info where user_type=0", dbResult);
+// 	uint32 f = dbResult->GetFieldCount();
+// 	uint32 r = dbResult->GetRowCount();
+// 	while (!dbResult->IsEnd())
+// 	{
+// 		std::string nick_name = dbResult->GetFieldValue("nick_name");
+// 		std::string head_url = dbResult->GetFieldValue("head_url");
+// 		LOG_DEBUG("head_url %s\n", head_url.c_str());
+// 		dbResult->Next();
+// 	}
 	LOG_DEBUG("game start ok!!!\n");
 
 	while (true)
