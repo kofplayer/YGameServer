@@ -150,6 +150,9 @@
     <ClInclude Include="..\..\src\Test\protobuf\cs_msg.h">
       <Filter>Test\protobuf</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Common\Memory\MemoryPool.hpp">
+      <Filter>Common\Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Event\EventManager.cpp">

@@ -163,6 +163,7 @@
     <ClInclude Include="..\..\src\Common\Log\LogWriter.h" />
     <ClInclude Include="..\..\src\Common\Log\ScreenLogWriter.h" />
     <ClInclude Include="..\..\src\Common\Memory\Memory.hpp" />
+    <ClInclude Include="..\..\src\Common\Memory\MemoryPool.hpp" />
     <ClInclude Include="..\..\src\Common\Memory\ObjectPool.hpp" />
     <ClInclude Include="..\..\src\Common\Network\NetAConnect.h" />
     <ClInclude Include="..\..\src\Common\Network\NetBase.h" />

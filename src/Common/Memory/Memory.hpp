@@ -2,25 +2,29 @@
 class MemoryManager : public Singleton<MemoryManager>
 {
 public:
-	template<typename T>
-	void Init(uint32 init_count, uint32 inc_count)
+	MemoryManager() : m_splitSize(1024)
 	{
-		m_rwLock.Lock();
-		ObjectPool<T>::getInstance()->Init(init_count, inc_count);
-		m_rwLock.Unlock();
+
+	}
+
+	template<typename T>
+	void InitObjPool(uint32 initCount, uint32 incCount)
+	{
+		AutoThreadRWLock autoLock(&m_objRWLock);
+		ObjectPool<T>::getInstance()->Init(initCount, incCount);
 	}
 
     template<typename T>
     T * New()
 	{
-		m_rwLock.RLock();
+		m_objRWLock.Lock();
 		ObjectPool<T> * pool = ObjectPool<T>::getInstance();
 		ObjectDeleter * objectDeleter = pool;
-		if (m_deleters.find(objectDeleter) == m_deleters.end())
+		if (m_objDeleters.find(objectDeleter) == m_objDeleters.end())
 		{
-			m_deleters.insert(objectDeleter);
+			m_objDeleters.insert(objectDeleter);
 		}
-		m_rwLock.Unlock();
+		m_objRWLock.Unlock();
 
 		auto * data = pool->New();
 		return (T*)data->object;
@@ -32,14 +36,14 @@ public:
 		ObjectDataHead * head = (ObjectDataHead*)data;
 		ObjectDeleter * objectDeleter = head->objectDeleter;
 
-		m_rwLock.RLock();
-		if (m_deleters.find(objectDeleter) == m_deleters.end())
+		m_objRWLock.RLock();
+		if (m_objDeleters.find(objectDeleter) == m_objDeleters.end())
 		{
-			m_rwLock.Unlock();
+			m_objRWLock.Unlock();
 			assert(false);
 			return false;
 		}
-		m_rwLock.Unlock();
+		m_objRWLock.Unlock();
 		return objectDeleter->IncRefCount(data, count);
 	}
 
@@ -49,14 +53,14 @@ public:
 		ObjectDataHead * head = (ObjectDataHead*)data;
 		ObjectDeleter * objectDeleter = head->objectDeleter;
 
-		m_rwLock.RLock();
-		if (m_deleters.find(objectDeleter) == m_deleters.end())
+		m_objRWLock.RLock();
+		if (m_objDeleters.find(objectDeleter) == m_objDeleters.end())
 		{
-			m_rwLock.Unlock();
+			m_objRWLock.Unlock();
 			assert(false);
 			return false;
 		}
-		m_rwLock.Unlock();
+		m_objRWLock.Unlock();
 		return objectDeleter->DecRefCount(data, count);
 	}
     
@@ -65,19 +69,86 @@ public:
 		DecRefCount(p, 1);
     }
 
-	void * Malloc(uint32 size)
+	bool InitMemoryPool(uint32 size, uint32 initCount, uint32 incCount)
 	{
-		return malloc(size);
+		AutoThreadRWLock autoLock(&m_memoryRWLock);
+		uint32 mapSize = GetMapSize(size);
+		auto itor = m_memoryPoolsMap.find(mapSize);
+		if (itor != m_memoryPoolsMap.end())
+		{
+			return false;
+		}
+		MemoryPool * pool = new MemoryPool();
+		pool->Init(mapSize, initCount, incCount);
+		m_memoryPoolsMap[mapSize] = pool;
+		m_memoryPoolsSet.insert(pool);
+		return true;
 	}
 
-	void Free(void * data)
+	void * Malloc(uint32 size)
 	{
-		free(data);
+		uint32 mapSize = GetMapSize(size);
+		MemoryPool * pool = NULL;
+		m_memoryRWLock.Lock();
+		auto itor = m_memoryPoolsMap.find(mapSize);
+		if (itor == m_memoryPoolsMap.end())
+		{
+			if (!InitMemoryPool(mapSize, 4, 4))
+			{
+				assert(false);
+				return NULL;
+			}
+			itor = m_memoryPoolsMap.find(mapSize);
+		}
+		if (itor == m_memoryPoolsMap.end())
+		{
+			assert(false);
+			return NULL;
+		}
+		pool = itor->second;
+		m_memoryRWLock.Unlock();
+		MemoryData * data = pool->Malloc();
+		return data->memory;
+	}
+
+	void Free(void * p)
+	{
+		MemoryData * data = (MemoryData*)(((char*)p) - sizeof(MemoryDataHead));
+		m_memoryRWLock.RLock();
+		if (m_memoryPoolsSet.find(data->head.memoryPool) == m_memoryPoolsSet.end())
+		{
+			m_memoryRWLock.Unlock();
+			assert(false);
+			return;
+		}
+		m_memoryRWLock.Unlock();
+		data->head.memoryPool->Free(data);
 	}
 
 private:
-	YSet<ObjectDeleter *> m_deleters;
-	RWLock m_rwLock;
+	uint32 GetMapSize(uint32 size)
+	{
+		uint32 mapSize = size;
+		if (size < m_splitSize)
+		{
+			mapSize = 1;
+			while (mapSize < size)
+			{
+				mapSize = (mapSize << 1);
+			}
+		}
+		else
+		{
+			mapSize = (size + m_splitSize - 1) / m_splitSize * m_splitSize;
+		}
+		return mapSize;
+	}
+	YSet<ObjectDeleter *> m_objDeleters;
+	RWLock m_objRWLock;
+	YSet<MemoryPool*> m_memoryPoolsSet;
+	YMap<uint32, MemoryPool*> m_memoryPoolsMap;
+	RWLock m_memoryRWLock;
+	uint32 m_splitSize;
 };
 
 

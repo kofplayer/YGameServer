@@ -384,9 +384,9 @@ public:
 		GamePacket * packet = PacketGameMsg(cmd, msg);
 		if (msg->SerializeToArray(packet->GetData(), packet->GetDataLen()))
 		{
+			gMemory.IncRefCount(packet, m_players.size());
 			for (auto itor=m_players.begin(); itor!=m_players.end(); ++itor)
 			{
-				gMemory.IncRefCount(packet, 1);
 				itor->second->m_connect->SendPacket(packet);
 			}
 			gMemory.Delete(packet);

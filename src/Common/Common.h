@@ -92,6 +92,7 @@
 #include "./Coroutine/Protothread.h"
 #include "./Coroutine/Coroutine.h"
 #include "./Coroutine/CoroutineGroup.h"
+#include "./Memory/MemoryPool.hpp"
 #include "./Memory/Memory.hpp"
 #include "./Event/EventFilter.hpp"
 #include "./Event/EventHandler.h"

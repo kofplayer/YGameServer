@@ -9,11 +9,13 @@ public:
 	virtual bool DecRefCount(void * data, uint32 count) = 0;
 };
 
+#pragma pack(1)
 struct ObjectDataHead
 {
 	uint32 refCount;
 	ObjectDeleter * objectDeleter;
 };
+#pragma pack()
 
 template<typename T>
 class ObjectPool : public ObjectDeleter, public Singleton<ObjectPool<T>/**/>
@@ -30,18 +32,18 @@ protected:
 #pragma pack()
 	ObjectPool()
 	{
-		m_inc_count = 16;
+		m_incCount = 16;
 	}
-	void Init(uint32 init_count, uint32 inc_count)
+	void Init(uint32 initCount, uint32 incCount)
 	{
 		AutoThreadLock autoLock(&m_threadLock);
-		if (inc_count != 0)
+		if (incCount != 0)
 		{
-			m_inc_count = inc_count;
+			m_incCount = incCount;
 		}
 		if (m_used_objects.size() == 0 && m_free_objects.size() == 0)
 		{
-			assignObjs(init_count);
+			assignObjs(initCount);
 		}
 	}
 
@@ -50,10 +52,11 @@ protected:
 		m_threadLock.Lock();
 		if (m_free_objects.size()==0)
 		{
-			assignObjs(m_inc_count);
+			assignObjs(m_incCount);
 		}
-		ObjectData* data = (*m_free_objects.begin());
-		m_free_objects.pop_front();
+		auto itor = m_free_objects.begin();
+		ObjectData* data = (*itor);
+		m_free_objects.erase(itor);
 		m_threadLock.Unlock();
 
 		new(data->object) T();
@@ -104,7 +107,7 @@ protected:
 		((T*)objectData->object)->~T();
 
 		m_threadLock.Lock();
-		m_free_objects.push_back(objectData);
+		m_free_objects.insert(objectData);
 		m_threadLock.Unlock();
 		return true;
 	}
@@ -112,16 +115,16 @@ private:
 	void assignObjs(uint32 count)
 	{
 		ObjectData * p = (ObjectData*)malloc(sizeof(ObjectData)*count);
-		for (unsigned int i = 0; i < count; ++i)
+		for (uint32 i = 0; i < count; ++i)
 		{
 			p[i].head.refCount = 0;
 			p[i].head.objectDeleter = this;
-			m_free_objects.push_back(&p[i]);
+			m_free_objects.insert(&p[i]);
 		}
 	}
 	YSet<ObjectData*> m_used_objects;
-	YList<ObjectData*> m_free_objects;
-	uint32 m_inc_count;
+	YSet<ObjectData*> m_free_objects;
+	uint32 m_incCount;
 	SpinLock m_threadLock;
 };
 
