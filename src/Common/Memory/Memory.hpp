@@ -78,7 +78,7 @@ public:
 		{
 			return false;
 		}
-		MemoryPool * pool = new MemoryPool();
+		MemoryPool * pool = New<MemoryPool>();
 		pool->Init(mapSize, initCount, incCount);
 		m_memoryPoolsMap[mapSize] = pool;
 		m_memoryPoolsSet.insert(pool);

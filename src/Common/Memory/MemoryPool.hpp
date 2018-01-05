@@ -16,6 +16,7 @@ struct MemoryData
 class MemoryPool
 {
 	friend class MemoryManager;
+	friend class ObjectPool<MemoryPool>;
 protected:
 	MemoryPool() : m_memorySize(0), m_incCount(4)
 	{
