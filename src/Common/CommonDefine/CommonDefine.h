@@ -1,4 +1,4 @@
-﻿YGAME_SERVER_BEGIN
+YGAME_SERVER_BEGIN
 
 /*---------------------------------------------------------------------------------
 	定会多种平台上的多线程相关
@@ -16,6 +16,7 @@
 	#define THREAD_MUTEX_UNLOCK(x)								LeaveCriticalSection(&x)
 	typedef int													SOCKET_ID;
 	#define snprintf											_snprintf_s
+    #define INVALID_THREAD_ID                                   -1
 #else
 	#define THREAD_ID											pthread_t
 	#define THREAD_SINGNAL										pthread_cond_t
@@ -29,6 +30,8 @@
 	#define THREAD_MUTEX_UNLOCK(x)								pthread_mutex_unlock(&x)	
 	typedef int													SOCKET_ID;
 	#define INVALID_SOCKET										-1
+    #define SOCKET_ERROR                                        -1
+    #define INVALID_THREAD_ID                                   0
 #endif
 
 typedef char int8;

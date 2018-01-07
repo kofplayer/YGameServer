@@ -1,4 +1,4 @@
-﻿#include "../Common.h"
+#include "../Common.h"
 
 YGAME_SERVER_BEGIN
 NetAConnect::NetAConnect()
@@ -25,7 +25,11 @@ bool NetAConnect::Connect(bool isBlock)
 		if (!isBlock)
 		{
 			int error = getLastError();
-			if (EINPROGRESS == error || EWOULDBLOCK ==  error || WSAEWOULDBLOCK ==  error)
+#if CURRENT_PLATFORM == PLATFORM_APPLE
+            if (100035 == error)
+#else
+            if (EINPROGRESS == error || EWOULDBLOCK ==  error || WSAEWOULDBLOCK ==  error)
+#endif
 			{
 				return true;
 			}
@@ -41,6 +45,9 @@ bool NetAConnect::Connect(bool isBlock)
 
 bool NetAConnect::ConnectUrl(const char * url)
 {
+#if CURRENT_PLATFORM == PLATFORM_APPLE
+    return false;
+#else
 	Close();
 	addrinfo * qresult = NULL;
 	addrinfo qhints;
@@ -74,6 +81,7 @@ bool NetAConnect::ConnectUrl(const char * url)
 	}
 
 	return false;
+#endif
 }
 
 YGAME_SERVER_END

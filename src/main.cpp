@@ -1,4 +1,4 @@
-﻿//
+//
 //  main.cpp
 //  YGameServer
 //
@@ -648,19 +648,19 @@ int main(int argc, const char * argv[]) {
 	*/
 
 	//db测试
-// 	DataBase * db = gMemory.New<DataBaseMySql>();
-// 	db->SetInfo("116.62.50.103", 3306, "root", "4391007", "king_flower");
-// 	DBResult * dbResult = gMemory.New<DBResultMySql>();
-// 	db->Query("select * from user_info where user_type=0", dbResult);
-// 	uint32 f = dbResult->GetFieldCount();
-// 	uint32 r = dbResult->GetRowCount();
-// 	while (!dbResult->IsEnd())
-// 	{
-// 		std::string nick_name = dbResult->GetFieldValue("nick_name");
-// 		std::string head_url = dbResult->GetFieldValue("head_url");
-// 		LOG_DEBUG("head_url %s\n", head_url.c_str());
-// 		dbResult->Next();
-// 	}
+ 	DataBase * db = gMemory.New<DataBaseMySql>();
+ 	db->SetInfo("116.62.50.103", 3306, "root", "4391007", "king_flower");
+ 	DBResult * dbResult = gMemory.New<DBResultMySql>();
+ 	db->Query("select * from user_info where user_type=0", dbResult);
+ 	uint32 f = dbResult->GetFieldCount();
+ 	uint32 r = dbResult->GetRowCount();
+ 	while (!dbResult->IsEnd())
+ 	{
+ 		std::string nick_name = dbResult->GetFieldValue("nick_name");
+ 		std::string head_url = dbResult->GetFieldValue("head_url");
+ 		LOG_DEBUG("head_url %s\n", head_url.c_str());
+ 		dbResult->Next();
+ 	}
 	LOG_DEBUG("game start ok!!!\n");
 
 	while (true)

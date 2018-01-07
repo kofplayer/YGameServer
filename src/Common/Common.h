@@ -1,4 +1,4 @@
-﻿#ifndef YGAME_SERVER_COMMON
+#ifndef YGAME_SERVER_COMMON
 #define YGAME_SERVER_COMMON
 
 
@@ -59,7 +59,7 @@
 #include <direct.h>
 #else
 #include <unistd.h>
-#include "mysql/include/linux/mysql.h"
+#include "mysql/mysql.h"
 #include <pthread.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>

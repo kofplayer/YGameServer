@@ -1,4 +1,4 @@
-﻿#include "../Common.h"
+#include "../Common.h"
 
 YGAME_SERVER_BEGIN
 NetConnect::NetConnect() : m_currentPacketSendedLen(0), m_netPacketer(NULL)
@@ -73,6 +73,7 @@ bool NetConnect::DoSendPacket()
 		gMemory.Delete(packet);
 		itor = m_sendPackets.erase(itor);
 	}
+    return true;
 }
 
 bool NetConnect::DoReceivePacket()

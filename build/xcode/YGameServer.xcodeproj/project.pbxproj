@@ -1,0 +1,550 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6719A2FA20006F7F00402ADF /* Coroutine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2B120006F7F00402ADF /* Coroutine.cpp */; };
+		6719A2FB20006F7F00402ADF /* CoroutineGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2B320006F7F00402ADF /* CoroutineGroup.cpp */; };
+		6719A2FC20006F7F00402ADF /* DataBaseMySql.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2B820006F7F00402ADF /* DataBaseMySql.cpp */; };
+		6719A2FD20006F7F00402ADF /* DBResult.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2BA20006F7F00402ADF /* DBResult.cpp */; };
+		6719A2FE20006F7F00402ADF /* DBResultMySql.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2BC20006F7F00402ADF /* DBResultMySql.cpp */; };
+		6719A2FF20006F7F00402ADF /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2C120006F7F00402ADF /* EventManager.cpp */; };
+		6719A30020006F7F00402ADF /* FileLogWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2C520006F7F00402ADF /* FileLogWriter.cpp */; };
+		6719A30120006F7F00402ADF /* Log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2C720006F7F00402ADF /* Log.cpp */; };
+		6719A30220006F7F00402ADF /* LogWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2C920006F7F00402ADF /* LogWriter.cpp */; };
+		6719A30320006F7F00402ADF /* ScreenLogWriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2CB20006F7F00402ADF /* ScreenLogWriter.cpp */; };
+		6719A30420006F7F00402ADF /* NetAConnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2D220006F7F00402ADF /* NetAConnect.cpp */; };
+		6719A30520006F7F00402ADF /* NetBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2D420006F7F00402ADF /* NetBase.cpp */; };
+		6719A30620006F7F00402ADF /* NetConnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2D620006F7F00402ADF /* NetConnect.cpp */; };
+		6719A30720006F7F00402ADF /* NetEpollPoller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2D820006F7F00402ADF /* NetEpollPoller.cpp */; };
+		6719A30820006F7F00402ADF /* NetListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2DA20006F7F00402ADF /* NetListener.cpp */; };
+		6719A30920006F7F00402ADF /* NetPacket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2DC20006F7F00402ADF /* NetPacket.cpp */; };
+		6719A30A20006F7F00402ADF /* NetPacketWarp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2DF20006F7F00402ADF /* NetPacketWarp.cpp */; };
+		6719A30B20006F7F00402ADF /* NetPConnect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2E120006F7F00402ADF /* NetPConnect.cpp */; };
+		6719A30C20006F7F00402ADF /* NetPoller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2E320006F7F00402ADF /* NetPoller.cpp */; };
+		6719A30D20006F7F00402ADF /* NetSelectPoller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2E520006F7F00402ADF /* NetSelectPoller.cpp */; };
+		6719A30E20006F7F00402ADF /* Task.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2EA20006F7F00402ADF /* Task.cpp */; };
+		6719A30F20006F7F00402ADF /* Thread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2ED20006F7F00402ADF /* Thread.cpp */; };
+		6719A31020006F7F00402ADF /* ThreadLock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2EF20006F7F00402ADF /* ThreadLock.cpp */; };
+		6719A31120006F7F00402ADF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2F120006F7F00402ADF /* main.cpp */; };
+		6719A31220006F7F00402ADF /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2F220006F7F00402ADF /* makefile */; };
+		6719A31320006F7F00402ADF /* cs.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2F520006F7F00402ADF /* cs.pb.cc */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		67422EB61FC93FF80044D2D3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		6719A2AD20006F7F00402ADF /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		6719A2AF20006F7F00402ADF /* CommonDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonDefine.h; sourceTree = "<group>"; };
+		6719A2B120006F7F00402ADF /* Coroutine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Coroutine.cpp; sourceTree = "<group>"; };
+		6719A2B220006F7F00402ADF /* Coroutine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coroutine.h; sourceTree = "<group>"; };
+		6719A2B320006F7F00402ADF /* CoroutineGroup.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoroutineGroup.cpp; sourceTree = "<group>"; };
+		6719A2B420006F7F00402ADF /* CoroutineGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoroutineGroup.h; sourceTree = "<group>"; };
+		6719A2B520006F7F00402ADF /* Protothread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Protothread.h; sourceTree = "<group>"; };
+		6719A2B720006F7F00402ADF /* DataBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBase.h; sourceTree = "<group>"; };
+		6719A2B820006F7F00402ADF /* DataBaseMySql.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DataBaseMySql.cpp; sourceTree = "<group>"; };
+		6719A2B920006F7F00402ADF /* DataBaseMySql.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseMySql.h; sourceTree = "<group>"; };
+		6719A2BA20006F7F00402ADF /* DBResult.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DBResult.cpp; sourceTree = "<group>"; };
+		6719A2BB20006F7F00402ADF /* DBResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBResult.h; sourceTree = "<group>"; };
+		6719A2BC20006F7F00402ADF /* DBResultMySql.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DBResultMySql.cpp; sourceTree = "<group>"; };
+		6719A2BD20006F7F00402ADF /* DBResultMySql.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBResultMySql.h; sourceTree = "<group>"; };
+		6719A2BF20006F7F00402ADF /* EventFilter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EventFilter.hpp; sourceTree = "<group>"; };
+		6719A2C020006F7F00402ADF /* EventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventHandler.h; sourceTree = "<group>"; };
+		6719A2C120006F7F00402ADF /* EventManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventManager.cpp; sourceTree = "<group>"; };
+		6719A2C220006F7F00402ADF /* EventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventManager.h; sourceTree = "<group>"; };
+		6719A2C320006F7F00402ADF /* EventMonitorNode.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = EventMonitorNode.hpp; sourceTree = "<group>"; };
+		6719A2C520006F7F00402ADF /* FileLogWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileLogWriter.cpp; sourceTree = "<group>"; };
+		6719A2C620006F7F00402ADF /* FileLogWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileLogWriter.h; sourceTree = "<group>"; };
+		6719A2C720006F7F00402ADF /* Log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Log.cpp; sourceTree = "<group>"; };
+		6719A2C820006F7F00402ADF /* Log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Log.h; sourceTree = "<group>"; };
+		6719A2C920006F7F00402ADF /* LogWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LogWriter.cpp; sourceTree = "<group>"; };
+		6719A2CA20006F7F00402ADF /* LogWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogWriter.h; sourceTree = "<group>"; };
+		6719A2CB20006F7F00402ADF /* ScreenLogWriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenLogWriter.cpp; sourceTree = "<group>"; };
+		6719A2CC20006F7F00402ADF /* ScreenLogWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenLogWriter.h; sourceTree = "<group>"; };
+		6719A2CE20006F7F00402ADF /* Memory.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Memory.hpp; sourceTree = "<group>"; };
+		6719A2CF20006F7F00402ADF /* MemoryPool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MemoryPool.hpp; sourceTree = "<group>"; };
+		6719A2D020006F7F00402ADF /* ObjectPool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ObjectPool.hpp; sourceTree = "<group>"; };
+		6719A2D220006F7F00402ADF /* NetAConnect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetAConnect.cpp; sourceTree = "<group>"; };
+		6719A2D320006F7F00402ADF /* NetAConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetAConnect.h; sourceTree = "<group>"; };
+		6719A2D420006F7F00402ADF /* NetBase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetBase.cpp; sourceTree = "<group>"; };
+		6719A2D520006F7F00402ADF /* NetBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetBase.h; sourceTree = "<group>"; };
+		6719A2D620006F7F00402ADF /* NetConnect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetConnect.cpp; sourceTree = "<group>"; };
+		6719A2D720006F7F00402ADF /* NetConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetConnect.h; sourceTree = "<group>"; };
+		6719A2D820006F7F00402ADF /* NetEpollPoller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetEpollPoller.cpp; sourceTree = "<group>"; };
+		6719A2D920006F7F00402ADF /* NetEpollPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetEpollPoller.h; sourceTree = "<group>"; };
+		6719A2DA20006F7F00402ADF /* NetListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetListener.cpp; sourceTree = "<group>"; };
+		6719A2DB20006F7F00402ADF /* NetListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetListener.h; sourceTree = "<group>"; };
+		6719A2DC20006F7F00402ADF /* NetPacket.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetPacket.cpp; sourceTree = "<group>"; };
+		6719A2DD20006F7F00402ADF /* NetPacket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetPacket.h; sourceTree = "<group>"; };
+		6719A2DE20006F7F00402ADF /* NetPacketer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = NetPacketer.hpp; sourceTree = "<group>"; };
+		6719A2DF20006F7F00402ADF /* NetPacketWarp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetPacketWarp.cpp; sourceTree = "<group>"; };
+		6719A2E020006F7F00402ADF /* NetPacketWarp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetPacketWarp.h; sourceTree = "<group>"; };
+		6719A2E120006F7F00402ADF /* NetPConnect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetPConnect.cpp; sourceTree = "<group>"; };
+		6719A2E220006F7F00402ADF /* NetPConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetPConnect.h; sourceTree = "<group>"; };
+		6719A2E320006F7F00402ADF /* NetPoller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetPoller.cpp; sourceTree = "<group>"; };
+		6719A2E420006F7F00402ADF /* NetPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetPoller.h; sourceTree = "<group>"; };
+		6719A2E520006F7F00402ADF /* NetSelectPoller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = NetSelectPoller.cpp; sourceTree = "<group>"; };
+		6719A2E620006F7F00402ADF /* NetSelectPoller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetSelectPoller.h; sourceTree = "<group>"; };
+		6719A2E820006F7F00402ADF /* Singleton.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Singleton.hpp; sourceTree = "<group>"; };
+		6719A2EA20006F7F00402ADF /* Task.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Task.cpp; sourceTree = "<group>"; };
+		6719A2EB20006F7F00402ADF /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		6719A2ED20006F7F00402ADF /* Thread.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Thread.cpp; sourceTree = "<group>"; };
+		6719A2EE20006F7F00402ADF /* Thread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Thread.h; sourceTree = "<group>"; };
+		6719A2EF20006F7F00402ADF /* ThreadLock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ThreadLock.cpp; sourceTree = "<group>"; };
+		6719A2F020006F7F00402ADF /* ThreadLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadLock.h; sourceTree = "<group>"; };
+		6719A2F120006F7F00402ADF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		6719A2F220006F7F00402ADF /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
+		6719A2F520006F7F00402ADF /* cs.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cs.pb.cc; sourceTree = "<group>"; };
+		6719A2F620006F7F00402ADF /* cs.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs.pb.h; sourceTree = "<group>"; };
+		6719A2F720006F7F00402ADF /* cs.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cs.proto; sourceTree = "<group>"; };
+		6719A2F820006F7F00402ADF /* cs_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs_msg.h; sourceTree = "<group>"; };
+		6719A2F920006F7F00402ADF /* protoc.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = protoc.exe; sourceTree = "<group>"; };
+		6745AD232000A2FC00FE6DB0 /* YGameServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = YGameServer; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		67422EB51FC93FF80044D2D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6719A2AB20006F7F00402ADF /* src */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2AC20006F7F00402ADF /* Common */,
+				6719A2F120006F7F00402ADF /* main.cpp */,
+				6719A2F220006F7F00402ADF /* makefile */,
+				6719A2F320006F7F00402ADF /* Test */,
+			);
+			name = src;
+			path = ../../src;
+			sourceTree = "<group>";
+		};
+		6719A2AC20006F7F00402ADF /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2AD20006F7F00402ADF /* Common.h */,
+				6719A2AE20006F7F00402ADF /* CommonDefine */,
+				6719A2B020006F7F00402ADF /* Coroutine */,
+				6719A2B620006F7F00402ADF /* DataBase */,
+				6719A2BE20006F7F00402ADF /* Event */,
+				6719A2C420006F7F00402ADF /* Log */,
+				6719A2CD20006F7F00402ADF /* Memory */,
+				6719A2D120006F7F00402ADF /* Network */,
+				6719A2E720006F7F00402ADF /* Singleton */,
+				6719A2E920006F7F00402ADF /* Task */,
+				6719A2EC20006F7F00402ADF /* Thread */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		6719A2AE20006F7F00402ADF /* CommonDefine */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2AF20006F7F00402ADF /* CommonDefine.h */,
+			);
+			path = CommonDefine;
+			sourceTree = "<group>";
+		};
+		6719A2B020006F7F00402ADF /* Coroutine */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2B120006F7F00402ADF /* Coroutine.cpp */,
+				6719A2B220006F7F00402ADF /* Coroutine.h */,
+				6719A2B320006F7F00402ADF /* CoroutineGroup.cpp */,
+				6719A2B420006F7F00402ADF /* CoroutineGroup.h */,
+				6719A2B520006F7F00402ADF /* Protothread.h */,
+			);
+			path = Coroutine;
+			sourceTree = "<group>";
+		};
+		6719A2B620006F7F00402ADF /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2B720006F7F00402ADF /* DataBase.h */,
+				6719A2B820006F7F00402ADF /* DataBaseMySql.cpp */,
+				6719A2B920006F7F00402ADF /* DataBaseMySql.h */,
+				6719A2BA20006F7F00402ADF /* DBResult.cpp */,
+				6719A2BB20006F7F00402ADF /* DBResult.h */,
+				6719A2BC20006F7F00402ADF /* DBResultMySql.cpp */,
+				6719A2BD20006F7F00402ADF /* DBResultMySql.h */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
+		6719A2BE20006F7F00402ADF /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2BF20006F7F00402ADF /* EventFilter.hpp */,
+				6719A2C020006F7F00402ADF /* EventHandler.h */,
+				6719A2C120006F7F00402ADF /* EventManager.cpp */,
+				6719A2C220006F7F00402ADF /* EventManager.h */,
+				6719A2C320006F7F00402ADF /* EventMonitorNode.hpp */,
+			);
+			path = Event;
+			sourceTree = "<group>";
+		};
+		6719A2C420006F7F00402ADF /* Log */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2C520006F7F00402ADF /* FileLogWriter.cpp */,
+				6719A2C620006F7F00402ADF /* FileLogWriter.h */,
+				6719A2C720006F7F00402ADF /* Log.cpp */,
+				6719A2C820006F7F00402ADF /* Log.h */,
+				6719A2C920006F7F00402ADF /* LogWriter.cpp */,
+				6719A2CA20006F7F00402ADF /* LogWriter.h */,
+				6719A2CB20006F7F00402ADF /* ScreenLogWriter.cpp */,
+				6719A2CC20006F7F00402ADF /* ScreenLogWriter.h */,
+			);
+			path = Log;
+			sourceTree = "<group>";
+		};
+		6719A2CD20006F7F00402ADF /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2CE20006F7F00402ADF /* Memory.hpp */,
+				6719A2CF20006F7F00402ADF /* MemoryPool.hpp */,
+				6719A2D020006F7F00402ADF /* ObjectPool.hpp */,
+			);
+			path = Memory;
+			sourceTree = "<group>";
+		};
+		6719A2D120006F7F00402ADF /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2D220006F7F00402ADF /* NetAConnect.cpp */,
+				6719A2D320006F7F00402ADF /* NetAConnect.h */,
+				6719A2D420006F7F00402ADF /* NetBase.cpp */,
+				6719A2D520006F7F00402ADF /* NetBase.h */,
+				6719A2D620006F7F00402ADF /* NetConnect.cpp */,
+				6719A2D720006F7F00402ADF /* NetConnect.h */,
+				6719A2D820006F7F00402ADF /* NetEpollPoller.cpp */,
+				6719A2D920006F7F00402ADF /* NetEpollPoller.h */,
+				6719A2DA20006F7F00402ADF /* NetListener.cpp */,
+				6719A2DB20006F7F00402ADF /* NetListener.h */,
+				6719A2DC20006F7F00402ADF /* NetPacket.cpp */,
+				6719A2DD20006F7F00402ADF /* NetPacket.h */,
+				6719A2DE20006F7F00402ADF /* NetPacketer.hpp */,
+				6719A2DF20006F7F00402ADF /* NetPacketWarp.cpp */,
+				6719A2E020006F7F00402ADF /* NetPacketWarp.h */,
+				6719A2E120006F7F00402ADF /* NetPConnect.cpp */,
+				6719A2E220006F7F00402ADF /* NetPConnect.h */,
+				6719A2E320006F7F00402ADF /* NetPoller.cpp */,
+				6719A2E420006F7F00402ADF /* NetPoller.h */,
+				6719A2E520006F7F00402ADF /* NetSelectPoller.cpp */,
+				6719A2E620006F7F00402ADF /* NetSelectPoller.h */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		6719A2E720006F7F00402ADF /* Singleton */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2E820006F7F00402ADF /* Singleton.hpp */,
+			);
+			path = Singleton;
+			sourceTree = "<group>";
+		};
+		6719A2E920006F7F00402ADF /* Task */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2EA20006F7F00402ADF /* Task.cpp */,
+				6719A2EB20006F7F00402ADF /* Task.h */,
+			);
+			path = Task;
+			sourceTree = "<group>";
+		};
+		6719A2EC20006F7F00402ADF /* Thread */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2ED20006F7F00402ADF /* Thread.cpp */,
+				6719A2EE20006F7F00402ADF /* Thread.h */,
+				6719A2EF20006F7F00402ADF /* ThreadLock.cpp */,
+				6719A2F020006F7F00402ADF /* ThreadLock.h */,
+			);
+			path = Thread;
+			sourceTree = "<group>";
+		};
+		6719A2F320006F7F00402ADF /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2F420006F7F00402ADF /* protobuf */,
+			);
+			path = Test;
+			sourceTree = "<group>";
+		};
+		6719A2F420006F7F00402ADF /* protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				6719A2F520006F7F00402ADF /* cs.pb.cc */,
+				6719A2F620006F7F00402ADF /* cs.pb.h */,
+				6719A2F720006F7F00402ADF /* cs.proto */,
+				6719A2F820006F7F00402ADF /* cs_msg.h */,
+				6719A2F920006F7F00402ADF /* protoc.exe */,
+			);
+			path = protobuf;
+			sourceTree = "<group>";
+		};
+		67422EAF1FC93FF80044D2D3 = {
+			isa = PBXGroup;
+			children = (
+				6719A2AB20006F7F00402ADF /* src */,
+				6745AD232000A2FC00FE6DB0 /* YGameServer */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		67422EB71FC93FF80044D2D3 /* YGameServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 67422EBF1FC93FF80044D2D3 /* Build configuration list for PBXNativeTarget "YGameServer" */;
+			buildPhases = (
+				67422EB41FC93FF80044D2D3 /* Sources */,
+				67422EB51FC93FF80044D2D3 /* Frameworks */,
+				67422EB61FC93FF80044D2D3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = YGameServer;
+			productName = YGameServer;
+			productReference = 6745AD232000A2FC00FE6DB0 /* YGameServer */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		67422EB01FC93FF80044D2D3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "张锦";
+				TargetAttributes = {
+					67422EB71FC93FF80044D2D3 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = TDSZ6SP7R7;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 67422EB31FC93FF80044D2D3 /* Build configuration list for PBXProject "YGameServer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 67422EAF1FC93FF80044D2D3;
+			productRefGroup = 67422EAF1FC93FF80044D2D3;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				67422EB71FC93FF80044D2D3 /* YGameServer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		67422EB41FC93FF80044D2D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6719A30E20006F7F00402ADF /* Task.cpp in Sources */,
+				6719A2FF20006F7F00402ADF /* EventManager.cpp in Sources */,
+				6719A31020006F7F00402ADF /* ThreadLock.cpp in Sources */,
+				6719A2FB20006F7F00402ADF /* CoroutineGroup.cpp in Sources */,
+				6719A30120006F7F00402ADF /* Log.cpp in Sources */,
+				6719A30020006F7F00402ADF /* FileLogWriter.cpp in Sources */,
+				6719A30720006F7F00402ADF /* NetEpollPoller.cpp in Sources */,
+				6719A30C20006F7F00402ADF /* NetPoller.cpp in Sources */,
+				6719A2FA20006F7F00402ADF /* Coroutine.cpp in Sources */,
+				6719A31220006F7F00402ADF /* makefile in Sources */,
+				6719A2FD20006F7F00402ADF /* DBResult.cpp in Sources */,
+				6719A30620006F7F00402ADF /* NetConnect.cpp in Sources */,
+				6719A30D20006F7F00402ADF /* NetSelectPoller.cpp in Sources */,
+				6719A30520006F7F00402ADF /* NetBase.cpp in Sources */,
+				6719A2FE20006F7F00402ADF /* DBResultMySql.cpp in Sources */,
+				6719A31120006F7F00402ADF /* main.cpp in Sources */,
+				6719A30320006F7F00402ADF /* ScreenLogWriter.cpp in Sources */,
+				6719A2FC20006F7F00402ADF /* DataBaseMySql.cpp in Sources */,
+				6719A30420006F7F00402ADF /* NetAConnect.cpp in Sources */,
+				6719A30A20006F7F00402ADF /* NetPacketWarp.cpp in Sources */,
+				6719A30F20006F7F00402ADF /* Thread.cpp in Sources */,
+				6719A30920006F7F00402ADF /* NetPacket.cpp in Sources */,
+				6719A30B20006F7F00402ADF /* NetPConnect.cpp in Sources */,
+				6719A30220006F7F00402ADF /* LogWriter.cpp in Sources */,
+				6719A31320006F7F00402ADF /* cs.pb.cc in Sources */,
+				6719A30820006F7F00402ADF /* NetListener.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		67422EBD1FC93FF80044D2D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		67422EBE1FC93FF80044D2D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		67422EC01FC93FF80044D2D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = TDSZ6SP7R7;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				OTHER_LDFLAGS = (
+					"-lprotobuf",
+					"-lmysqlclient",
+				);
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		67422EC11FC93FF80044D2D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEVELOPMENT_TEAM = TDSZ6SP7R7;
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				OTHER_LDFLAGS = (
+					"-lprotobuf",
+					"-lmysqlclient",
+				);
+				OTHER_LIBTOOLFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		67422EB31FC93FF80044D2D3 /* Build configuration list for PBXProject "YGameServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67422EBD1FC93FF80044D2D3 /* Debug */,
+				67422EBE1FC93FF80044D2D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		67422EBF1FC93FF80044D2D3 /* Build configuration list for PBXNativeTarget "YGameServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				67422EC01FC93FF80044D2D3 /* Debug */,
+				67422EC11FC93FF80044D2D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 67422EB01FC93FF80044D2D3 /* Project object */;
+}

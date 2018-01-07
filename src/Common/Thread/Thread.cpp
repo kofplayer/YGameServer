@@ -1,7 +1,7 @@
-﻿#include "../Common.h"
+#include "../Common.h"
 
 YGAME_SERVER_BEGIN
-Thread::Thread() : m_threadID(-1)
+Thread::Thread() : m_threadID(INVALID_THREAD_ID)
 {
 }
 

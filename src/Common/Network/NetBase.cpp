@@ -1,4 +1,4 @@
-﻿#include "../Common.h"
+#include "../Common.h"
 
 YGAME_SERVER_BEGIN
 NetBase::NetBase() : m_socket(INVALID_SOCKET), m_addr(0), m_port(0)
@@ -69,11 +69,11 @@ bool NetBase::Create(int type, bool isBlock)
 		}
 #else
 		int flags = 0;
-		if ((flags = fcntl(fd, F_GETFL, NULL)) < 0) 
+		if ((flags = fcntl(m_socket, F_GETFL, NULL)) < 0)
 		{
 			assert(false);
 		}
-		else if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) == -1) 
+		else if (fcntl(m_socket, F_SETFL, flags | O_NONBLOCK) == -1)
 		{
 			assert(false);
 		}
