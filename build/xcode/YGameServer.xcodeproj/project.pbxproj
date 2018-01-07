@@ -32,7 +32,7 @@
 		6719A31020006F7F00402ADF /* ThreadLock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2EF20006F7F00402ADF /* ThreadLock.cpp */; };
 		6719A31120006F7F00402ADF /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2F120006F7F00402ADF /* main.cpp */; };
 		6719A31220006F7F00402ADF /* makefile in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2F220006F7F00402ADF /* makefile */; };
-		6719A31320006F7F00402ADF /* cs.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 6719A2F520006F7F00402ADF /* cs.pb.cc */; };
+		6786BAC62002438100128F25 /* cs.pb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6786BAC52002438100128F25 /* cs.pb.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -108,12 +108,12 @@
 		6719A2F020006F7F00402ADF /* ThreadLock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThreadLock.h; sourceTree = "<group>"; };
 		6719A2F120006F7F00402ADF /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		6719A2F220006F7F00402ADF /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
-		6719A2F520006F7F00402ADF /* cs.pb.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cs.pb.cc; sourceTree = "<group>"; };
 		6719A2F620006F7F00402ADF /* cs.pb.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs.pb.h; sourceTree = "<group>"; };
 		6719A2F720006F7F00402ADF /* cs.proto */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cs.proto; sourceTree = "<group>"; };
 		6719A2F820006F7F00402ADF /* cs_msg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cs_msg.h; sourceTree = "<group>"; };
 		6719A2F920006F7F00402ADF /* protoc.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = protoc.exe; sourceTree = "<group>"; };
 		6745AD232000A2FC00FE6DB0 /* YGameServer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = YGameServer; sourceTree = BUILT_PRODUCTS_DIR; };
+		6786BAC52002438100128F25 /* cs.pb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cs.pb.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -295,7 +295,7 @@
 		6719A2F420006F7F00402ADF /* protobuf */ = {
 			isa = PBXGroup;
 			children = (
-				6719A2F520006F7F00402ADF /* cs.pb.cc */,
+				6786BAC52002438100128F25 /* cs.pb.cpp */,
 				6719A2F620006F7F00402ADF /* cs.pb.h */,
 				6719A2F720006F7F00402ADF /* cs.proto */,
 				6719A2F820006F7F00402ADF /* cs_msg.h */,
@@ -370,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6786BAC62002438100128F25 /* cs.pb.cpp in Sources */,
 				6719A30E20006F7F00402ADF /* Task.cpp in Sources */,
 				6719A2FF20006F7F00402ADF /* EventManager.cpp in Sources */,
 				6719A31020006F7F00402ADF /* ThreadLock.cpp in Sources */,
@@ -394,7 +395,6 @@
 				6719A30920006F7F00402ADF /* NetPacket.cpp in Sources */,
 				6719A30B20006F7F00402ADF /* NetPConnect.cpp in Sources */,
 				6719A30220006F7F00402ADF /* LogWriter.cpp in Sources */,
-				6719A31320006F7F00402ADF /* cs.pb.cc in Sources */,
 				6719A30820006F7F00402ADF /* NetListener.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
