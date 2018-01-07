@@ -1,4 +1,4 @@
-﻿#include "../Common.h"
+#include "../Common.h"
 
 YGAME_SERVER_BEGIN
 
@@ -12,7 +12,6 @@ NetPoller::~NetPoller()
 
 bool NetPoller::AddRead(SOCKET_ID s, NetReadHandler * handler)
 {
-	AutoThreadLock autoLock(&m_lock);
 	if (!DoAddRead(s))
 	{
 		return false;
@@ -23,7 +22,6 @@ bool NetPoller::AddRead(SOCKET_ID s, NetReadHandler * handler)
 
 bool NetPoller::AddWrite(SOCKET_ID s, NetWriteHandler * handler)
 {
-	AutoThreadLock autoLock(&m_lock);
 	if (!DoAddWrite(s))
 	{
 		return false;
@@ -34,7 +32,6 @@ bool NetPoller::AddWrite(SOCKET_ID s, NetWriteHandler * handler)
 
 bool NetPoller::RemoveRead(SOCKET_ID s)
 {
-	AutoThreadLock autoLock(&m_lock);
 	m_readHandlers.erase(s);
 	if (!DoRemoveRead(s))
 	{
@@ -45,7 +42,6 @@ bool NetPoller::RemoveRead(SOCKET_ID s)
 
 bool NetPoller::RemoveWrite(SOCKET_ID s)
 {
-	AutoThreadLock autoLock(&m_lock);
 	m_writeHandlers.erase(s);
 	if (!DoRemoveWrite(s))
 	{
@@ -56,7 +52,6 @@ bool NetPoller::RemoveWrite(SOCKET_ID s)
 
 bool NetPoller::OnRead(SOCKET_ID s)
 {
-	AutoThreadLock autoLock(&m_lock);
 	auto itor = m_readHandlers.find(s);
 	if (itor == m_readHandlers.end())
 	{
@@ -67,7 +62,6 @@ bool NetPoller::OnRead(SOCKET_ID s)
 
 bool NetPoller::OnWrite(SOCKET_ID s)
 {
-	AutoThreadLock autoLock(&m_lock);
 	auto itor = m_writeHandlers.find(s);
 	if (itor == m_writeHandlers.end())
 	{

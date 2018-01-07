@@ -1,4 +1,4 @@
-﻿#include "../Common.h"
+#include "../Common.h"
 
 YGAME_SERVER_BEGIN
 
@@ -118,6 +118,7 @@ bool NetPacketWarp::Listen(NET_ADDR addr, NET_PORT port, NetStatusHandler * hand
 	m_netListeners[s] = netListener;
 	m_netStatusHandlers[s] = handler;
 	m_net_poller.AddRead(s, this);
+    LOG_DEBUG("listen addr:%u port:%u succ\n", addr, port);
 	return true;
 }
 
@@ -129,7 +130,7 @@ bool NetPacketWarp::Connect(NET_ADDR addr, NET_PORT port, NetStatusHandler * han
 	if (!netConnecter->Connect(false))
 	{
 		gMemory.Delete(netConnecter);
-		LOG_ERROR("connect addr:%u port:%u error", addr, port);
+		LOG_ERROR("connect addr:%u port:%u error\n", addr, port);
 		return false;
 	}
 	SOCKET_ID s = netConnecter->GetSocket();

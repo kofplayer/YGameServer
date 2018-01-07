@@ -1,4 +1,4 @@
-﻿YGAME_SERVER_BEGIN
+YGAME_SERVER_BEGIN
 
 class NetReadHandler
 {
@@ -50,7 +50,6 @@ protected:
 private:
 	YMap<SOCKET_ID, NetReadHandler*> m_readHandlers;
 	YMap<SOCKET_ID, NetWriteHandler*> m_writeHandlers;
-	SpinLock m_lock;
 };
 
 
