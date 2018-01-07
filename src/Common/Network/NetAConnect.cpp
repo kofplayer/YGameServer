@@ -45,7 +45,7 @@ bool NetAConnect::Connect(bool isBlock)
 
 bool NetAConnect::ConnectUrl(const char * url)
 {
-#if CURRENT_PLATFORM == PLATFORM_APPLE
+#if CURRENT_PLATFORM != PLATFORM_WIN32
     return false;
 #else
 	Close();
