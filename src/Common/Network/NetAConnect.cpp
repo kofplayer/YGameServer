@@ -27,7 +27,7 @@ bool NetAConnect::Connect(bool isBlock)
 			int error = getLastError();
 #if CURRENT_PLATFORM == PLATFORM_APPLE
             if (1 == error)
-#elif CURRENT_PLATFORM == PLATFORM_LINUX
+#elif CURRENT_PLATFORM == PLATFORM_UNIX
             if (EINPROGRESS == error || EWOULDBLOCK ==  error)
 #else
             if (EINPROGRESS == error || WSAEWOULDBLOCK ==  error)
