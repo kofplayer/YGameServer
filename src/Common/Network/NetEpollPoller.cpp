@@ -29,10 +29,14 @@ int32 NetEpollPoller::WaitEvent(int32 waitUS)
     int nfds = epoll_wait(m_epfd, events, MAX_EVENTS, maxWaitInMilliseconds);
     for (int i = 0; i < nfds; ++i)
     {
-        if (events[i].events & (EPOLLERR|EPOLLHUP))
+        if (events[i].events & EPOLLERR)
         {
             OnError(events[i].data.fd);
-        }
+		}
+		else if (events[i].events & EPOLLHUP)
+		{
+			OnError(events[i].data.fd);
+		}
         else
         {
             if (events[i].events & EPOLLIN)

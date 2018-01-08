@@ -72,6 +72,53 @@ public:
 	bool InitMemoryPool(uint32 size, uint32 initCount, uint32 incCount)
 	{
 		AutoThreadRWLock autoLock(&m_memoryRWLock);
+		return _InitMemoryPool(size, initCount, incCount);
+	}
+
+	void * Malloc(uint32 size)
+	{
+		MemoryPool * pool = NULL;
+		{
+			AutoThreadRWLock autoLock(&m_memoryRWLock);
+			uint32 mapSize = GetMapSize(size);
+			auto itor = m_memoryPoolsMap.find(mapSize);
+			if (itor == m_memoryPoolsMap.end())
+			{
+				if (!_InitMemoryPool(mapSize, 4, 4))
+				{
+					assert(false);
+					return NULL;
+				}
+				itor = m_memoryPoolsMap.find(mapSize);
+			}
+			if (itor == m_memoryPoolsMap.end())
+			{
+				assert(false);
+				return NULL;
+			}
+			pool = itor->second;
+		}
+		MemoryData * data = pool->Malloc();
+		return data->memory;
+	}
+
+	void Free(void * p)
+	{
+		MemoryData * data = (MemoryData*)(((char*)p) - sizeof(MemoryDataHead));
+		{
+			AutoThreadRLock autoLock(&m_memoryRWLock);
+			if (m_memoryPoolsSet.find(data->head.memoryPool) == m_memoryPoolsSet.end())
+			{
+				assert(false);
+				return;
+			}
+		}
+		data->head.memoryPool->Free(data);
+	}
+
+private:
+	bool _InitMemoryPool(uint32 size, uint32 initCount, uint32 incCount)
+	{
 		uint32 mapSize = GetMapSize(size);
 		auto itor = m_memoryPoolsMap.find(mapSize);
 		if (itor != m_memoryPoolsMap.end())
@@ -84,48 +131,6 @@ public:
 		m_memoryPoolsSet.insert(pool);
 		return true;
 	}
-
-	void * Malloc(uint32 size)
-	{
-		uint32 mapSize = GetMapSize(size);
-		MemoryPool * pool = NULL;
-		m_memoryRWLock.Lock();
-		auto itor = m_memoryPoolsMap.find(mapSize);
-		if (itor == m_memoryPoolsMap.end())
-		{
-			if (!InitMemoryPool(mapSize, 4, 4))
-			{
-				assert(false);
-				return NULL;
-			}
-			itor = m_memoryPoolsMap.find(mapSize);
-		}
-		if (itor == m_memoryPoolsMap.end())
-		{
-			assert(false);
-			return NULL;
-		}
-		pool = itor->second;
-		m_memoryRWLock.Unlock();
-		MemoryData * data = pool->Malloc();
-		return data->memory;
-	}
-
-	void Free(void * p)
-	{
-		MemoryData * data = (MemoryData*)(((char*)p) - sizeof(MemoryDataHead));
-		m_memoryRWLock.RLock();
-		if (m_memoryPoolsSet.find(data->head.memoryPool) == m_memoryPoolsSet.end())
-		{
-			m_memoryRWLock.Unlock();
-			assert(false);
-			return;
-		}
-		m_memoryRWLock.Unlock();
-		data->head.memoryPool->Free(data);
-	}
-
-private:
 	uint32 GetMapSize(uint32 size)
 	{
 		uint32 mapSize = size;

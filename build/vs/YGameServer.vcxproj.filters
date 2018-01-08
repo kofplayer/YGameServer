@@ -226,7 +226,7 @@
       <Filter>Common\Network</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\Test\protobuf\cs.pb.cpp">
-      <Filter>Test</Filter>
+      <Filter>Test\protobuf</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

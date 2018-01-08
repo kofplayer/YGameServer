@@ -49,66 +49,66 @@ protected:
 
 	ObjectData * New()
     {
-		m_threadLock.Lock();
-		if (m_free_objects.size()==0)
+		ObjectData* data = NULL;
 		{
-			assignObjs(m_incCount);
+			AutoThreadLock autoLock(&m_threadLock);
+			if (m_free_objects.size()==0)
+			{
+				assignObjs(m_incCount);
+			}
+			auto itor = m_free_objects.begin();
+			data = (*itor);
+			m_free_objects.erase(itor);
 		}
-		auto itor = m_free_objects.begin();
-		ObjectData* data = (*itor);
-		m_free_objects.erase(itor);
-		m_threadLock.Unlock();
-
 		new(data->object) T();
-		data->head.refCount = 1;
-		m_threadLock.Lock();
-		m_used_objects.insert(data);
-		m_threadLock.Unlock();
+		{
+			AutoThreadLock autoLock(&m_threadLock);
+			data->head.refCount = 1;
+			m_used_objects.insert(data);
+		}
 		return data;
     }
 
 	virtual bool IncRefCount(void * data, uint32 count)
 	{
+		AutoThreadLock autoLock(&m_threadLock);
 		ObjectData * objectData = (ObjectData*)data;
-		m_threadLock.Lock();
 		auto itor = m_used_objects.find(objectData);
 		if (itor == m_used_objects.end())
 		{
-			m_threadLock.Unlock();
 			assert(false);
 			return false;
 		}
 		objectData->head.refCount += count;
-		m_threadLock.Unlock();
 		return true;
 	}
 
 	virtual bool DecRefCount(void * data, uint32 count)
 	{
 		ObjectData * objectData = (ObjectData*)data;
-		m_threadLock.Lock();
-		auto itor = m_used_objects.find(objectData);
-		if (itor == m_used_objects.end())
 		{
-			m_threadLock.Unlock();
-			assert(false);
-			return false;
+			AutoThreadLock autoLock(&m_threadLock);
+			auto itor = m_used_objects.find(objectData);
+			if (itor == m_used_objects.end())
+			{
+				assert(false);
+				return false;
+			}
+			if (objectData->head.refCount > count)
+			{
+				objectData->head.refCount -= count;
+				return true;
+			}
+			m_used_objects.erase(itor);
+			objectData->head.refCount = 0;
 		}
-		if (objectData->head.refCount > count)
-		{
-			objectData->head.refCount -= count;
-			m_threadLock.Unlock();
-			return true;
-		}
-		m_used_objects.erase(itor);
-		objectData->head.refCount = 0;
-		m_threadLock.Unlock();
 
 		((T*)objectData->object)->~T();
 
-		m_threadLock.Lock();
-		m_free_objects.insert(objectData);
-		m_threadLock.Unlock();
+		{
+			AutoThreadLock autoLock(&m_threadLock);
+			m_free_objects.insert(objectData);
+		}
 		return true;
 	}
 private:

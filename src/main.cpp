@@ -481,7 +481,7 @@ public:
 		GamePacket * packet = PacketGameMsg(cmd, msg);
 		if (msg->SerializeToArray(packet->GetData(), packet->GetDataLen()))
 		{
-			LOG_DEBUG("sendmsg cmd:%u ok\n", cmd);
+			LOG_DEBUG("sendmsg cmd:%u, len:%u ok\n", cmd, packet->GetDataLen());
 			m_connect->SendPacket(packet);
 			return true;
 		}

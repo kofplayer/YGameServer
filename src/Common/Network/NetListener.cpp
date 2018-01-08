@@ -16,7 +16,16 @@ bool NetListener::Bind()
 	sin.sin_family = AF_INET;
 	sin.sin_port = htons(m_port);
 	sin.sin_addr.s_addr = htonl(m_addr);
-	return (bind(m_socket, (struct sockaddr*)&sin, sizeof(sin)) == 0);
+	int r = bind(m_socket, (struct sockaddr*)&sin, sizeof(sin));
+	if (r == 0)
+	{
+		return true;
+	}
+	else
+	{
+		LOG_ERROR("bind addr %u port %u error %d desc %s\n", m_addr, m_port, r, getStrError());
+		return false;
+	}
 }
 
 bool NetListener::Listen(int backlog)
