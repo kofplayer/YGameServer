@@ -1,4 +1,4 @@
-#include "../Common.h"
+﻿#include "../Common.h"
 
 YGAME_SERVER_BEGIN
 
@@ -84,7 +84,7 @@ bool NetPacketWarp::OnNetWrite(SOCKET_ID s)
 		NetInfo * newInfo = gMemory.New<NetInfo>();
 		m_netInfos[s] = newInfo;
 		newInfo->connect = connect;
-		LOG_DEBUG("Accept %d succ!!!!!!!\n", s);
+		LOG_DEBUG("connect %d succ!!!!!!!\n", s);
 		m_net_poller.AddRead(s, this);
 		OnNetOpen(connect, INVALID_SOCKET);
 		return true;
@@ -144,6 +144,7 @@ bool NetPacketWarp::Connect(NET_ADDR addr, NET_PORT port, NetStatusHandler * han
 	m_netConnecters[s] = netConnecter;
 	m_netStatusHandlers[s] = handler;
 	m_net_poller.AddWrite(s, this);
+	LOG_DEBUG("connect socket:%d, wait for servr accept\n", s);
 	return true;
 }
 

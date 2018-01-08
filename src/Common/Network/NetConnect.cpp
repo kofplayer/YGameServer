@@ -1,4 +1,4 @@
-#include "../Common.h"
+﻿#include "../Common.h"
 
 YGAME_SERVER_BEGIN
 NetConnect::NetConnect() : m_currentPacketSendedLen(0), m_netPacketer(NULL)
@@ -50,6 +50,7 @@ bool NetConnect::DoSendPacket()
 		if (m_currentPacketSendedLen >= packetLen)
 		{
 			assert(false);
+			LOG_ERROR("DoSendPacket error!!!\n");
 			m_currentPacketSendedLen = 0;
 			gMemory.Delete(packet);
 			itor = m_sendPackets.erase(itor);
@@ -62,6 +63,7 @@ bool NetConnect::DoSendPacket()
 		}
 		else if (len < 0)
 		{
+			LOG_ERROR("Send error!!!\n");
 			return false;
 		}
 		m_currentPacketSendedLen += len;

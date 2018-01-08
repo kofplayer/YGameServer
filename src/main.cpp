@@ -1,4 +1,4 @@
-//
+﻿//
 //  main.cpp
 //  YGameServer
 //
@@ -481,11 +481,13 @@ public:
 		GamePacket * packet = PacketGameMsg(cmd, msg);
 		if (msg->SerializeToArray(packet->GetData(), packet->GetDataLen()))
 		{
+			LOG_DEBUG("sendmsg cmd:%u ok\n", cmd);
 			m_connect->SendPacket(packet);
 			return true;
 		}
 		else
 		{
+			LOG_ERROR("sendmsg cmd:%u serialize faile\n", cmd);
 			gMemory.Delete(packet);
 			return false;
 		}

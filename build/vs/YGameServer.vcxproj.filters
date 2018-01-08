@@ -225,8 +225,8 @@
     <ClCompile Include="..\..\src\Common\Network\NetPacketWarp.cpp">
       <Filter>Common\Network</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Test\protobuf\cs.pb.cc">
-      <Filter>Test\protobuf</Filter>
+    <ClCompile Include="..\..\src\Test\protobuf\cs.pb.cpp">
+      <Filter>Test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
