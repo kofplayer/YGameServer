@@ -8,8 +8,8 @@
 
 #include <iostream>
 #include "./Common/Common.h"
-#include "Test/protobuf/cs_msg.h"
-#include "Test/protobuf/cs.pb.h"
+#include "./Resource/AccountInfo.pb.h"
+#include "./Resource/GoodsInfo.pb.h"
 
 using namespace YGAME_SERVER_NAMESPACE;
 
@@ -266,7 +266,7 @@ public:
 
 GamePacket * PacketGameMsg(uint32 cmd, ::google::protobuf::Message * msg)
 {
-	uint32 size = msg->ByteSizeLong();
+	int32 size = msg->ByteSize();
 	GamePacket * packet = gMemory.New<GamePacket>();
 	packet->Init(size+sizeof(GamePacketHead));
 	GamePacketHead * head = packet->GetHead();
@@ -293,48 +293,48 @@ public:
 	virtual void OnNetPacket(SOCKET_ID s, NetPacket * packet)
 	{
 		LOG_DEBUG("receive player:%u packet len %u\n", m_id, packet->GetPacketLen());
-		GamePacket * gamePacket = dynamic_cast<GamePacket*>(packet);
-		GamePacketHead * head = gamePacket->GetHead();
-		switch (head->cmd)
-		{
-		case CS_MSG_LOGIN_REQ:
-			{
-				LoginReq * req = gMemory.New<LoginReq>();
-				if (req->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
-				{
-					LOG_DEBUG("player login account:%s password:%s\n", req->account().c_str(), req->password().c_str());
-					LoginRsp * rsp = gMemory.New<LoginRsp>();
-					rsp->set_result(0);
-					rsp->set_userid(m_id);
-					rsp->set_nickname(req->account().c_str());
-					SendMsg(CS_MSG_LOGIN_RSP, rsp);
-					gMemory.Delete(rsp);
-				}
-				gMemory.Delete(req);
-			}
-			break;
-		case CS_MSG_CHAT_REQ:
-			{
-				ChatReq * req = gMemory.New<ChatReq>();
-				if (req->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
-				{
-					LOG_DEBUG("player chat:%s\n", req->msg().c_str());
-					ChatRsp * rsp = gMemory.New<ChatRsp>();
-					rsp->set_result(0);
-					SendMsg(CS_MSG_CHAT_RSP, rsp);
-					gMemory.Delete(rsp);
-
-					ChatNtf * ntf = gMemory.New<ChatNtf>();
-					ntf->set_msg(req->msg().c_str());
-					SendMsgToAll(CS_MSG_CHAT_NTF, ntf);
-					gMemory.Delete(ntf);
-				}
-				gMemory.Delete(req);
-			}
-			break;
-		default:
-			break;
-		}
+// 		GamePacket * gamePacket = dynamic_cast<GamePacket*>(packet);
+// 		GamePacketHead * head = gamePacket->GetHead();
+// 		switch (head->cmd)
+// 		{
+// 		case CS_MSG_LOGIN_REQ:
+// 			{
+// 				LoginReq * req = gMemory.New<LoginReq>();
+// 				if (req->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
+// 				{
+// 					LOG_DEBUG("player login account:%s password:%s\n", req->account().c_str(), req->password().c_str());
+// 					LoginRsp * rsp = gMemory.New<LoginRsp>();
+// 					rsp->set_result(0);
+// 					rsp->set_userid(m_id);
+// 					rsp->set_nickname(req->account().c_str());
+// 					SendMsg(CS_MSG_LOGIN_RSP, rsp);
+// 					gMemory.Delete(rsp);
+// 				}
+// 				gMemory.Delete(req);
+// 			}
+// 			break;
+// 		case CS_MSG_CHAT_REQ:
+// 			{
+// 				ChatReq * req = gMemory.New<ChatReq>();
+// 				if (req->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
+// 				{
+// 					LOG_DEBUG("player chat:%s\n", req->msg().c_str());
+// 					ChatRsp * rsp = gMemory.New<ChatRsp>();
+// 					rsp->set_result(0);
+// 					SendMsg(CS_MSG_CHAT_RSP, rsp);
+// 					gMemory.Delete(rsp);
+// 
+// 					ChatNtf * ntf = gMemory.New<ChatNtf>();
+// 					ntf->set_msg(req->msg().c_str());
+// 					SendMsgToAll(CS_MSG_CHAT_NTF, ntf);
+// 					gMemory.Delete(ntf);
+// 				}
+// 				gMemory.Delete(req);
+// 			}
+// 			break;
+// 		default:
+// 			break;
+// 		}
 		
 	}
 	virtual bool SendMsg(uint32 cmd, ::google::protobuf::Message * msg)
@@ -417,11 +417,11 @@ public:
 		m_connect = connect;
 		connect->SetNetPacketer<HeadNetPacketer<GamePacket, GamePacketHead>/**/>();
 		LOG_DEBUG("client connect\n");
-		LoginReq * req = gMemory.New<LoginReq>();
-		req->set_account("acount11111");
-		req->set_password("pwd11111");
-		SendMsg(CS_MSG_LOGIN_REQ, req);
-		gMemory.Delete(req);
+// 		LoginReq * req = gMemory.New<LoginReq>();
+// 		req->set_account("acount11111");
+// 		req->set_password("pwd11111");
+// 		SendMsg(CS_MSG_LOGIN_REQ, req);
+// 		gMemory.Delete(req);
 		return this;
 	}
 	virtual void OnNetClose(SOCKET_ID s)
@@ -432,48 +432,48 @@ public:
 	virtual void OnNetPacket(SOCKET_ID s, NetPacket * packet)
 	{
 		LOG_DEBUG("receive player:%u packet len %u\n", m_id, packet->GetPacketLen());
-		GamePacket * gamePacket = dynamic_cast<GamePacket*>(packet);
-		GamePacketHead * head = gamePacket->GetHead();
-		switch (head->cmd)
-		{
-		case CS_MSG_LOGIN_RSP:
-			{
-				LoginRsp * rsp = gMemory.New<LoginRsp>();
-				if (rsp->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
-				{
-					LOG_DEBUG("player login result:%d userid:%u nickname:%s\n", rsp->result(), rsp->userid(), rsp->nickname().c_str());
-
-					ChatReq * req = gMemory.New<ChatReq>();
-					req->set_msg("hello every one!!!\n");
-					SendMsg(CS_MSG_CHAT_REQ, req);
-					gMemory.Delete(req);
-				}
-				gMemory.Delete(rsp);
-			}
-			break;
-		case CS_MSG_CHAT_RSP:
-			{
-				ChatRsp * rsp = gMemory.New<ChatRsp>();
-				if (rsp->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
-				{
-					LOG_DEBUG("player chat result:%d\n", rsp->result());
-				}
-				gMemory.Delete(rsp);
-			}
-			break;
-		case CS_MSG_CHAT_NTF:
-			{
-				ChatNtf * ntf = gMemory.New<ChatNtf>();
-				if (ntf->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
-				{
-					LOG_DEBUG("someone chat:%s\n", ntf->msg().c_str());
-				}
-				gMemory.Delete(ntf);
-			}
-			break;
-		default:
-			break;
-		}
+// 		GamePacket * gamePacket = dynamic_cast<GamePacket*>(packet);
+// 		GamePacketHead * head = gamePacket->GetHead();
+// 		switch (head->cmd)
+// 		{
+// 		case CS_MSG_LOGIN_RSP:
+// 			{
+// 				LoginRsp * rsp = gMemory.New<LoginRsp>();
+// 				if (rsp->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
+// 				{
+// 					LOG_DEBUG("player login result:%d userid:%u nickname:%s\n", rsp->result(), rsp->userid(), rsp->nickname().c_str());
+// 
+// 					ChatReq * req = gMemory.New<ChatReq>();
+// 					req->set_msg("hello every one!!!\n");
+// 					SendMsg(CS_MSG_CHAT_REQ, req);
+// 					gMemory.Delete(req);
+// 				}
+// 				gMemory.Delete(rsp);
+// 			}
+// 			break;
+// 		case CS_MSG_CHAT_RSP:
+// 			{
+// 				ChatRsp * rsp = gMemory.New<ChatRsp>();
+// 				if (rsp->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
+// 				{
+// 					LOG_DEBUG("player chat result:%d\n", rsp->result());
+// 				}
+// 				gMemory.Delete(rsp);
+// 			}
+// 			break;
+// 		case CS_MSG_CHAT_NTF:
+// 			{
+// 				ChatNtf * ntf = gMemory.New<ChatNtf>();
+// 				if (ntf->ParseFromArray(gamePacket->GetData(), gamePacket->GetDataLen()))
+// 				{
+// 					LOG_DEBUG("someone chat:%s\n", ntf->msg().c_str());
+// 				}
+// 				gMemory.Delete(ntf);
+// 			}
+// 			break;
+// 		default:
+// 			break;
+// 		}
 
 	}
 	virtual bool SendMsg(uint32 cmd, ::google::protobuf::Message * msg)
@@ -648,6 +648,28 @@ int main(int argc, const char * argv[]) {
 	listenHandler->m_listener = listener;
 	poller_thread::getInstance()->AddRead(listener->GetSocket(), listenHandler);
 	*/
+
+	// 读取资源
+	FILE * fd = fopen("GoodsInfo.bin", "r");
+	if (fd) {
+		fseek(fd, 0, SEEK_END);
+		fpos_t len, pos = 0;
+		fgetpos(fd, &len);
+		fsetpos(fd, &pos);
+		void * p = gMemory.Malloc(len);
+		fread(p, 1, len, fd);
+		fclose(fd);
+		X::Res::GoodsInfo_ARRAY infos;
+		infos.ParseFromArray(p, len);
+		int count = infos.items_size();
+		for (int i=0; i<count; ++i)
+		{
+			const ::X::Res::GoodsInfo& info = infos.items(i);
+			LOG_DEBUG("res:%u\n", info.goods_id());
+		}
+		gMemory.Free(p);
+	}
+
 
 	//db测试
  	DataBase * db = gMemory.New<DataBaseMySql>();

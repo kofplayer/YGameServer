@@ -34,11 +34,8 @@
     <Filter Include="Common\DataBase">
       <UniqueIdentifier>{a5c05d73-e2d0-49d0-93fb-306e7af93d6c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Test">
-      <UniqueIdentifier>{a272447d-bc1c-4ead-b8c0-9e072b35b3f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Test\protobuf">
-      <UniqueIdentifier>{10468fc6-3d03-451a-bbae-64f5276fa700}</UniqueIdentifier>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{fc3a4c45-8774-453e-8dd6-8f9048d4c3d0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,14 +141,14 @@
     <ClInclude Include="..\..\src\Common\Network\NetPacketer.hpp">
       <Filter>Common\Network</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Test\protobuf\cs.pb.h">
-      <Filter>Test\protobuf</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Test\protobuf\cs_msg.h">
-      <Filter>Test\protobuf</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\Common\Memory\MemoryPool.hpp">
       <Filter>Common\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Resource\AccountInfo.pb.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Resource\GoodsInfo.pb.h">
+      <Filter>Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -225,8 +222,11 @@
     <ClCompile Include="..\..\src\Common\Network\NetPacketWarp.cpp">
       <Filter>Common\Network</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Test\protobuf\cs.pb.cpp">
-      <Filter>Test\protobuf</Filter>
+    <ClCompile Include="..\..\src\Resource\AccountInfo.pb.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Resource\GoodsInfo.pb.cpp">
+      <Filter>Resource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

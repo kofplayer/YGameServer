@@ -23,7 +23,7 @@
     <ProjectGuid>{C207F09F-294B-48D8-BF0F-1EB6276ABB2B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>YGameServer</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -104,6 +104,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\dependencies\protobuf\include\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -180,8 +181,8 @@
     <ClInclude Include="..\..\src\Common\Task\Task.h" />
     <ClInclude Include="..\..\src\Common\Thread\Thread.h" />
     <ClInclude Include="..\..\src\Common\Thread\ThreadLock.h" />
-    <ClInclude Include="..\..\src\Test\protobuf\cs.pb.h" />
-    <ClInclude Include="..\..\src\Test\protobuf\cs_msg.h" />
+    <ClInclude Include="..\..\src\Resource\AccountInfo.pb.h" />
+    <ClInclude Include="..\..\src\Resource\GoodsInfo.pb.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Coroutine\Coroutine.cpp" />
@@ -208,7 +209,8 @@
     <ClCompile Include="..\..\src\Common\Thread\Thread.cpp" />
     <ClCompile Include="..\..\src\Common\Thread\ThreadLock.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
-    <ClCompile Include="..\..\src\Test\protobuf\cs.pb.cpp" />
+    <ClCompile Include="..\..\src\Resource\AccountInfo.pb.cpp" />
+    <ClCompile Include="..\..\src\Resource\GoodsInfo.pb.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

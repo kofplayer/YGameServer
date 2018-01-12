@@ -1,4 +1,4 @@
-#ifndef YGAME_SERVER_COMMON
+﻿#ifndef YGAME_SERVER_COMMON
 #define YGAME_SERVER_COMMON
 
 
