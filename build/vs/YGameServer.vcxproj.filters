@@ -37,6 +37,9 @@
     <Filter Include="Resource">
       <UniqueIdentifier>{fc3a4c45-8774-453e-8dd6-8f9048d4c3d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Protocol">
+      <UniqueIdentifier>{a94ba8ae-fd7b-4e73-889f-6e894959b781}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Common\CommonDefine\CommonDefine.h">
@@ -150,6 +153,12 @@
     <ClInclude Include="..\..\src\Resource\GoodsInfo.pb.h">
       <Filter>Resource</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Protocol\cs.pb.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Protocol\cs_msg.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Common\Event\EventManager.cpp">
@@ -228,5 +237,13 @@
     <ClCompile Include="..\..\src\Resource\GoodsInfo.pb.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\src\Protocol\cs.pb.cpp">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\Protocol\cs.proto">
+      <Filter>Protocol</Filter>
+    </None>
   </ItemGroup>
 </Project>

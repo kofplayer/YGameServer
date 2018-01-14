@@ -23,7 +23,7 @@
     <ProjectGuid>{C207F09F-294B-48D8-BF0F-1EB6276ABB2B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>YGameServer</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -75,6 +75,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Program Files\MySQL\MySQL Server 5.7\include;D:\work\protobuf\protobuf-3.5.1\src;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Program Files\MySQL\MySQL Server 5.7\lib;D:\work\protobuf\protobuf-3.5.1\vs2017\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -103,7 +105,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\dependencies\protobuf\include\windows;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -181,6 +183,8 @@
     <ClInclude Include="..\..\src\Common\Task\Task.h" />
     <ClInclude Include="..\..\src\Common\Thread\Thread.h" />
     <ClInclude Include="..\..\src\Common\Thread\ThreadLock.h" />
+    <ClInclude Include="..\..\src\Protocol\cs.pb.h" />
+    <ClInclude Include="..\..\src\Protocol\cs_msg.h" />
     <ClInclude Include="..\..\src\Resource\AccountInfo.pb.h" />
     <ClInclude Include="..\..\src\Resource\GoodsInfo.pb.h" />
   </ItemGroup>
@@ -209,8 +213,12 @@
     <ClCompile Include="..\..\src\Common\Thread\Thread.cpp" />
     <ClCompile Include="..\..\src\Common\Thread\ThreadLock.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\Protocol\cs.pb.cpp" />
     <ClCompile Include="..\..\src\Resource\AccountInfo.pb.cpp" />
     <ClCompile Include="..\..\src\Resource\GoodsInfo.pb.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\Protocol\cs.proto" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
