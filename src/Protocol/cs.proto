@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+message LoginReq
+{
+ 	string account=1;
+	string password=2;
+}
+
+message LoginRsp
+{
+ 	int32 result=1;
+ 	uint32 userid=2;
+	string nickname=3;
+}
+
+message ChatReq
+{
+ 	string msg=1;
+}
+
+message ChatRsp
+{
+ 	int32 result=1;
+}
+
+message ChatNtf
+{
+ 	string msg=1;
+}
