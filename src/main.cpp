@@ -622,14 +622,16 @@ int main(int argc, const char * argv[]) {
 
 	ServerPlayerMgr playerMgr;
 	NetPacketWarp playerNet;
-	playerNet.Listen(INADDR_ANY, 8888, &playerMgr);
+	playerNet.Listen(INADDR_ANY, 7777, &playerMgr);
 
+	/*
 	ClientPlayer player1;
 	ClientPlayer player2;
 	ClientPlayer player3;
-	playerNet.Connect(127<<24 | 1, 8888, &player1);
-	playerNet.Connect(127<<24 | 1, 8888, &player2);
-	playerNet.Connect(127<<24 | 1, 8888, &player3);
+	playerNet.Connect(127<<24 | 1, 7777, &player1);
+	playerNet.Connect(127<<24 | 1, 7777, &player2);
+	playerNet.Connect(127<<24 | 1, 7777, &player3);
+	*/
 	/*
 	poller_thread::getInstance()->start();
 
@@ -654,11 +656,17 @@ int main(int argc, const char * argv[]) {
 	FILE * fd = fopen("GoodsInfo.bin", "r");
 	if (fd) {
 		fseek(fd, 0, SEEK_END);
-		fpos_t len, pos = 0;
-		fgetpos(fd, &len);
-		fsetpos(fd, &pos);
+		
+		fpos_t pos_len, pos_pos;
+		memset(&pos_pos, 0, sizeof(pos_pos));
+		fgetpos(fd, &pos_len);
+		fsetpos(fd, &pos_pos);
+#if CURRENT_PLATFORM == PLATFORM_WIN32
+		uint32 len = pos_len;
+#else
+		uint32 len = pos_len.__pos;
+#endif
 		void * p = gMemory.Malloc(len);
-		fread(p, 1, len, fd);
 		fclose(fd);
 		X::Res::GoodsInfo_ARRAY infos;
 		infos.ParseFromArray(p, len);
