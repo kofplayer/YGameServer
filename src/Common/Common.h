@@ -57,7 +57,7 @@
 #include <direct.h>
 #else
 #include <unistd.h>
-#include "mysql/mysql.h"
+#include "mysql.h"
 #include <pthread.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
