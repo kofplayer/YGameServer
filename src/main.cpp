@@ -620,17 +620,21 @@ int main(int argc, const char * argv[]) {
 	LOG_DEBUG("net listen test\n");
 	//gMemory.New<listen_thread>()->start();
 
-	ServerPlayerMgr playerMgr;
+	NET_PORT port = 7777;
+	NET_ADDR addr = 115 << 24 | 159 << 16 | 33 << 8 | 215;
+
 	NetPacketWarp playerNet;
-	playerNet.Listen(INADDR_ANY, 7777, &playerMgr);
+
+	ServerPlayerMgr playerMgr;
+	playerNet.Listen(INADDR_ANY, port, &playerMgr);
 
 	/*
 	ClientPlayer player1;
 	ClientPlayer player2;
 	ClientPlayer player3;
-	playerNet.Connect(127<<24 | 1, 7777, &player1);
-	playerNet.Connect(127<<24 | 1, 7777, &player2);
-	playerNet.Connect(127<<24 | 1, 7777, &player3);
+	playerNet.Connect(addr, port, &player1);
+	playerNet.Connect(addr, port, &player2);
+	playerNet.Connect(addr, port, &player3);
 	*/
 	/*
 	poller_thread::getInstance()->start();
@@ -667,6 +671,7 @@ int main(int argc, const char * argv[]) {
 		uint32 len = pos_len.__pos;
 #endif
 		void * p = gMemory.Malloc(len);
+		fread(p, 1, len, fd);
 		fclose(fd);
 		X::Res::GoodsInfo_ARRAY infos;
 		infos.ParseFromArray(p, len);
