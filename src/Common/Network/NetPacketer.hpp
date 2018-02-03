@@ -45,9 +45,9 @@ public:
 			if (m_currentPacketReceivedLen < headLen)
 			{
 				doLen = headLen - m_currentPacketReceivedLen;
-				if (doLen > len)
+				if (doLen > leftLen)
 				{
-					doLen = len;
+					doLen = leftLen;
 				}
 				memcpy((char*)(&m_head), p, doLen);
 				leftLen -= doLen;
@@ -77,9 +77,9 @@ public:
 				{
 					char * packet = m_currentPacket->GetPacket();
 					doLen = packetLen - m_currentPacketReceivedLen;
-					if (doLen > len)
+					if (doLen > leftLen)
 					{
-						doLen = len;
+						doLen = leftLen;
 					}
 					memcpy(packet + m_currentPacketReceivedLen, p, doLen);
 					leftLen -= doLen;
